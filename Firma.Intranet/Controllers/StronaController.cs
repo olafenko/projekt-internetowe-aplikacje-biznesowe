@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Firma.Data.Data;
+using Firma.Data.Data.CMS;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Firma.Intranet.Data;
-using Firma.Intranet.Models.CMS;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Firma.Intranet.Controllers
 {
     public class StronaController : Controller
     {
-        private readonly Context _context;
+        private readonly FirmaContext _context;
 
-        public StronaController(Context context)
+        public StronaController(FirmaContext context)
         {
             _context = context;
         }

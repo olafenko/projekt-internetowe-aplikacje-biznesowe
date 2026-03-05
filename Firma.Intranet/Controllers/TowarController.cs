@@ -1,20 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Firma.Data.Data;
+using Firma.Data.Data.Sklep;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Firma.Intranet.Data;
-using Firma.Intranet.Models.Sklep;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
 
 namespace Firma.Intranet.Controllers
 {
     public class TowarController : Controller
     {
-        private readonly Context _context;
+        private readonly FirmaContext _context;
 
-        public TowarController(Context context)
+        public TowarController(FirmaContext context)
         {
             _context = context;
         }
