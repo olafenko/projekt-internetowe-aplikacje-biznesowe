@@ -17,10 +17,8 @@ namespace Firma.Data.Data
         {
         }
 
-        public DbSet<Aktualnosc> Aktualnosc { get; set; } = default!;
-        public DbSet<Strona> Strona { get; set; } = default!;
-        public DbSet<Rodzaj> Rodzaj { get; set; } = default!;
-        public DbSet<Towar> Towar { get; set; } = default!;
+        public DbSet<News> News { get; set; } = default!;
+
 
     }
 }
