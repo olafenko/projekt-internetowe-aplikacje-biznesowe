@@ -1,5 +1,4 @@
 ﻿using Firma.Data.Data.CMS;
-using Firma.Data.Data.Sklep;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -19,6 +18,7 @@ namespace Firma.Data.Data
 
         public DbSet<News> News { get; set; } = default!;
 
+        public DbSet<Page> Page { get; set; } = default!;
 
     }
 }

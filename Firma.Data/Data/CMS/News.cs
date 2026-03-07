@@ -12,9 +12,9 @@ namespace Firma.Data.Data.CMS
         [Key]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Tytuł strony nie może być pusty")]
-        [MaxLength(40, ErrorMessage = "Maksymalna długość tytułu strony wynosi 40 znaków.")]
-        [Display(Name = "Tytuł strony")]
+        [Required(ErrorMessage = "Tytuł aktualności nie może być pusty")]
+        [MaxLength(40, ErrorMessage = "Maksymalna długość tytułu aktualności wynosi 40 znaków.")]
+        [Display(Name = "Tytuł aktualności")]
         public required string Title { get; set; }
 
         [Required(ErrorMessage = "Tytuł linku nie może być pusty")]
