@@ -34,8 +34,12 @@ namespace Firma.Data.Data.Hotel
         [Column(TypeName = "nvarchar(max)")]
         public required string Description { get; set; }
 
+        public ICollection<Amenity> Amenities { get;} = new List<Amenity>();
 
-        public ICollection<Room> Room { get;} = new List<Room>();
+        public ICollection<Room> Rooms { get;} = new List<Room>();
+
+        [Required]
+        public bool IsActive { get; set; } = true;
 
 
 
