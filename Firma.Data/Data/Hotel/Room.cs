@@ -39,6 +39,7 @@ namespace Firma.Data.Data.Hotel
 
         public RoomType? RoomType{ get; set; }
 
+        public ICollection<Reservation> Reservations { get; } = new List<Reservation>();
 
         [Required]
         public bool IsActive { get; set; } = true;

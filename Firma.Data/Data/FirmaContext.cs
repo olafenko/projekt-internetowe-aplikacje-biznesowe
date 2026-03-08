@@ -23,6 +23,13 @@ namespace Firma.Data.Data
 
         public DbSet<Room> Room{ get; set; } = default!;
 
+        public DbSet<RoomType> RoomType { get; set; } = default!;
+        public DbSet<Amenity> Amenity { get; set; } = default!;
+        public DbSet<Guest> Guest { get; set; } = default!;
+        public DbSet<Service> Service { get; set; } = default!;
+        public DbSet<Reservation> Reservation { get; set; } = default!;
+
+
 
     }
 }
