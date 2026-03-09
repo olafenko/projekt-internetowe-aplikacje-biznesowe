@@ -28,6 +28,7 @@ namespace Firma.Data.Data
         public DbSet<Guest> Guest { get; set; } = default!;
         public DbSet<Service> Service { get; set; } = default!;
         public DbSet<Reservation> Reservation { get; set; } = default!;
+        public DbSet<Payment> Payment{ get; set; } = default!;
 
 
 

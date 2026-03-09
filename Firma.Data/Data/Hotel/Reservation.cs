@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Firma.Data.Data.Hotel.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -35,7 +36,8 @@ namespace Firma.Data.Data.Hotel
 
         [Required]
         [Display(Name = "Status rezerwacji")]
-        public string ReservationStatus { get; set; } = "Oczekujące";
+        [Column(TypeName = "nvarchar(25)")]
+        public ReservationStatus ReservationStatus { get; set; } = ReservationStatus.PENDING;
 
         [ForeignKey("Guest")]
         public int GuestId { get; set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Firma.Data.Data.Hotel.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -23,6 +24,16 @@ namespace Firma.Data.Data.Hotel
         public int ReservationId { get; set; }
 
         public Reservation? Reservation { get; set; }
+
+        [Required]
+        [Display(Name = "Metoda płatności")]
+        [Column(TypeName = "nvarchar(25)")]
+        public PaymentMethod Method { get; set; } = PaymentMethod.CARD;
+
+        [Required]
+        [Display(Name = "Status płatności")]
+        [Column(TypeName = "nvarchar(25)")]
+        public PaymentStatus Status { get; set; } = PaymentStatus.PENDING;
 
         [Required]
         [Column(TypeName = "datetime")]
