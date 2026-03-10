@@ -14,6 +14,7 @@ namespace Firma.Data.Data.Hotel
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Nazwa typu pokoju nie może być pusta")]
+        [Display(Name = "Nazwa")]
         public required string Name { get; set; }
 
         [Required(ErrorMessage = "Maksymalna liczba gości nie może być pusta")]

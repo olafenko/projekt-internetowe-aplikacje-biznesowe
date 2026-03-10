@@ -37,6 +37,7 @@ namespace Firma.Data.Data.Hotel
         [ForeignKey("RoomType")]
         public int RoomTypeId { get; set; }
 
+        [Display(Name = "Typ pokoju")]
         public RoomType? RoomType{ get; set; }
 
         public ICollection<Reservation> Reservations { get; } = new List<Reservation>();

@@ -57,7 +57,7 @@ namespace Firma.Intranet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Number,Floor,Description,PricePerNight,PhotoUrl,RoomTypeId,IsActive")] Room room)
+        public async Task<IActionResult> Create([Bind("Id,Number,Floor,Description,PricePerNight,PhotoUrl,RoomTypeId")] Room room)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace Firma.Intranet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Number,Floor,Description,PricePerNight,PhotoUrl,RoomTypeId,IsActive")] Room room)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Number,Floor,Description,PricePerNight,PhotoUrl,RoomTypeId")] Room room)
         {
             if (id != room.Id)
             {
@@ -149,7 +149,7 @@ namespace Firma.Intranet.Controllers
             var room = await _context.Room.FindAsync(id);
             if (room != null)
             {
-                _context.Room.Remove(room);
+                room.IsActive = false;
             }
 
             await _context.SaveChangesAsync();

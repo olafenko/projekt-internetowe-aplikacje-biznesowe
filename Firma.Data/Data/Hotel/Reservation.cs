@@ -15,7 +15,7 @@ namespace Firma.Data.Data.Hotel
 
         [Required]
         [Column(TypeName = "money")]
-        [Display(Name = "Cena do zapłaty")]
+        [Display(Name = "Cena całkowita")]
         public decimal TotalPrice{ get; set; }
 
         [Required]
@@ -42,12 +42,14 @@ namespace Firma.Data.Data.Hotel
         [ForeignKey("Guest")]
         public int GuestId { get; set; }
 
+        [Display(Name = "Gość")]
         public Guest? Guest { get; set; }
 
         [ForeignKey("Room")]
-        [Display(Name = "Pokój")]
+        
         public int RoomId { get; set; }
 
+        [Display(Name = "Pokój")]
         public Room? Room { get; set; }
 
 

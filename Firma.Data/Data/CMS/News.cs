@@ -35,11 +35,12 @@ namespace Firma.Data.Data.CMS
 
 
         [Required(ErrorMessage = "Obraz aktualności nie może być pusty.")]
-        [Display(Name = "Wybierz obraz aktualności.")]
+        [Display(Name = "Obraz aktualności")]
         public required string ImageUrl { get; set; }
 
         [Required]
         [Column(TypeName = "datetime")]
+        [Display(Name = "Data dodania")]
         public DateTime Date { get; set; } = DateTime.Now;
 
         [Required]

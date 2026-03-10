@@ -23,6 +23,7 @@ namespace Firma.Data.Data.Hotel
         [ForeignKey("Reservation")]
         public int ReservationId { get; set; }
 
+        [Display(Name = "Rezerwacja")]
         public Reservation? Reservation { get; set; }
 
         [Required]
