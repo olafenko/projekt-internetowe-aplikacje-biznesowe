@@ -8,57 +8,65 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Firma.Intranet.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
-<body class="bg-dark text-white">
-  
-    <div class="d-flex">
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h5 class="text-white">Menu</h5>
+<body class="text-white">
+        <nav class="top-nav navbar">
+            <div class="container-fluid">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">Hotel</a>
             </div>
-                <ul class="nav nav-pills flex-column">
-                    <li class="sidebar">
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+        </nav>
+    <div class="body-wrapper"> 
+        <div class="col-md-2 p-0">
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <h5 class="text-white">Menu</h5>
+                </div>
+                <ul class="sidebar-nav nav flex-column gap-1">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Room" asp-action="Index"><i class="bi bi-house"></i>Pokoje</a>
+                        
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Room" asp-action="Index">Room</a>
+                        <a class="nav-link" asp-area="" asp-controller="RoomType" asp-action="Index"><i class="bi bi-house-gear"></i> Typy pokojów</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="RoomType" asp-action="Index">RoomType</a>
+                        <a class="nav-link" asp-area="" asp-controller="Reservation" asp-action="Index"><i class="bi bi-calendar3 menu-icon"></i> Rezerwacje</a>
+                        
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Reservation" asp-action="Index">Reservation</a>
+                        <a class="nav-link" asp-area="" asp-controller="Amenity" asp-action="Index"><i class="bi bi-star"></i> Udogodnienia</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Amenity" asp-action="Index">Amenity</a>
+                        <a class="nav-link" asp-area="" asp-controller="Service" asp-action="Index"><i class="bi bi-unlock"></i> Serwisy dodatkowe</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Service" asp-action="Index">Service</a>
+                        <a class="nav-link" asp-area="" asp-controller="Guest" asp-action="Index"><i class="bi bi-people"></i> Goście</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Guest" asp-action="Index">Guest</a>
+                        <a class="nav-link" asp-area="" asp-controller="Payment" asp-action="Index"><i class="bi bi-credit-card-2-back"></i> Płatności</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Payment" asp-action="Index">Payment</a>
+                        <a class="nav-link" asp-area="" asp-controller="Page" asp-action="Index">Strony</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Page" asp-action="Index">Page</a>
+                        <a class="nav-link" asp-area="" asp-controller="News" asp-action="Index">Ogłoszenia</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="News" asp-action="Index">News</a>
-                    </li>
-                </ul>             
-        </aside>
-        <main cla>
-            <div class="container">
-                @RenderBody()
-            </div>
+                </ul>
+            </aside>
+        </div>
+        <div class="col p-0">
+            <main class="main-content">
+                <div class="container">
+                    @RenderBody()
+                </div>
              
-        </main>
-
-        
+            </main>
+        </div>        
     </div>
-
+    <footer>
+            <span class="mx-5">Hotel Siemanko - 2026</span>
+    </footer>
   
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
