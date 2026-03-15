@@ -11,47 +11,53 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
 <body>
-        <nav class="top-nav navbar">
-            <div class="container-fluid">
-            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                <img src="~/images/logo.png" class="nav-logo" /> Hotel</a>
-            </div>
-        </nav>
     <div class="body-wrapper"> 
         <div class="col-md-2 p-0">
             <aside class="sidebar">
-                <div class="sidebar-header">
-                    <h5 class="text-white">Menu</h5>
+                <div class="sidebar-brand">
+                    <a class="sidebar-brand-content" asp-controller="Home" asp-action="Index">
+                        <img src="~/images/logo.png" class="sidebar-logo" /> Hotel
+                    </a>
                 </div>
-                <ul class="sidebar-nav nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Room" asp-action="Index"><i class="bi bi-door-open"></i> Pokoje</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="RoomType" asp-action="Index"><i class="bi bi-tag"></i> Typy pokojów</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Reservation" asp-action="Index"><i class="bi bi-calendar3"></i> Rezerwacje</a>                      
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Amenity" asp-action="Index"><i class="bi bi-star"></i> Udogodnienia</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Service" asp-action="Index"><i class="bi bi-bell"></i> Serwisy dodatkowe</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Guest" asp-action="Index"><i class="bi bi-people"></i> Goście</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Payment" asp-action="Index"><i class="bi bi-credit-card-2-back"></i> Płatności</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Page" asp-action="Index"><i class="bi bi-file-text"></i> Strony</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="News" asp-action="Index"><i class="bi bi-newspaper"></i> Ogłoszenia</a>
-                    </li>
-                </ul>
+                <div class="sidebar-menu">
+                    <div class="sidebar-header">
+                        <span class="sidebar-header-label">MENU</span>
+                    </div>
+                    <ul class="sidebar-nav nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-grid"></i> Panel główny</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Room" asp-action="Index"><i class="bi bi-door-open"></i> Pokoje</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="RoomType" asp-action="Index"><i class="bi bi-tag"></i> Typy pokojów</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Reservation" asp-action="Index"><i class="bi bi-calendar3"></i> Rezerwacje</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Amenity" asp-action="Index"><i class="bi bi-star"></i> Udogodnienia</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Service" asp-action="Index"><i class="bi bi-bell"></i> Serwisy dodatkowe</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Guest" asp-action="Index"><i class="bi bi-people"></i> Goście</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Payment" asp-action="Index"><i class="bi bi-credit-card-2-back"></i> Płatności</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Page" asp-action="Index"><i class="bi bi-file-text"></i> Strony</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="News" asp-action="Index"><i class="bi bi-newspaper"></i> Ogłoszenia</a>
+                        </li>
+                    
+                    </ul>
+                </div>
+               
                
                 <div class="sidebar-user-info">
                     <div class="user-avatar"><i class="bi bi-person-circle"></i></div>
@@ -59,7 +65,7 @@
                         <span class="user-info-name">Jan Kowalski</span>
                         <span class="user-info-role">Administrator</span>
                     </div>
-                    <a class="logout" href="/"><i class="bi bi-box-arrow-left"></i> Wyloguj</a>
+                    <a class="logout" href="/"><i class="bi bi-power"></i></a>
                 </div>
             </aside>
         </div>
