@@ -13,14 +13,16 @@
 </head>
 <body>
     <div class="body-wrapper"> 
-        <div class="col-md-2 p-0">
             <aside class="sidebar">
-                <div class="sidebar-brand">
+                <div class="sidebar-brand">                    
                     <a class="sidebar-brand-content" asp-controller="Home" asp-action="Index">
                         <img src="~/images/logo.png" class="sidebar-logo" /> Hotel
                     </a>
+                <button class="hamburger" id="hamburger">
+                    <i class="bi bi-list"></i>
+                </button>
                 </div>
-                <div class="sidebar-menu">
+                <div class="sidebar-menu" id="sidebarMenu">
                     <div class="sidebar-header">
                         <span class="sidebar-header-label">MENU</span>
                     </div>
@@ -70,7 +72,7 @@
                     <a class="logout" href="/"><i class="bi bi-power"></i></a>
                 </div>
             </aside>
-        </div>
+        
         <div class="col p-0">
             <main class="main-content text-white">
                 <div class="container">
@@ -78,7 +80,7 @@
                 </div>
              
             </main>
-        </div>        
+        </div>
     </div>
     <footer class="text-white">
             <span class="mx-5">Hotel Siemanko - 2026</span>
