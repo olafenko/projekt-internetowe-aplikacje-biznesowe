@@ -7,6 +7,7 @@
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Firma.Intranet.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
@@ -23,36 +24,37 @@
                     <div class="sidebar-header">
                         <span class="sidebar-header-label">MENU</span>
                     </div>
-                    <ul class="sidebar-nav nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-grid"></i> Panel główny</a>
+                    @{ var currentController = ViewContext.RouteData.Values["controller"]?.ToString();}
+                    <ul class="sidebar-nav nav nav-pills flex-column">
+                        <li class="nav-item ">
+                            <a class="nav-link @(currentController == "Home" ? "active" : "")" aria-current="@(currentController == "Home" ? "page" : null)" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-grid"></i> Panel główny</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Room" asp-action="Index"><i class="bi bi-door-open"></i> Pokoje</a>
+                            <a class="nav-link @(currentController == "Room" ? "active" : "")" aria-current="@(currentController == "Room" ? "page" : null)" asp-area="" asp-controller="Room" asp-action="Index"><i class="bi bi-door-open"></i> Pokoje</a>
+                        </li>
+                        <li class="nav-item"> 
+                            <a class="nav-link @(currentController == "RoomType" ? "active" : "")" aria-current="@(currentController == "RoomType" ? "page" : null)" asp-area="" asp-controller="RoomType" asp-action="Index"><i class="bi bi-tag"></i> Typy pokojów</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="RoomType" asp-action="Index"><i class="bi bi-tag"></i> Typy pokojów</a>
+                            <a class="nav-link @(currentController == "Reservation" ? "active" : "")" aria-current="@(currentController == "Reservation" ? "page" : null)" asp-area="" asp-controller="Reservation" asp-action="Index"><i class="bi bi-calendar3"></i> Rezerwacje</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Reservation" asp-action="Index"><i class="bi bi-calendar3"></i> Rezerwacje</a>
+                            <a class="nav-link @(currentController == "Amenity" ? "active" : "")" aria-current="@(currentController == "Amenity" ? "page" : null)" asp-area="" asp-controller="Amenity" asp-action="Index"><i class="bi bi-star"></i> Udogodnienia</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Amenity" asp-action="Index"><i class="bi bi-star"></i> Udogodnienia</a>
+                            <a class="nav-link @(currentController == "Service" ? "active" : "")" aria-current="@(currentController == "Service" ? "page" : null)" asp-area="" asp-controller="Service" asp-action="Index"><i class="bi bi-bell"></i> Serwisy dodatkowe</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Service" asp-action="Index"><i class="bi bi-bell"></i> Serwisy dodatkowe</a>
+                            <a class="nav-link @(currentController == "Guest" ? "active" : "")" aria-current="@(currentController == "Guest" ? "page" : null)" asp-area="" asp-controller="Guest" asp-action="Index"><i class="bi bi-people"></i> Goście</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Guest" asp-action="Index"><i class="bi bi-people"></i> Goście</a>
+                            <a class="nav-link @(currentController == "Payment" ? "active" : "")" aria-current="@(currentController == "Payment" ? "page" : null)" asp-area="" asp-controller="Payment" asp-action="Index"><i class="bi bi-credit-card-2-back"></i> Płatności</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Payment" asp-action="Index"><i class="bi bi-credit-card-2-back"></i> Płatności</a>
+                            <a class="nav-link @(currentController == "Page" ? "active" : "")" aria-current="@(currentController == "Page" ? "page" : null)" asp-area="" asp-controller="Page" asp-action="Index"><i class="bi bi-file-text"></i> Strony</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Page" asp-action="Index"><i class="bi bi-file-text"></i> Strony</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="News" asp-action="Index"><i class="bi bi-newspaper"></i> Ogłoszenia</a>
+                            <a class="nav-link @(currentController == "News" ? "active" : "")" aria-current="@(currentController == "News" ? "page" : null)" asp-area="" asp-controller="News" asp-action="Index"><i class="bi bi-newspaper"></i> Ogłoszenia</a>
                         </li>
                     
                     </ul>
