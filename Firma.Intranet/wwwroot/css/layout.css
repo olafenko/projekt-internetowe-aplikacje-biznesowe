@@ -199,7 +199,7 @@ footer {
             margin-left: 20px;
             cursor: pointer;
             border-radius: 8px;           
-            transition: background 0.2s, color 0.2s;      
+            transition: background 0.2s;      
         }
 
         .hamburger:hover {
@@ -221,7 +221,11 @@ footer {
             height: 70px;
             border-bottom: none;
             flex: 1;
-            padding: 0;
+            padding-left: 28px;
+        }
+
+        .sidebar-header {
+            padding-top: 20px;
         }
 
         .sidebar-menu {
@@ -230,6 +234,7 @@ footer {
             top: 70px;
             left: 0;
             right: 0;
+            padding-top: 0;
             background-color: #1a2035;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 10px;
@@ -242,14 +247,23 @@ footer {
              
             }
 
-        .sidebar-user-info {
-            border-top: 0;
-            border-left: 1px solid rgba(255,255,255,0.1);
+        .sidebar-user-info {  
+            border-top: none;
+            padding: 16px 28px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
+        .sidebar-user-info .user-avatar {
+            font-size: 24px;
+            width: 28px;
+        }
 
-        .sidebar-nav .nav-item .nav-link {
-            padding: 10px 20px;
+        .sidebar-user-info .user-details .user-info-name {
+            font-size: 15px;
+        }
+
+        .sidebar-user-info .user-info-role {
+            font-size: 12px;
         }
 
     }
