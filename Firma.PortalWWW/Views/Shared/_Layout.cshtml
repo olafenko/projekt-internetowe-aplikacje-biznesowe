@@ -13,7 +13,9 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Firma.PortalWWW</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img class="logo" src="~/content/logo.png" />
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,13 +23,26 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">POKOJE</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">PAKIETY</a>
                         </li>
-                    </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">RESTAURACJA</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">GALERIA</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">KONTAKT</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link-cta" asp-area="" asp-controller="Home" asp-action="Privacy">ZAREZERWUJ ONLINE</a>
+                        </li>                     
+                    </ul>   
                 </div>
+                
             </div>
         </nav>
     </header>
@@ -36,57 +51,6 @@
             @RenderBody()
         </main>
     </div>
-    <div class="container align-content-center">
-        <div class="container text-center">
-            <hr />
-            <div class="row">
-                <div class="col-12 col-md-6 col-lg-4">
-                    <h2>Tekst 1</h2>
-                    <p>Treść Treść v Treść Treść Treść Treść Treść Treść</p>
-                    <p><button type="button" class="btn btn-primary">Button 1</button></p>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <h2>Tekst 2</h2>
-                    <p>Treść Treść v Treść Treść Treść Treść Treść Treść</p>
-                    <p><button type="button" class="btn btn-primary">Button 2</button></p>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <h2>Tekst 3</h2>
-                    <p>Treść Treść v Treść Treść Treść Treść Treść Treść</p>
-                    <p><button type="button" class="btn btn-primary">Button 3</button></p>
-                </div>
-            </div>
-            <hr />
-            <div class="row">
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card">
-                        <img src="~/content/no-image.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card">
-                            <img src="~/content/no-image.jpg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <div class="card">
-                                <img src="~/content/no-image.jpg" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2026 - Firma.PortalWWW - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
