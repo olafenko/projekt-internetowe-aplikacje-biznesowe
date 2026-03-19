@@ -19,21 +19,8 @@ html {
     height: 100%;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
 
-:root {
-    --main-bg-color: #100f0e;
-    --sidebar-bg-color: #181716;
-    --accent-color: #d4af6a;
-    --main-text-color: #e8e3da;
-    --segment-border-color: rgba(255,255,255,0.1);
-    --muted-text-color: #5e5955;
-    --hover-bg-color: #222120;
-}
+
 
 
 
