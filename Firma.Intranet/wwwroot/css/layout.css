@@ -35,10 +35,17 @@ body {
     font-size: 32px;
     height: 40px;
     width: auto;
+    border: 1px solid var(--segment-border-color);
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
 }
 
-.hamburger:hover {
-    background-color: var(--hover-bg-color);
+.hamburger:hover, .hamburger:focus, .hamburger:active {
+    color: var(--accent-color);
+    transform: scale(1.05);
+    background-color: var(--hover-bg-color) !important;
+    border-color: var(--accent-color);
+    box-shadow: none !important;
 }
 
 .brand-text {
