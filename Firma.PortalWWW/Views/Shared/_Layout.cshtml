@@ -7,21 +7,26 @@
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="~/Firma.PortalWWW.styles.css" asp-append-version="true" />
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+<body class="d-flex flex-column min-vh-100">
+    <header class="custom-header sticky-top border-bottom">
+        <nav class="custom-navbar navbar navbar-expand-lg">
+            <div class="container d-flex align-items-center justify-content-between">
+                         
+                <a class="mobile-brand navbar-brand d-flex d-lg-none" asp-area="" asp-controller="Home" asp-action="Index">
                     <img class="logo" src="~/content/logo.png" />
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+
+                <button class="navbar-toggler hamburger" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent">
+                    <i class="bi bi-list"></i>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+
+
+                <div class="navbar-collapse collapse" id="navbarContent">
+                    <ul class="navbar-nav nav-left w-50 justify-content-end ">
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">POKOJE</a>
                         </li>
@@ -31,6 +36,13 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">RESTAURACJA</a>
                         </li>
+                    </ul>
+
+                    <a class="desktop-brand d-none d-lg-block" asp-area="" asp-controller="Home" asp-action="Index">
+                        <img class="logo" src="~/content/logo.png" />
+                    </a>
+
+                    <ul class="navbar-nav nav-right w-50 d-flex justify-content-start">                       
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">GALERIA</a>
                         </li>
@@ -38,22 +50,56 @@
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">KONTAKT</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link-cta" asp-area="" asp-controller="Home" asp-action="Privacy">ZAREZERWUJ ONLINE</a>
-                        </li>                     
+                            <a class="nav-link nav-cta" asp-area="" asp-controller="Home" asp-action="Privacy">REZERWACJA ONLINE</a>
+                        </li>
                     </ul>   
                 </div>
-                
+                    
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-    <footer class="border-top footer text-muted">
+    
+    <main class="flex-grow-1 d-flex justify-content-center py-4">
+        @RenderBody()
+    </main>
+    
+    <footer class="custom-footer border-top">
         <div class="container">
-            &copy; 2026 - Firma.PortalWWW - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row justify-content-center">
+
+                <div class="col-md-6 col-lg-3 footer-section">
+                    <h5 class="footer-title">O NAS</h5>
+                    <p class="footer-text">Hotel Siemanko</p>
+                    <p class="footer-text">To jest jakiś krótki opis hotelu. Super hotel elegancki i wogóle spoko!</p>
+                </div>
+                <div class="col-md-6 col-lg-3 footer-section">
+                    <h5 class="footer-title">LINKI</h5>
+                    <ul class="footer-text">
+                        
+                        <li><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Regulamin</a></li>
+                        <li><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Polityka prywatności</a></li>
+                        <li><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3 footer-section">
+                    <h5 class="footer-title">KONTAKT</h5>
+                    <ul class="footer-text">                       
+                        <li><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Regulamin</a></li>
+                        <li><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Polityka prywatności</a></li>
+                        <li><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3 footer-section">
+                    <h5 class="footer-title">LOKALIZACJA</h5>
+                    <a href="https://www.google.com/maps/place/Nowy+S%C4%85cz" >
+                        <img src="~/content/mapa.png" class="img-fluid w-100 object-fit-cover" />
+                    </a>
+                </div>
+               
+            </div> 
+            <div class="row border-top footer-bottom">
+                <span>&copy; Hotel Siemanko. Najlepszy hotel w mieście.</span>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
