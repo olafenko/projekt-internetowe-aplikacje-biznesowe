@@ -44,6 +44,7 @@ namespace Firma.Data.Data.CMS
         public DateTime Date { get; set; } = DateTime.Now;
 
         [Required]
+        [Display(Name = "Czy aktywna")]
         public bool IsActive { get; set; } = true;
 
         

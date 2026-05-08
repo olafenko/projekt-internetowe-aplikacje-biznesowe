@@ -25,7 +25,7 @@ namespace Firma.Data.Data.CMS
 
 
         [Required(ErrorMessage = "Treść strony nie może być pusta")]
-        [Display(Name = "Treść aktualości")]
+        [Display(Name = "Treść strony")]
         [Column(TypeName = "nvarchar(max)")]
         public required string Content { get; set; }
 
@@ -41,6 +41,7 @@ namespace Firma.Data.Data.CMS
         public bool IsLinkCTA { get; set; } = false;
 
         [Required]
+        [Display(Name ="Czy aktywna")]
         public bool IsActive { get; set; } = true;
 
 
