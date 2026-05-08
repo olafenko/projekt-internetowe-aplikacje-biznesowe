@@ -30,6 +30,7 @@ namespace Firma.Data.Data.Hotel
         public required string PhotoUrl{ get; set; }
 
         [ForeignKey("RoomType")]
+        [Display(Name = "Typ pokoju")]
         public int RoomTypeId { get; set; }
 
         [Display(Name = "Typ pokoju")]
@@ -40,10 +41,11 @@ namespace Firma.Data.Data.Hotel
         [Column(TypeName = "nvarchar(25)")]
         public RoomStatus RoomStatus { get; set; }
 
-        public ICollection<Amenity> Amenities { get; } = new List<Amenity>();
+        public ICollection<Amenity> Amenities { get; set; } = new List<Amenity>();
         public ICollection<Reservation> Reservations { get; } = new List<Reservation>();
 
         [Required]
+        [Display(Name="Czy aktywny")]
         public bool IsActive { get; set; } = true;
 
 

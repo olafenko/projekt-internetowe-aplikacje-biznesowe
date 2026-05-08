@@ -1,62 +1,118 @@
-﻿@model Firma.Data.Data.Hotel.Room
+﻿@using Firma.Data.Data.Hotel.Enums
+@model Firma.Data.Data.Hotel.Room
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Dodaj nowy pokój";
 }
 
-<h1>Create</h1>
+<div class="view-container">
 
-<h4>Room</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+    <div class="header-row">
+        <div class="title-group">
+            <i class="bi bi-door-open-fill"></i>
+            <h1>Dodaj nowy pokój</h1>
+        </div>
+        <a asp-action="Index" class="btn btn-outline-secondary d-flex align-items-center gap-2 backBtn">
+            <i class="bi bi-arrow-left"></i> POWRÓT
+        </a>
+    </div>
+
+    <div class="form-card">
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Number" class="control-label"></label>
-                <input asp-for="Number" class="form-control" />
-                <span asp-validation-for="Number" class="text-danger"></span>
+
+            <div class="row gx-5">
+
+                <div class="col-lg-6 mb-4">
+
+                    <h5 class="section-title"><i class="bi bi-info-circle me-2"></i>Dane podstawowe</h5>
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label asp-for="Number" class="control-label fw-bold mb-1">Numer pokoju</label>
+                            <input asp-for="Number" class="form-control input-area"/>
+                            <span asp-validation-for="Number" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label asp-for="Floor" class="control-label fw-bold mb-1">Piętro</label>
+                            <input asp-for="Floor" class="form-control input-area" />
+                            <span asp-validation-for="Floor" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="RoomTypeId" class="control-label fw-bold mb-1">Typ pokoju</label>
+                        <select asp-for="RoomTypeId" class="form-select input-area" asp-items="ViewBag.RoomTypeId">
+                            <option value="">Wybierz typ pokoju</option>
+                        </select>
+                        <span asp-validation-for="RoomTypeId" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="RoomStatus" class="control-label fw-bold mb-1">Status</label>
+                        <select asp-for="RoomStatus" asp-items="Html.GetEnumSelectList<RoomStatus>()" class="form-select input-area"></select>
+                        <span asp-validation-for="RoomStatus" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-4">
+
+                    <h5 class="section-title"><i class="bi bi-star me-2"></i>Szczegóły</h5>
+                    <div class="form-group mb-3">
+                        <label class="control-label fw-bold mb-2">Udogodnienia</label>
+                        <div class="amenities-box p-3">
+                            @if (ViewBag.Amenities != null)
+                            {
+                                <div class="row">
+                                    @foreach (var item in ViewBag.Amenities)
+                                    {
+                                        <div class="col-sm-6 mb-2">
+                                            <div class="form-check custom-checkbox">
+                                                <input class="form-check-input multi-input shadow-none" type="checkbox" name="selectedAmenities" value="@item.Value">
+                                                <label class="form-check-label">
+                                                    @item.Text
+                                                </label>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="PhotoUrl" class="control-label fw-bold mb-1">URL Zdjęcia</label>
+
+                        <div class="input-group">
+                            <span class="input-group-text input-area-addon"><i class="bi bi-link-45deg"></i></span>
+                            <input asp-for="PhotoUrl" class="form-control input-area" />
+                        </div>
+
+                        <span asp-validation-for="PhotoUrl" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Notes" class="control-label fw-bold mb-1">Notatki wewnętrzne</label>
+                        <textarea asp-for="Notes" class="form-control input-area" rows="2"></textarea>
+                        <span asp-validation-for="Notes" class="text-danger small"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Floor" class="control-label"></label>
-                <input asp-for="Floor" class="form-control" />
-                <span asp-validation-for="Floor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Notes" class="control-label"></label>
-                <input asp-for="Notes" class="form-control" />
-                <span asp-validation-for="Notes" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhotoUrl" class="control-label"></label>
-                <input asp-for="PhotoUrl" class="form-control" />
-                <span asp-validation-for="PhotoUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RoomTypeId" class="control-label"></label>
-                <select asp-for="RoomTypeId" class ="form-control" asp-items="ViewBag.RoomTypeId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="RoomStatus" class="control-label"></label>
-                <select asp-for="RoomStatus" class="form-control"></select>
-                <span asp-validation-for="RoomStatus" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+
+            <hr style="border-color: var(--segment-border-color);" class="my-4" />
+
+            <div class="d-flex justify-content-end align-items-center gap-3">
+                <a asp-action="Index" class="btn btn-outline-secondary d-flex align-items-center gap-2 backBtn">
+                    <i class="bi bi-arrow-left"></i> Anuluj
+                </a>
+                <button type="submit" class="createBtn border-0">
+                    <i class="bi bi-check-lg me-1"></i> ZAPISZ
+                </button>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

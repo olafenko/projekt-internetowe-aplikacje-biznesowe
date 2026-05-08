@@ -22,8 +22,8 @@ namespace Firma.Data.Data.Hotel
         [Column(TypeName = "money")]
         public decimal BasePrice { get; set; }
 
-        [Required(ErrorMessage = "Maksymalna liczba gości nie może być pusta")]
-        [Display(Name="Maksymalna liczba gości")]
+        [Required(ErrorMessage = "Maksymalna liczba osób nie może być pusta")]
+        [Display(Name= "Maksymalna liczba osób")]
         [Range(1, 10, ErrorMessage = "Pojemność musi wynosić od 1 do 10 osób")]
         public int MaxGuests { get; set; }
 
@@ -39,6 +39,7 @@ namespace Firma.Data.Data.Hotel
         public ICollection<Room> Rooms { get;} = new List<Room>();
 
         [Required]
+        [Display(Name="Czy aktywny")]
         public bool IsActive { get; set; } = true;
 
 

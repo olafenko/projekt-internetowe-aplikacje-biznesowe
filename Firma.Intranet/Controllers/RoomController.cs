@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Firma.Data.Data;
 using Firma.Data.Data.Hotel;
+using Firma.Data.Data.Hotel.Enums;
 
 namespace Firma.Intranet.Controllers
 {
@@ -22,11 +23,13 @@ namespace Firma.Intranet.Controllers
         // GET: Room
         public async Task<IActionResult> Index()
         {
-            var firmaContext = _context.Room.Include(r => r.RoomType);
+            var firmaContext = _context.Room
+                .Include(r => r.RoomType)
+                .Include(r => r.Amenities);
             return View(await firmaContext.ToListAsync());
         }
 
-        // GET: Room/Details/5
+        // GET: Room/Details/{id}
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -48,7 +51,8 @@ namespace Firma.Intranet.Controllers
         // GET: Room/Create
         public IActionResult Create()
         {
-            ViewData["RoomTypeId"] = new SelectList(_context.RoomType, "Id", "Description");
+            ViewData["RoomTypeId"] = new SelectList(_context.RoomType, "Id", "Name");     
+            ViewData["Amenities"] = new SelectList(_context.Amenity, "Id", "Name");     
             return View();
         }
 
@@ -57,15 +61,22 @@ namespace Firma.Intranet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Number,Floor,Notes,PhotoUrl,RoomTypeId,RoomStatus,IsActive")] Room room)
+        public async Task<IActionResult> Create([Bind("Id,Number,Floor,Notes,PhotoUrl,RoomTypeId,RoomStatus,IsActive")] Room room, int[] selectedAmenities)
         {
             if (ModelState.IsValid)
             {
+                if(selectedAmenities != null && selectedAmenities.Length > 0)
+                {
+                    room.Amenities = await _context.Amenity.Where(a => selectedAmenities.Contains(a.Id)).ToListAsync();
+                }
+                
+
                 _context.Add(room);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoomTypeId"] = new SelectList(_context.RoomType, "Id", "Description", room.RoomTypeId);
+            ViewData["RoomTypeId"] = new SelectList(_context.RoomType, "Id", "Name", room.RoomTypeId);
+            ViewData["Amenities"] = new SelectList(_context.Amenity, "Id", "Name", selectedAmenities);
             return View(room);
         }
 
@@ -82,7 +93,7 @@ namespace Firma.Intranet.Controllers
             {
                 return NotFound();
             }
-            ViewData["RoomTypeId"] = new SelectList(_context.RoomType, "Id", "Description", room.RoomTypeId);
+            ViewData["RoomTypeId"] = new SelectList(_context.RoomType, "Id", "Name", room.RoomTypeId);
             return View(room);
         }
 
@@ -118,7 +129,7 @@ namespace Firma.Intranet.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoomTypeId"] = new SelectList(_context.RoomType, "Id", "Description", room.RoomTypeId);
+            ViewData["RoomTypeId"] = new SelectList(_context.RoomType, "Id", "Name", room.RoomTypeId);
             return View(room);
         }
 

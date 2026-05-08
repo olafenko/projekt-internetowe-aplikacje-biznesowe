@@ -1,59 +1,92 @@
-﻿@model IEnumerable<Firma.Data.Data.Hotel.Payment>
+﻿@using Firma.Data.Data.Hotel.Enums
+@model IEnumerable<Firma.Data.Data.Hotel.Payment>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Płatności";
 }
 
-<h1>Index</h1>
+<div class="view-container">
+    <div class="header-row">
+        <div class="title-group">
+            <i class="bi bi-credit-card-2-front"></i>
+            <h1>Historia płatności</h1>
+        </div>
+        <a class="createBtn" asp-action="Create">
+            <i class="bi bi-plus-lg"></i> DODAJ WPŁATĘ
+        </a>
+    </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Amount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Reservation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Method)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PaymentDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reservation.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Method)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PaymentDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="filter-bar">
+        <div class="filter-content">
+            <i class="bi bi-funnel"></i>
+            <span>FILTROWANIE I SORTOWANIE</span>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <table class="table main-table">
+            <thead>
+                <tr>
+                    <th><i class="bi bi-currency-exchange me-2"></i>@Html.DisplayNameFor(model => model.Amount)</th>
+                    <th><i class="bi bi-hash me-2"></i>@Html.DisplayNameFor(model => model.Reservation)</th>
+                    <th><i class="bi bi-wallet2 me-2"></i>@Html.DisplayNameFor(model => model.Method)</th>
+                    <th><i class="bi bi-shield-check me-2"></i>@Html.DisplayNameFor(model => model.Status)</th>
+                    <th><i class="bi bi-calendar-event me-2"></i>@Html.DisplayNameFor(model => model.PaymentDate)</th>
+                    <th class="text-end px-4">Akcje</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="price-cell">@item.Amount.ToString("N2") ZŁ</td>
+                        <td class="fw-bold text-muted-custom">#@item.ReservationId</td>
+                        <td>
+                            @{
+                                switch (item.Method)
+                                {
+                                    case PaymentMethod.CASH:
+                                        <span>Gotówka</span>
+                                        break;
+                                    case PaymentMethod.CARD:
+                                        <span>Karta</span>
+                                        break;
+                                    case PaymentMethod.TRANSFER:
+                                        <span>Przelew</span>
+                                        break;
+                                    default:
+                                        @Html.DisplayFor(modelItem => item.Method)
+                                        break;
+                                }
+                            }
+                        </td>
+                        <td>
+                            @{
+                                switch (item.Status)
+                                {
+                                    case PaymentStatus.COMPLETED:
+                                        <span class="status-badge active">Zakończona</span>
+                                        break;
+                                    case PaymentStatus.PENDING:
+                                        <span class="status-badge status-pending">Oczekująca</span>
+                                        break;
+                                    case PaymentStatus.CANCELLED:
+                                        <span class="status-badge inactive">Anulowana</span>
+                                        break;
+                                }
+                            }
+                        </td>
+                        <td class="text-muted-custom">@item.PaymentDate.ToString("dd.MM.yyyy HH:mm")</td>
+                        <td class="text-end px-4">
+                            <div class="action-buttons">
+                                <a asp-action="Details" asp-route-id="@item.Id" title="Szczegóły" class="details-btn">
+                                    <i class="bi bi-info-circle"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

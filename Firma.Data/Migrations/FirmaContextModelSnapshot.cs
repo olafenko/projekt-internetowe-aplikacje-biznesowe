@@ -34,7 +34,7 @@ namespace Firma.Data.Migrations
 
                     b.HasIndex("ReservationsId");
 
-                    b.ToTable("AdditionalOfferReservation");
+                    b.ToTable("AdditionalOfferReservation", (string)null);
                 });
 
             modelBuilder.Entity("AmenityRoom", b =>
@@ -49,7 +49,7 @@ namespace Firma.Data.Migrations
 
                     b.HasIndex("RoomsId");
 
-                    b.ToTable("AmenityRoom");
+                    b.ToTable("AmenityRoom", (string)null);
                 });
 
             modelBuilder.Entity("Firma.Data.Data.CMS.News", b =>
@@ -90,7 +90,7 @@ namespace Firma.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("News");
+                    b.ToTable("News", (string)null);
                 });
 
             modelBuilder.Entity("Firma.Data.Data.CMS.Page", b =>
@@ -129,7 +129,7 @@ namespace Firma.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Page");
+                    b.ToTable("Page", (string)null);
                 });
 
             modelBuilder.Entity("Firma.Data.Data.Hotel.AdditionalOffer", b =>
@@ -156,7 +156,7 @@ namespace Firma.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Service");
+                    b.ToTable("Service", (string)null);
                 });
 
             modelBuilder.Entity("Firma.Data.Data.Hotel.Amenity", b =>
@@ -183,7 +183,7 @@ namespace Firma.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Amenity");
+                    b.ToTable("Amenity", (string)null);
                 });
 
             modelBuilder.Entity("Firma.Data.Data.Hotel.Guest", b =>
@@ -228,7 +228,7 @@ namespace Firma.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Guest");
+                    b.ToTable("Guest", (string)null);
                 });
 
             modelBuilder.Entity("Firma.Data.Data.Hotel.Payment", b =>
@@ -260,7 +260,7 @@ namespace Firma.Data.Migrations
 
                     b.HasIndex("ReservationId");
 
-                    b.ToTable("Payment");
+                    b.ToTable("Payment", (string)null);
                 });
 
             modelBuilder.Entity("Firma.Data.Data.Hotel.Reservation", b =>
@@ -308,7 +308,7 @@ namespace Firma.Data.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("Reservation");
+                    b.ToTable("Reservation", (string)null);
                 });
 
             modelBuilder.Entity("Firma.Data.Data.Hotel.Room", b =>
@@ -346,7 +346,7 @@ namespace Firma.Data.Migrations
 
                     b.HasIndex("RoomTypeId");
 
-                    b.ToTable("Room");
+                    b.ToTable("Room", (string)null);
                 });
 
             modelBuilder.Entity("Firma.Data.Data.Hotel.RoomType", b =>
@@ -379,7 +379,7 @@ namespace Firma.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RoomType");
+                    b.ToTable("RoomType", (string)null);
                 });
 
             modelBuilder.Entity("AdditionalOfferReservation", b =>
