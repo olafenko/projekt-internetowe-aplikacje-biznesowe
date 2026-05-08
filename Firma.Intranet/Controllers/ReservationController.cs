@@ -50,7 +50,7 @@ namespace Firma.Intranet.Controllers
         public IActionResult Create()
         {
             ViewData["GuestId"] = new SelectList(_context.Guest, "Id", "Country");
-            ViewData["RoomId"] = new SelectList(_context.Room, "Id", "Description");
+            ViewData["RoomId"] = new SelectList(_context.Room, "Id", "PhotoUrl");
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace Firma.Intranet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,TotalPrice,ReservationDate,CheckInDate,CheckOutDate,ReservationStatus,GuestId,RoomId,IsActive")] Reservation reservation)
+        public async Task<IActionResult> Create([Bind("Id,TotalPrice,ReservationDate,CheckInDate,CheckOutDate,ReservationStatus,GuestId,AdultCount,ChildCount,RoomId,IsActive")] Reservation reservation)
         {
             if (ModelState.IsValid)
             {
@@ -68,7 +68,7 @@ namespace Firma.Intranet.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["GuestId"] = new SelectList(_context.Guest, "Id", "Country", reservation.GuestId);
-            ViewData["RoomId"] = new SelectList(_context.Room, "Id", "Description", reservation.RoomId);
+            ViewData["RoomId"] = new SelectList(_context.Room, "Id", "PhotoUrl", reservation.RoomId);
             return View(reservation);
         }
 
@@ -86,7 +86,7 @@ namespace Firma.Intranet.Controllers
                 return NotFound();
             }
             ViewData["GuestId"] = new SelectList(_context.Guest, "Id", "Country", reservation.GuestId);
-            ViewData["RoomId"] = new SelectList(_context.Room, "Id", "Description", reservation.RoomId);
+            ViewData["RoomId"] = new SelectList(_context.Room, "Id", "PhotoUrl", reservation.RoomId);
             return View(reservation);
         }
 
@@ -95,7 +95,7 @@ namespace Firma.Intranet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TotalPrice,ReservationDate,CheckInDate,CheckOutDate,ReservationStatus,GuestId,RoomId,IsActive")] Reservation reservation)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,TotalPrice,ReservationDate,CheckInDate,CheckOutDate,ReservationStatus,GuestId,AdultCount,ChildCount,RoomId,IsActive")] Reservation reservation)
         {
             if (id != reservation.Id)
             {
@@ -123,7 +123,7 @@ namespace Firma.Intranet.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["GuestId"] = new SelectList(_context.Guest, "Id", "Country", reservation.GuestId);
-            ViewData["RoomId"] = new SelectList(_context.Room, "Id", "Description", reservation.RoomId);
+            ViewData["RoomId"] = new SelectList(_context.Room, "Id", "PhotoUrl", reservation.RoomId);
             return View(reservation);
         }
 

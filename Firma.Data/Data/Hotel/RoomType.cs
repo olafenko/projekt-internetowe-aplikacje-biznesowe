@@ -17,25 +17,24 @@ namespace Firma.Data.Data.Hotel
         [Display(Name = "Nazwa")]
         public required string Name { get; set; }
 
+        [Required(ErrorMessage = "Cena nie może być pusta.")]
+        [Display(Name = "Cena za 1 noc")]
+        [Column(TypeName = "money")]
+        public decimal BasePrice { get; set; }
+
         [Required(ErrorMessage = "Maksymalna liczba gości nie może być pusta")]
         [Display(Name="Maksymalna liczba gości")]
+        [Range(1, 10, ErrorMessage = "Pojemność musi wynosić od 1 do 10 osób")]
         public int MaxGuests { get; set; }
 
         [Required(ErrorMessage = "Liczba łóżek nie może być pusta")]
         [Display(Name = "Liczba łóżek")]
         public int BedCount { get; set; }
 
-        [Required(ErrorMessage = "Powierzchnia nie może być pusta")]
-        [Display(Name="Powierzchnia [m2]")]
-        public decimal Area { get; set; }
-
-
         [Required(ErrorMessage = "Opis rodzaju pokoju nie może być pusty")]
         [Display(Name = "Opis rodzaju pokoju")]
         [Column(TypeName = "nvarchar(max)")]
-        public required string Description { get; set; }
-
-        public ICollection<Amenity> Amenities { get;} = new List<Amenity>();
+        public required string Description { get; set; } = string.Empty;
 
         public ICollection<Room> Rooms { get;} = new List<Room>();
 

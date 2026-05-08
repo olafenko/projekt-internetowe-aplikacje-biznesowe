@@ -6,24 +6,24 @@ using System.Text;
 
 namespace Firma.Data.Data.Hotel
 {
-    public class Service
+    public class AdditionalOffer
     {
 
         [Key]
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "Nazwa usługi")]
+        [Display(Name = "Nazwa oferty")]
         public required string Name { get; set; }
 
         [Required]
-        [Display(Name = "Opis usługi")]
+        [Display(Name = "Opis oferty")]
         [Column(TypeName = "nvarchar(max)")]
         public required string Description { get; set; }
 
         [Required]
         [Column(TypeName = "money")]
-        [Display(Name = "Cena usługi")]
+        [Display(Name = "Cena oferty")]
         public decimal Price { get; set; }
 
         public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();

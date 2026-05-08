@@ -1,3 +1,4 @@
+using Firma.Data.Data;
 using Firma.PortalWWW.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -6,9 +7,24 @@ namespace Firma.PortalWWW.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+
+        private readonly FirmaContext _context;
+
+        public HomeController(FirmaContext context)
         {
-            return View();
+            _context = context;
+        }
+
+        public async Task<IActionResult> Index(int? id)
+        {
+
+            ViewBag.PageModel = _context.Page.OrderBy(p => p.Position).ToList();
+
+            if (id == null) id = 1;
+
+            var item = await _context.Page.FindAsync(id);
+
+            return View(item);
         }
 
         public IActionResult Privacy()

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Firma.Data.Data.Hotel.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,18 +21,12 @@ namespace Firma.Data.Data.Hotel
         [Display(Name = "Piętro")]
         public int Floor { get; set; }
 
-        [Required(ErrorMessage = "Opis pokoju nie może być pusty.")]
-        [Display(Name = "Opis pokoju")]
+        [Display(Name = "Informacje dodatkowe")]
         [Column(TypeName = "nvarchar(max)")]
-        public required string Description { get; set; }
+        public string? Notes { get; set; }
 
-        [Required(ErrorMessage = "Cena nie może być pusta.")]
-        [Display(Name = "Cena za 1 noc")]
-        [Column(TypeName = "money")]
-        public decimal PricePerNight{ get; set; }
-
-        [Required(ErrorMessage = "Zdjęcie pokoju nie może być puste.")]
-        [Display(Name = "Wybierz zdjęcie pokoju")]
+        [Required(ErrorMessage = "URL Zdjęcia pokoju nie może być puste.")]
+        [Display(Name = "URL Zdjęcia pokoju")]
         public required string PhotoUrl{ get; set; }
 
         [ForeignKey("RoomType")]
@@ -40,6 +35,12 @@ namespace Firma.Data.Data.Hotel
         [Display(Name = "Typ pokoju")]
         public RoomType? RoomType{ get; set; }
 
+        [Required]
+        [Display(Name="Status pokoju")]
+        [Column(TypeName = "nvarchar(25)")]
+        public RoomStatus RoomStatus { get; set; }
+
+        public ICollection<Amenity> Amenities { get; } = new List<Amenity>();
         public ICollection<Reservation> Reservations { get; } = new List<Reservation>();
 
         [Required]

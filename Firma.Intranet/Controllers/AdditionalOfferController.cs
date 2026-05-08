@@ -10,22 +10,22 @@ using Firma.Data.Data.Hotel;
 
 namespace Firma.Intranet.Controllers
 {
-    public class ServiceController : Controller
+    public class AdditionalOfferController : Controller
     {
         private readonly FirmaContext _context;
 
-        public ServiceController(FirmaContext context)
+        public AdditionalOfferController(FirmaContext context)
         {
             _context = context;
         }
 
-        // GET: Service
+        // GET: AdditionalOffer
         public async Task<IActionResult> Index()
         {
             return View(await _context.Service.ToListAsync());
         }
 
-        // GET: Service/Details/5
+        // GET: AdditionalOffer/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace Firma.Intranet.Controllers
                 return NotFound();
             }
 
-            var service = await _context.Service
+            var additionalOffer = await _context.Service
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (service == null)
+            if (additionalOffer == null)
             {
                 return NotFound();
             }
 
-            return View(service);
+            return View(additionalOffer);
         }
 
-        // GET: Service/Create
+        // GET: AdditionalOffer/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Service/Create
+        // POST: AdditionalOffer/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,IsActive")] Service service)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,IsActive")] AdditionalOffer additionalOffer)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(service);
+                _context.Add(additionalOffer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(service);
+            return View(additionalOffer);
         }
 
-        // GET: Service/Edit/5
+        // GET: AdditionalOffer/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace Firma.Intranet.Controllers
                 return NotFound();
             }
 
-            var service = await _context.Service.FindAsync(id);
-            if (service == null)
+            var additionalOffer = await _context.Service.FindAsync(id);
+            if (additionalOffer == null)
             {
                 return NotFound();
             }
-            return View(service);
+            return View(additionalOffer);
         }
 
-        // POST: Service/Edit/5
+        // POST: AdditionalOffer/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,IsActive")] Service service)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,IsActive")] AdditionalOffer additionalOffer)
         {
-            if (id != service.Id)
+            if (id != additionalOffer.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace Firma.Intranet.Controllers
             {
                 try
                 {
-                    _context.Update(service);
+                    _context.Update(additionalOffer);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ServiceExists(service.Id))
+                    if (!AdditionalOfferExists(additionalOffer.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace Firma.Intranet.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(service);
+            return View(additionalOffer);
         }
 
-        // GET: Service/Delete/5
+        // GET: AdditionalOffer/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,32 +124,32 @@ namespace Firma.Intranet.Controllers
                 return NotFound();
             }
 
-            var service = await _context.Service
+            var additionalOffer = await _context.Service
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (service == null)
+            if (additionalOffer == null)
             {
                 return NotFound();
             }
 
-            return View(service);
+            return View(additionalOffer);
         }
 
-        // POST: Service/Delete/5
+        // POST: AdditionalOffer/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var service = await _context.Service.FindAsync(id);
-            if (service != null)
+            var additionalOffer = await _context.Service.FindAsync(id);
+            if (additionalOffer != null)
             {
-                _context.Service.Remove(service);
+                _context.Service.Remove(additionalOffer);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ServiceExists(int id)
+        private bool AdditionalOfferExists(int id)
         {
             return _context.Service.Any(e => e.Id == id);
         }

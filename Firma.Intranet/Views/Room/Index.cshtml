@@ -19,16 +19,19 @@
                 @Html.DisplayNameFor(model => model.Floor)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PricePerNight)
+                @Html.DisplayNameFor(model => model.Notes)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PhotoUrl)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.RoomType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoomStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
             </th>
             <th></th>
         </tr>
@@ -43,16 +46,19 @@
                 @Html.DisplayFor(modelItem => item.Floor)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PricePerNight)
+                @Html.DisplayFor(modelItem => item.Notes)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PhotoUrl)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RoomType.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoomStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

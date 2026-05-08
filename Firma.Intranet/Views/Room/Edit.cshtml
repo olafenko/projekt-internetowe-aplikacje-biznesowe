@@ -24,14 +24,9 @@
                 <span asp-validation-for="Floor" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PricePerNight" class="control-label"></label>
-                <input asp-for="PricePerNight" class="form-control" />
-                <span asp-validation-for="PricePerNight" class="text-danger"></span>
+                <label asp-for="Notes" class="control-label"></label>
+                <input asp-for="Notes" class="form-control" />
+                <span asp-validation-for="Notes" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PhotoUrl" class="control-label"></label>
@@ -42,6 +37,16 @@
                 <label asp-for="RoomTypeId" class="control-label"></label>
                 <select asp-for="RoomTypeId" class="form-control" asp-items="ViewBag.RoomTypeId"></select>
                 <span asp-validation-for="RoomTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RoomStatus" class="control-label"></label>
+                <select asp-for="RoomStatus" class="form-control"></select>
+                <span asp-validation-for="RoomStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                </label>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

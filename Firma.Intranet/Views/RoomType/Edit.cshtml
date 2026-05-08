@@ -19,6 +19,11 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="BasePrice" class="control-label"></label>
+                <input asp-for="BasePrice" class="form-control" />
+                <span asp-validation-for="BasePrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="MaxGuests" class="control-label"></label>
                 <input asp-for="MaxGuests" class="form-control" />
                 <span asp-validation-for="MaxGuests" class="text-danger"></span>
@@ -27,11 +32,6 @@
                 <label asp-for="BedCount" class="control-label"></label>
                 <input asp-for="BedCount" class="form-control" />
                 <span asp-validation-for="BedCount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Area" class="control-label"></label>
-                <input asp-for="Area" class="form-control" />
-                <span asp-validation-for="Area" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>

@@ -24,37 +24,8 @@
                     <i class="bi bi-list"></i>
                 </button>
 
-
-                <div class="navbar-collapse collapse" id="navbarContent">
-                    <ul class="navbar-nav nav-left w-50 justify-content-end ">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">POKOJE</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">PAKIETY</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">RESTAURACJA</a>
-                        </li>
-                    </ul>
-
-                    <a class="desktop-brand d-none d-lg-block" asp-area="" asp-controller="Home" asp-action="Index">
-                        <img class="logo" src="~/content/logo.png" />
-                    </a>
-
-                    <ul class="navbar-nav nav-right w-50 d-flex justify-content-start">                       
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">GALERIA</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">KONTAKT</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link nav-cta" asp-area="" asp-controller="Home" asp-action="Privacy">REZERWACJA ONLINE</a>
-                        </li>
-                    </ul>   
-                </div>
-                    
+               @await Html.PartialAsync("Links",(IEnumerable<Firma.Data.Data.CMS.Page>)ViewBag.PageModel)
+                   
             </div>
         </nav>
     </header>
@@ -69,7 +40,7 @@
 
                 <div class="col-md-6 col-lg-3 footer-section">
                     <h5 class="footer-title">O NAS</h5>
-                    <p class="footer-text">Hotel Siemanko</p>
+                    <p class="footer-text">Hotel</p>
                     <p class="footer-text">To jest jakiś krótki opis hotelu. Super hotel elegancki.</p>
                 </div>
                 <div class="col-md-6 col-lg-3 footer-section">
@@ -98,7 +69,7 @@
                
             </div> 
             <div class="row border-top footer-bottom">
-                <span>&copy; Hotel Siemanko. Najlepszy hotel w Polsce.</span>
+                <span>&copy; Hotel. Najlepszy hotel w Polsce.</span>
             </div>
         </div>
     </footer>

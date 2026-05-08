@@ -4,6 +4,7 @@ using Firma.Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Firma.Data.Migrations
 {
     [DbContext(typeof(FirmaContext))]
-    partial class FirmaContextModelSnapshot : ModelSnapshot
+    [Migration("20260508144348_GuestIdentityCard")]
+    partial class GuestIdentityCard
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,34 +25,19 @@ namespace Firma.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AdditionalOfferReservation", b =>
-                {
-                    b.Property<int>("AdditionalOffersId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ReservationsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AdditionalOffersId", "ReservationsId");
-
-                    b.HasIndex("ReservationsId");
-
-                    b.ToTable("AdditionalOfferReservation");
-                });
-
-            modelBuilder.Entity("AmenityRoom", b =>
+            modelBuilder.Entity("AmenityRoomType", b =>
                 {
                     b.Property<int>("AmenitiesId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RoomsId")
+                    b.Property<int>("RoomTypesId")
                         .HasColumnType("int");
 
-                    b.HasKey("AmenitiesId", "RoomsId");
+                    b.HasKey("AmenitiesId", "RoomTypesId");
 
-                    b.HasIndex("RoomsId");
+                    b.HasIndex("RoomTypesId");
 
-                    b.ToTable("AmenityRoom");
+                    b.ToTable("AmenityRoomType");
                 });
 
             modelBuilder.Entity("Firma.Data.Data.CMS.News", b =>
@@ -108,16 +96,10 @@ namespace Firma.Data.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsLinkCTA")
-                        .HasColumnType("bit");
-
                     b.Property<string>("LinkTitle")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
-
-                    b.Property<int?>("PageMenuArea")
-                        .HasColumnType("int");
 
                     b.Property<int>("Position")
                         .HasColumnType("int");
@@ -132,33 +114,6 @@ namespace Firma.Data.Migrations
                     b.ToTable("Page");
                 });
 
-            modelBuilder.Entity("Firma.Data.Data.Hotel.AdditionalOffer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("money");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Service");
-                });
-
             modelBuilder.Entity("Firma.Data.Data.Hotel.Amenity", b =>
                 {
                     b.Property<int>("Id")
@@ -166,13 +121,6 @@ namespace Firma.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Icon")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -204,8 +152,8 @@ namespace Firma.Data.Migrations
 
                     b.Property<string>("IdentityCardNumber")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -218,13 +166,10 @@ namespace Firma.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Notes")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
 
                     b.HasKey("Id");
 
@@ -239,15 +184,15 @@ namespace Firma.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("money");
-
                     b.Property<string>("Method")
                         .IsRequired()
                         .HasColumnType("nvarchar(25)");
 
                     b.Property<DateTime>("PaymentDate")
                         .HasColumnType("datetime");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("money");
 
                     b.Property<int>("ReservationId")
                         .HasColumnType("int");
@@ -271,17 +216,11 @@ namespace Firma.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AdultCount")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CheckInDate")
                         .HasColumnType("datetime");
 
                     b.Property<DateTime>("CheckOutDate")
                         .HasColumnType("datetime");
-
-                    b.Property<int>("ChildCount")
-                        .HasColumnType("int");
 
                     b.Property<int>("GuestId")
                         .HasColumnType("int");
@@ -319,14 +258,15 @@ namespace Firma.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Floor")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Number")
                         .HasColumnType("int");
@@ -335,9 +275,8 @@ namespace Firma.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RoomStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(25)");
+                    b.Property<decimal>("PricePerNight")
+                        .HasColumnType("money");
 
                     b.Property<int>("RoomTypeId")
                         .HasColumnType("int");
@@ -357,8 +296,8 @@ namespace Firma.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("BasePrice")
-                        .HasColumnType("money");
+                    b.Property<decimal>("Area")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("BedCount")
                         .HasColumnType("int");
@@ -382,22 +321,49 @@ namespace Firma.Data.Migrations
                     b.ToTable("RoomType");
                 });
 
-            modelBuilder.Entity("AdditionalOfferReservation", b =>
+            modelBuilder.Entity("Firma.Data.Data.Hotel.Service", b =>
                 {
-                    b.HasOne("Firma.Data.Data.Hotel.AdditionalOffer", null)
-                        .WithMany()
-                        .HasForeignKey("AdditionalOffersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.HasOne("Firma.Data.Data.Hotel.Reservation", null)
-                        .WithMany()
-                        .HasForeignKey("ReservationsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("money");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Service");
                 });
 
-            modelBuilder.Entity("AmenityRoom", b =>
+            modelBuilder.Entity("ReservationService", b =>
+                {
+                    b.Property<int>("ReservationsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServicesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ReservationsId", "ServicesId");
+
+                    b.HasIndex("ServicesId");
+
+                    b.ToTable("ReservationService");
+                });
+
+            modelBuilder.Entity("AmenityRoomType", b =>
                 {
                     b.HasOne("Firma.Data.Data.Hotel.Amenity", null)
                         .WithMany()
@@ -405,9 +371,9 @@ namespace Firma.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Firma.Data.Data.Hotel.Room", null)
+                    b.HasOne("Firma.Data.Data.Hotel.RoomType", null)
                         .WithMany()
-                        .HasForeignKey("RoomsId")
+                        .HasForeignKey("RoomTypesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -451,6 +417,21 @@ namespace Firma.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("RoomType");
+                });
+
+            modelBuilder.Entity("ReservationService", b =>
+                {
+                    b.HasOne("Firma.Data.Data.Hotel.Reservation", null)
+                        .WithMany()
+                        .HasForeignKey("ReservationsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Firma.Data.Data.Hotel.Service", null)
+                        .WithMany()
+                        .HasForeignKey("ServicesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Firma.Data.Data.Hotel.Room", b =>

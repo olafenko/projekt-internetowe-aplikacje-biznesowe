@@ -37,7 +37,7 @@ namespace Firma.Data.Data.Hotel
         [Required]
         [Display(Name = "Status rezerwacji")]
         [Column(TypeName = "nvarchar(25)")]
-        public ReservationStatus ReservationStatus { get; set; } = ReservationStatus.PENDING;
+        public ReservationStatus ReservationStatus { get; set; }
 
         [ForeignKey("Guest")]
         public int GuestId { get; set; }
@@ -45,8 +45,14 @@ namespace Firma.Data.Data.Hotel
         [Display(Name = "Gość")]
         public Guest? Guest { get; set; }
 
+        [Required]
+        [Display(Name = "Liczba dorosłych")]
+        public int AdultCount { get; set; }
+
+        [Display(Name = "Liczba dzieci")]
+        public int ChildCount { get; set; }
+
         [ForeignKey("Room")]
-        
         public int RoomId { get; set; }
 
         [Display(Name = "Pokój")]
@@ -54,7 +60,7 @@ namespace Firma.Data.Data.Hotel
 
 
         [Display(Name = "Usługi dodatkowe")]
-        public ICollection<Service> Services { get; set; } = new List<Service>();
+        public ICollection<AdditionalOffer> AdditionalOffers { get; set; } = new List<AdditionalOffer>();
 
         [Required]
         public bool IsActive { get; set; } = true;

@@ -30,10 +30,17 @@ namespace Firma.Data.Data.Hotel
 
         [Required(ErrorMessage = "Numer telefonu nie może być pusty")]
         [Display(Name = "Numer telefonu")]
-        [MinLength(11,ErrorMessage = "Minimalna długość numeru telefonu to 11 znaków")]
-        [MaxLength(13,ErrorMessage = "Maksymalna długość numeru telefonu to 13 znaków")]
         [Phone]
         public required string PhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "Numer dokumentu tożsamości nie może być pusty")]
+        [Display(Name = "Numer dowodu osobistego")]
+        [MaxLength(50, ErrorMessage = "Długość numeru dokumentu tożsamości musi wynosić 50 znaków")]
+        public required string IdentityCardNumber { get; set; }
+
+        [Display(Name = "Informacje dodatkowe")]
+        [MaxLength(500)]
+        public string? Notes { get; set; }
 
         [Required]
         public bool IsActive { get; set; } = true;

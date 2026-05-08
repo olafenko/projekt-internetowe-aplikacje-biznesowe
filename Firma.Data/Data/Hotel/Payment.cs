@@ -17,7 +17,7 @@ namespace Firma.Data.Data.Hotel
         [Required]
         [Display(Name = "Kwota")]
         [Column(TypeName = "money")]
-        public decimal Price { get; set; }
+        public decimal Amount { get; set; }
 
 
         [ForeignKey("Reservation")]

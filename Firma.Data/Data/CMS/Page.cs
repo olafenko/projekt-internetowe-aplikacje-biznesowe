@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Firma.Data.Data.CMS.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -31,6 +32,13 @@ namespace Firma.Data.Data.CMS
         [Required]
         [Display(Name = "Pozycja strony")]
         public int Position { get; set; }
+
+        [Display(Name = "Pozycja linku strony w menu")]
+        public PageMenuArea? PageMenuArea { get; set; } = null;
+
+        [Required]
+        [Display(Name = "Czy link ma styl CTA")]
+        public bool IsLinkCTA { get; set; } = false;
 
         [Required]
         public bool IsActive { get; set; } = true;

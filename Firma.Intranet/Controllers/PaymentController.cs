@@ -57,7 +57,7 @@ namespace Firma.Intranet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Price,ReservationId,Method,Status,PaymentDate")] Payment payment)
+        public async Task<IActionResult> Create([Bind("Id,Amount,ReservationId,Method,Status,PaymentDate")] Payment payment)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace Firma.Intranet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Price,ReservationId,Method,Status,PaymentDate")] Payment payment)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Amount,ReservationId,Method,Status,PaymentDate")] Payment payment)
         {
             if (id != payment.Id)
             {

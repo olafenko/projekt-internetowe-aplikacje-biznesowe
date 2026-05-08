@@ -40,7 +40,7 @@
                 </div>
 
                 @* obszar z danymi uzytkownika i wylogowywaniem *@
-        <div class="user-profile-area d-flex align-items-center gap-3 py-lg-3 px-lg-4 p-3 order-2 order-lg-3 mt-lg-auto">
+                <div class="user-profile-area d-flex align-items-center gap-3 py-lg-3 px-lg-4 p-3 order-2 order-lg-3 mt-lg-auto">
                     
                     <div class="user-icon accent-content">
                         <i class="bi bi-person-circle"></i>
@@ -60,6 +60,7 @@
 
 
                     @{ var currentController = ViewContext.RouteData.Values["controller"]?.ToString();}
+
                     <ul class="sidebar-nav nav nav-pills flex-column">
                         <li class="nav-item ">
                             <a class="nav-link @(currentController == "Home" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-grid"></i> Panel główny</a>
@@ -68,7 +69,7 @@
                             <a class="nav-link @(currentController == "Room" ? "active" : "")"  asp-area="" asp-controller="Room" asp-action="Index"><i class="bi bi-door-open"></i> Pokoje</a>
                         </li>
                         <li class="nav-item"> 
-                            <a class="nav-link @(currentController == "RoomType" ? "active" : "")"  asp-area="" asp-controller="RoomType" asp-action="Index"><i class="bi bi-tag"></i> Typy pokojów</a>
+                            <a class="nav-link @(currentController == "RoomType" ? "active" : "")"  asp-area="" asp-controller="RoomType" asp-action="Index"><i class="bi bi-tag"></i> Typy pokoi</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link @(currentController == "Reservation" ? "active" : "")"  asp-area="" asp-controller="Reservation" asp-action="Index"><i class="bi bi-calendar3"></i> Rezerwacje</a>
@@ -77,10 +78,10 @@
                             <a class="nav-link @(currentController == "Amenity" ? "active" : "")"  asp-area="" asp-controller="Amenity" asp-action="Index"><i class="bi bi-star"></i> Udogodnienia</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link @(currentController == "Service" ? "active" : "")"  asp-area="" asp-controller="Service" asp-action="Index"><i class="bi bi-bell"></i> Serwisy dodatkowe</a>
+                            <a class="nav-link @(currentController == "AdditionalOffer" ? "active" : "")"  asp-area="" asp-controller="AdditionalOffer" asp-action="Index"><i class="bi bi-bell"></i> Oferty dodatkowe</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link @(currentController == "Guest" ? "active" : "")"  asp-area="" asp-controller="Guest" asp-action="Index"><i class="bi bi-people"></i> Goście</a>
+                            <a class="nav-link @(currentController == "Guest" ? "active" : "")"  asp-area="" asp-controller="Guest" asp-action="Index"><i class="bi bi-people"></i> Baza gości</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link @(currentController == "Payment" ? "active" : "")"  asp-area="" asp-controller="Payment" asp-action="Index"><i class="bi bi-credit-card-2-back"></i> Płatności</a>
@@ -91,7 +92,6 @@
                         <li class="nav-item">
                             <a class="nav-link @(currentController == "News" ? "active" : "")"  asp-area="" asp-controller="News" asp-action="Index"><i class="bi bi-newspaper"></i> Ogłoszenia</a>
                         </li>
-                    
                     </ul>
                 </div>            
             </aside>
@@ -101,11 +101,10 @@
             <main class="main-content overflow-y-auto p-3 p-lg-5">
                 <div class="container-fluid">
                     @RenderBody()
-                </div>
-             
+                </div>             
             </main>
             <footer class="flex-shrink-0 mt-auto">
-                <span class="">Hotel Siemanko - 2026</span>
+                <span class="">Hotel - 2026</span>
             </footer>
         </div>
     
