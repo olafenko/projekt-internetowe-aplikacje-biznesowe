@@ -1,52 +1,87 @@
-﻿@model Firma.Data.Data.Hotel.Payment
+﻿@using Firma.Data.Data.Hotel.Enums
+@model Firma.Data.Data.Hotel.Payment
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Dodaj płatność";
 }
 
-<h1>Create</h1>
+<div class="view-container">
+    <div class="row justify-content-center">
 
-<h4>Payment</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Amount" class="control-label"></label>
-                <input asp-for="Amount" class="form-control" />
-                <span asp-validation-for="Amount" class="text-danger"></span>
+        <div class="col-6">
+            
+            <div class="header-row">
+                <div class="title-group">
+                    <i class="bi bi-credit-card-2-back"></i>
+                    <h1>Dodaj płatność</h1>
+                </div>
+                <a asp-action="Index" class="btn btn-outline-secondary d-flex align-items-center gap-2 backBtn">
+                    <i class="bi bi-arrow-left"></i> POWRÓT
+                </a>
             </div>
-            <div class="form-group">
-                <label asp-for="ReservationId" class="control-label"></label>
-                <select asp-for="ReservationId" class ="form-control" asp-items="ViewBag.ReservationId"></select>
+
+            <div class="form-card">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <h5 class="section-title"><i class="bi bi-info-circle me-2"></i>Szczegóły płatności</h5>
+                    
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label asp-for="Amount" class="control-label fw-bold mb-1"></label>
+                            <div class="input-group">
+                                <input asp-for="Amount" class="form-control input-area" />
+                                <span class="input-group-text url-addon">ZŁ</span>
+                            </div>
+                            <span asp-validation-for="Amount" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6 form-group mb-3">
+                            <label asp-for="ReservationId" class="control-label fw-bold mb-1"></label>
+                            <select asp-for="ReservationId" class="form-select input-area" asp-items="ViewBag.ReservationId">
+                                <option value="">Wybierz rezerwację</option>
+                            </select>
+                            <span asp-validation-for="ReservationId" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-4">
+                            <label asp-for="Method" class="control-label fw-bold mb-1"></label>
+                            <select asp-for="Method" asp-items="Html.GetEnumSelectList<PaymentMethod>()" class="form-select input-area">
+                                <option>Wybierz metodę</option>
+                            </select>
+                            <span asp-validation-for="Method" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6 form-group mb-4">
+                            <label asp-for="Status" class="control-label fw-bold mb-1"></label>
+                            <select asp-for="Status" asp-items="Html.GetEnumSelectList<PaymentStatus>()" class="form-select input-area">
+                                <option>Wybierz status</option>
+                            </select>
+                            <span asp-validation-for="Status" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <hr class="my-4 segment-divider" />
+
+                    <div class="d-flex justify-content-end align-items-center gap-3">
+                        <a asp-action="Index" class="btn btn-outline-secondary d-flex align-items-center gap-2 backBtn">
+                            <i class="bi bi-arrow-left"></i> Anuluj
+                        </a>
+                        <button type="submit" class="createBtn border-0">
+                            <i class="bi bi-check-lg me-1"></i> ZAPISZ
+                        </button>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="Method" class="control-label"></label>
-                <select asp-for="Method" class="form-control"></select>
-                <span asp-validation-for="Method" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <select asp-for="Status" class="form-control"></select>
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PaymentDate" class="control-label"></label>
-                <input asp-for="PaymentDate" class="form-control" />
-                <span asp-validation-for="PaymentDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

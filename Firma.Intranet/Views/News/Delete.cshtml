@@ -1,63 +1,105 @@
 ﻿@model Firma.Data.Data.CMS.News
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment Env
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Usuń aktualność";
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>News</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LinkTitle)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LinkTitle)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ContentSummary)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ContentSummary)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageUrl)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-    </dl>
+<div class="view-container">
     
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+    <div class="header-row">
+        <div class="title-group">
+            <i class="bi bi-newspaper"></i>
+            <h1>Usuń aktualność</h1>
+        </div>
+        <a asp-action="Index" class="btn btn-outline-secondary d-flex align-items-center gap-2 backBtn">
+            <i class="bi bi-arrow-left"></i> POWRÓT
+        </a>
+    </div>
+
+    <div class="form-card">
+        
+        <h4 class="text-danger mb-4">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>Czy na pewno chcesz usunąć tę aktualność?
+        </h4>
+
+        <div class="row gx-5">
+
+            <div class="col-lg-8 mb-4 mb-lg-0">
+                <h5 class="section-title"><i class="bi bi-layout-text-window-reverse me-2"></i>Treść aktualności</h5>
+
+                <div class="form-group mb-3">
+                    <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.Title)</label>
+                    <div class="form-control input-area d-flex align-items-center">
+                        @Html.DisplayFor(model => model.Title)
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.LinkTitle)</label>
+                    <div class="form-control input-area d-flex align-items-center">
+                        @Html.DisplayFor(model => model.LinkTitle)
+                    </div>
+                </div>
+
+                <div class="form-group mb-3 mt-4">
+                    <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.ContentSummary)</label>
+                    <textarea class="form-control input-area" rows="3" readonly>@Model.ContentSummary</textarea>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.Content)</label>
+                    <textarea class="form-control input-area" rows="6" readonly>@Model.Content</textarea>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h5 class="section-title"><i class="bi bi-gear me-2"></i>Publikacja i media</h5>
+
+                <div class="form-group mb-3">
+                    <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.Date)</label>
+                    <div class="form-control input-area d-flex align-items-center">
+                        @Html.DisplayFor(model => model.Date)
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.PublishDate)</label>
+                <div class="form-control input-area d-flex align-items-center">
+                        @Html.DisplayFor(model => model.PublishDate)
+                </div>
+            </div>
+
+                <div class="form-group mb-3">
+                    <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.ImageUrl)</label>
+                    <div class="form-control input-area d-flex align-items-center text-truncate" title="@Model.ImageUrl">
+                        @Model.ImageUrl
+                    </div>
+                </div>
+
+                <div class="photo-preview-box rounded border shadow-sm d-flex align-items-center justify-content-center overflow-hidden mb-4">
+                    @{
+                        var fileExists = File.Exists($"/images/{Model.ImageUrl}");
+                        var imgSrc = fileExists ? $"/images/{Model.ImageUrl}" : "/images/no-image-placeholder.jpg";
+                     }
+                    <img src="@imgSrc" class="img-fluid w-100 photo-preview-img" onerror="this.onerror=null;this.src='/images/no-image-placeholder.jpg';" />
+                </div>
+            </div>
+
+        </div>
+
+        <hr class="my-4 segment-divider" />
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            
+            <div class="d-flex justify-content-end align-items-center gap-3">
+                <a asp-action="Index" class="btn btn-outline-secondary d-flex align-items-center gap-2 backBtn">
+                    <i class="bi bi-arrow-left"></i> ANULUJ
+                </a>
+                <button type="submit" class="btn btn-danger d-flex align-items-center gap-2 border-0 fw-bold px-4 py-2 rounded shadow-sm">
+                    <i class="bi bi-trash-fill"></i> USUŃ 
+                </button>
+            </div>
+        </form>
+    </div>
 </div>

@@ -7,7 +7,7 @@
 <div class="view-container">
     <div class="header-row">
         <div class="title-group">
-            <i class="bi bi-file-earmark-richtext-fill"></i>
+            <i class="bi bi-file-text"></i>
             <h1>Strony</h1>
         </div>
         <a class="createBtn" asp-action="Create">
@@ -42,7 +42,7 @@
                     <tr>
                         <td class="fw-bold">@Html.DisplayFor(modelItem => item.Title)</td>
                         <td>@Html.DisplayFor(modelItem => item.LinkTitle)</td>
-                        <td style="max-width: 200px;">@Html.DisplayFor(modelItem => item.Content)</td>
+                        <td class="contentArea">@Html.DisplayFor(modelItem => item.Content)</td>
                         <td class="fw-bold">@Html.DisplayFor(modelItem => item.Position)</td>
                         <td>@Html.DisplayFor(modelItem => item.PageMenuArea)</td>
                         <td>

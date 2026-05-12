@@ -38,6 +38,8 @@ namespace Firma.Data.Data.Hotel
         [MaxLength(50, ErrorMessage = "Długość numeru dokumentu tożsamości musi wynosić 50 znaków")]
         public required string IdentityCardNumber { get; set; }
 
+        public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
+
         [Display(Name = "Informacje dodatkowe")]
         [MaxLength(500)]
         public string? Notes { get; set; }

@@ -354,6 +354,10 @@ table.main-table {
     text-decoration: none;
 }
 
+contentArea {
+    max-width: 200px;
+}
+
 
 /*============ STYLE DLA FORMULARZY ============*/
 
@@ -373,7 +377,7 @@ table.main-table {
     border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
-.input-area, .input-area-addon {
+.input-area, .url-addon {
     background-color: rgba(255, 255, 255, 0.03) !important;
     border: 1px solid var(--segment-border-color) !important;
     color: var(--main-text-color) !important;
@@ -381,11 +385,26 @@ table.main-table {
 }
 
 
-.input-area:focus {
+.form-control:focus, .input-area:focus {
     border-color: var(--accent-color) !important;
-    box-shadow: 0 rgba(212, 175, 106, 0.25) !important;
-    outline: 0;
+    box-shadow: 0 0 0 0 !important;
+   
 }
+
+select.form-select.input-area option {
+    background-color: var(--main-bg-color);
+    color: var(--main-text-color);
+}
+
+    select.form-select.input-area option:hover,
+    select.form-select.input-area option:focus,
+    select.form-select.input-area option:active,
+    select.form-select.input-area option:checked {
+
+        background-color: var(--hover-bg-color) !important;
+        color: var(--main-text-color) !important;
+        box-shadow: 0 0 10px 100px #0d6efd inset;
+    }
 
 .amenities-box {
     background-color: rgba(0, 0, 0, 0.2);
@@ -428,4 +447,21 @@ table.main-table {
 .multi-input {
     cursor: pointer;
     box-shadow: none;
+}
+
+.segment-divider {
+    border-color: var(--segment-border-color);
+}
+
+
+
+
+.photo-preview-box {
+    background-color: #f8f9fa;
+    min-height: 250px;
+}
+
+.photo-preview-img {
+    max-height: 300px;
+    object-fit: cover;
 }

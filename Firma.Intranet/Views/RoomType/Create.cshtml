@@ -1,58 +1,83 @@
 ﻿@model Firma.Data.Data.Hotel.RoomType
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Dodaj typ pokoju";
 }
 
-<h1>Create</h1>
+<div class="view-container">
+    <div class="header-row">
+        <div class="title-group">
+            <i class="bi bi-tags-fill"></i>
+            <h1>Dodaj typ pokoju</h1>
+        </div>
+        <a asp-action="Index" class="btn btn-outline-secondary d-flex align-items-center gap-2 backBtn">
+            <i class="bi bi-arrow-left"></i> POWRÓT
+        </a>
+    </div>
 
-<h4>RoomType</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+    <div class="form-card">
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="row gx-5">
+                <div class="col-lg-6 mb-4">
+                    <h5 class="section-title"><i class="bi bi-info-circle me-2"></i>Dane podstawowe</h5>
+                    
+                    <div class="form-group mb-3">
+                        <label asp-for="Name" class="control-label fw-bold mb-1">Nazwa typu pokoju</label>
+                        <input asp-for="Name" class="form-control input-area" />
+                        <span asp-validation-for="Name" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="BasePrice" class="control-label fw-bold mb-1">Cena bazowa</label>
+                        <div class="input-group">
+                            <input asp-for="BasePrice" class="form-control input-area" />
+                            <span class="input-group-text url-addon">ZŁ</span>
+                        </div>
+                        <span asp-validation-for="BasePrice" class="text-danger small"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-3">
+                            <label asp-for="MaxGuests" class="control-label fw-bold mb-1">Maks. liczba gości</label>
+                            <input asp-for="MaxGuests" class="form-control input-area" />
+                            <span asp-validation-for="MaxGuests" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label asp-for="BedCount" class="control-label fw-bold mb-1">Liczba łóżek</label>
+                            <input asp-for="BedCount" class="form-control input-area" />
+                            <span asp-validation-for="BedCount" class="text-danger small"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-4">
+                    <h5 class="section-title"><i class="bi bi-card-text me-2"></i>Opis</h5>
+
+                    <div class="form-group mb-4">
+                        <textarea asp-for="Description" class="form-control input-area" rows="5"></textarea>
+                        <span asp-validation-for="Description" class="text-danger small"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="BasePrice" class="control-label"></label>
-                <input asp-for="BasePrice" class="form-control" />
-                <span asp-validation-for="BasePrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MaxGuests" class="control-label"></label>
-                <input asp-for="MaxGuests" class="form-control" />
-                <span asp-validation-for="MaxGuests" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BedCount" class="control-label"></label>
-                <input asp-for="BedCount" class="form-control" />
-                <span asp-validation-for="BedCount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+
+            <hr class="my-4 segment-divider" />
+
+            <div class="d-flex justify-content-end align-items-center gap-3">
+                <a asp-action="Index" class="btn btn-outline-secondary d-flex align-items-center gap-2 backBtn">
+                    <i class="bi bi-arrow-left"></i> Anuluj
+                </a>
+                <button type="submit" class="createBtn border-0">
+                    <i class="bi bi-check-lg me-1"></i> ZAPISZ TYP POKOJU
+                </button>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

@@ -1,60 +1,97 @@
 ﻿@model Firma.Data.Data.Hotel.Room
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Szczegóły pokoju";
 }
 
-<h1>Details</h1>
+<div class="view-container">
+    
+    <div class="header-row">
+        <div class="title-group">
+            <i class="bi bi-info-square"></i>
+            <h1>Szczegóły pokoju</h1>
+        </div>
+        <a asp-action="Index" class="btn btn-outline-secondary d-flex align-items-center gap-2 backBtn">
+            <i class="bi bi-arrow-left"></i> POWRÓT
+        </a>
+    </div>
 
-<div>
-    <h4>Room</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Number)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Number)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Floor)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Floor)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Notes)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Notes)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhotoUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PhotoUrl)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RoomType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RoomType.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RoomStatus)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RoomStatus)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div class="form-card">
+        <div class="row gx-5">
+            
+            <div class="col-lg-7 mb-4 mb-lg-0">
+                <h5 class="section-title"><i class="bi bi-door-open me-2"></i>Dane podstawowe pokoju</h5>
+                
+                <div class="row">
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.Number)</label>
+                        <div class="form-control input-area d-flex align-items-center">
+                            @Html.DisplayFor(model => model.Number)
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.Floor)</label>
+                        <div class="form-control input-area d-flex align-items-center">
+                            @Html.DisplayFor(model => model.Floor)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.RoomType)</label>
+                        <div class="form-control input-area d-flex align-items-center">
+                            @Html.DisplayFor(model => model.RoomType.Description)
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.RoomStatus)</label>
+                        <div class="form-control input-area d-flex align-items-center">
+                            @Html.DisplayFor(model => model.RoomStatus)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3 mt-3">
+                    <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.Notes)</label>
+                    <textarea class="form-control input-area" rows="6" readonly>@Model.Notes</textarea>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <h5 class="section-title"><i class="bi bi-image me-2"></i>Podgląd zdjęcia</h5>
+                
+                <div class="form-group mb-3">
+                    <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.PhotoUrl)</label>
+                    <div class="form-control input-area d-flex align-items-center text-truncate mb-3" title="@Model.PhotoUrl">
+                        @(Model.PhotoUrl)
+                    </div>
+                </div>
+
+                <div class="photo-preview-box rounded border shadow-sm d-flex align-items-center justify-content-center overflow-hidden">
+                    @{
+                        
+                        var fileExists = File.Exists($"/images/{Model.PhotoUrl}");
+                        var imgSrc = fileExists ? $"/images/{Model.PhotoUrl}" : "/images/default-room-image.jpg";
+                    }
+                    <img src="@imgSrc" class="img-fluid w-100 photo-preview-img" />
+                </div>
+            </div>
+
+        </div>
+
+        <hr class="my-4 segment-divider" />
+
+        <div class="d-flex justify-content-end align-items-center gap-3">
+            <a asp-action="Index" class="btn btn-outline-secondary d-flex align-items-center gap-2 backBtn">
+                <i class="bi bi-arrow-left"></i> Wróć
+            </a>
+            <a asp-action="Edit" asp-route-id="@Model?.Id" class="createBtn border-0">
+                <i class="bi bi-pencil-square me-1"></i> EDYTUJ
+            </a>
+        </div>
+    </div>
+
 </div>

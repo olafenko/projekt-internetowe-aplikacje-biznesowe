@@ -1,71 +1,78 @@
 ﻿@model IEnumerable<Firma.Data.Data.Hotel.Room>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Lista pokoi";
 }
 
-<h1>Index</h1>
+<div class="view-container">
+    
+    <div class="header-row">
+        <div class="title-group">
+            <i class="bi bi-door-open-fill"></i>
+            <h1>Lista pokoi</h1>
+        </div>
+        <a class="createBtn" asp-action="Create">
+            <i class="bi bi-plus-lg"></i> DODAJ POKÓJ
+        </a>
+    </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Number)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Floor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Notes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhotoUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RoomType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RoomStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsActive)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Number)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Floor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Notes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhotoUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomType.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomStatus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="filter-bar">
+        <div class="filter-content">
+            <i class="bi bi-funnel"></i>
+            <span>SORTOWANIE I FILTROWANIE</span>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <table class="table main-table">
+            <thead>
+                <tr>
+                    <th><i class="bi bi-hash me-2"></i>@Html.DisplayNameFor(model => model.Number)</th>
+                    <th><i class="bi bi-layers me-2"></i>@Html.DisplayNameFor(model => model.Floor)</th>
+                    <th><i class="bi bi-tag me-2"></i>@Html.DisplayNameFor(model => model.RoomType)</th>
+                    <th><i class="bi bi-activity me-2"></i>@Html.DisplayNameFor(model => model.RoomStatus)</th>
+                    <th><i class="bi bi-image me-2"></i>@Html.DisplayNameFor(model => model.PhotoUrl)</th>
+                    <th><i class="bi bi-justify-left me-2"></i>@Html.DisplayNameFor(model => model.Notes)</th>
+                    <th><i class="bi bi-toggle-on me-2"></i>@Html.DisplayNameFor(model => model.IsActive)</th>
+                    <th class="text-center px-4">Akcje</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="fw-bold">@Html.DisplayFor(modelItem => item.Number)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Floor)</td>
+                        <td>@Html.DisplayFor(modelItem => item.RoomType.Description)</td>
+                        <td>@Html.DisplayFor(modelItem => item.RoomStatus)</td>
+                        <td class="text-truncate text-muted-custom" title="@item.PhotoUrl">@item.PhotoUrl</td>
+                        <td class="text-truncate text-muted-custom" title="@item.Notes">@item.Notes</td>
+                        <td>
+                            @if (item.IsActive)
+                            {
+                                <span class="status-badge active">Aktywny</span>
+                            }
+                            else
+                            {
+                                <span class="status-badge inactive">Nieaktywny</span>
+                            }
+                        </td>
+                        <td class="text-end px-4">
+                            <div class="action-buttons">
+                                <a asp-action="Edit" asp-route-id="@item.Id" title="Edytuj" class="edit-btn">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <a asp-action="Details" asp-route-id="@item.Id" title="Szczegóły" class="details-btn">
+                                    <i class="bi bi-info-circle"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" title="Usuń" class="delete-btn">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

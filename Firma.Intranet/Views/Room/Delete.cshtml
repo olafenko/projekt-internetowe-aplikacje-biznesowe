@@ -1,63 +1,106 @@
 ﻿@model Firma.Data.Data.Hotel.Room
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Usuń pokój";
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Room</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Number)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Number)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Floor)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Floor)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Notes)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Notes)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhotoUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PhotoUrl)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RoomType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RoomType.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RoomStatus)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RoomStatus)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-    </dl>
+<div class="view-container">
     
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+    <div class="header-row">
+        <div class="title-group">
+            <i class="bi bi-door-open"></i>
+            <h1>Usuń pokój</h1>
+        </div>
+        <a asp-action="Index" class="btn btn-outline-secondary d-flex align-items-center gap-2 backBtn">
+            <i class="bi bi-arrow-left"></i> POWRÓT
+        </a>
+    </div>
+
+    <div class="form-card">
+        
+        <h4 class="text-danger mb-4">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>Czy na pewno chcesz usunąć ten pokój?
+        </h4>
+
+        <div class="row gx-5">
+
+            <div class="col-lg-7 mb-4 mb-lg-0">
+                <h5 class="section-title"><i class="bi bi-info-square me-2"></i>Dane podstawowe pokoju</h5>
+                
+                <div class="row">
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.Number)</label>
+                        <div class="form-control input-area d-flex align-items-center">
+                            @Html.DisplayFor(model => model.Number)
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.Floor)</label>
+                        <div class="form-control input-area d-flex align-items-center">
+                            @Html.DisplayFor(model => model.Floor)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.RoomType)</label>
+                        <div class="form-control input-area d-flex align-items-center">
+                            @Html.DisplayFor(model => model.RoomType.Description)
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.RoomStatus)</label>
+                        <div class="form-control input-area d-flex align-items-center">
+                            @Html.DisplayFor(model => model.RoomStatus)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3 mt-3">
+                    <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.Notes)</label>
+                    <textarea class="form-control input-area" rows="4" readonly>@Model.Notes</textarea>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <h5 class="section-title"><i class="bi bi-image me-2"></i>Podgląd zdjęcia</h5>
+                
+                <div class="form-group mb-3">
+                    <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.PhotoUrl)</label>
+                    <div class="form-control input-area d-flex align-items-center text-truncate mb-3" title="@Model.PhotoUrl">
+                        @(Model.PhotoUrl)
+                    </div>
+                </div>
+
+                <div class="photo-preview-box rounded border shadow-sm d-flex align-items-center justify-content-center overflow-hidden">
+                    @{
+                        var fileExists = File.Exists($"/images/{Model.PhotoUrl}");
+                        var imgSrc = fileExists ? $"/images/{Model.PhotoUrl}" : "/images/default-room-image.jpg";
+                    }
+                    <img src="@imgSrc" class="img-fluid w-100 photo-preview-img" alt="Podgląd pokoju" />
+                </div>
+            </div>
+
+        </div>
+
+        <hr class="my-4 segment-divider" />
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            
+            <div class="d-flex justify-content-end align-items-center gap-3">
+                <a asp-action="Index" class="btn btn-outline-secondary d-flex align-items-center gap-2 backBtn">
+                    <i class="bi bi-arrow-left"></i> Anuluj
+                </a>
+                <button type="submit" class="btn btn-danger d-flex align-items-center gap-2 border-0 fw-bold px-4 py-2 rounded">
+                    <i class="bi bi-trash me-1"></i> USUŃ POKÓJ
+                </button>
+            </div>
+        </form>
+        
+    </div>
+
 </div>

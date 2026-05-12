@@ -40,6 +40,7 @@ namespace Firma.Data.Data.Hotel
         public ReservationStatus ReservationStatus { get; set; }
 
         [ForeignKey("Guest")]
+        [Display(Name = "Gość")]
         public int GuestId { get; set; }
 
         [Display(Name = "Gość")]
@@ -53,6 +54,7 @@ namespace Firma.Data.Data.Hotel
         public int ChildCount { get; set; }
 
         [ForeignKey("Room")]
+        [Display(Name = "Pokój")]
         public int RoomId { get; set; }
 
         [Display(Name = "Pokój")]

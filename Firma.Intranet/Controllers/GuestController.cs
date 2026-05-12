@@ -54,7 +54,7 @@ namespace Firma.Intranet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,LastName,Email,Country,PhoneNumber,IdentityCardNumber,Notes,IsActive")] Guest guest)
+        public async Task<IActionResult> Create([Bind("Name,LastName,Email,Country,PhoneNumber,IdentityCardNumber,Notes,IsActive")] Guest guest)
         {
             if (ModelState.IsValid)
             {

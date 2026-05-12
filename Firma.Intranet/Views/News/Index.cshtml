@@ -31,8 +31,8 @@
                     <th><i class="bi bi-file-text me-2"></i>@Html.DisplayNameFor(model => model.Content)</th>
                     <th><i class="bi bi-card-heading me-2"></i>@Html.DisplayNameFor(model => model.ContentSummary)</th>
                     <th><i class="bi bi-image me-2"></i>@Html.DisplayNameFor(model => model.ImageUrl)</th>
-                    <th><i class="bi bi-calendar-event me-2"></i>@Html.DisplayNameFor(model => model.Date)</th>
-                    <th><i class="bi bi-activity me-2"></i>Status</th>
+                    <th><i class="bi bi-calendar-event me-2"></i>@Html.DisplayNameFor(model => model.PublishDate)</th>
+                    <th><i class="bi bi-activity me-2"></i>@Html.DisplayNameFor(model => model.IsActive)</th>
                     <th class="text-center px-4">Akcje</th>
                 </tr>
             </thead>
@@ -42,10 +42,10 @@
                     <tr>
                         <td class="fw-bold">@Html.DisplayFor(modelItem => item.Title)</td>
                         <td>@Html.DisplayFor(modelItem => item.LinkTitle)</td>
-                        <td style="max-width: 150px;">@Html.DisplayFor(modelItem => item.Content)</td>
-                        <td style="max-width: 150px;">@Html.DisplayFor(modelItem => item.ContentSummary)</td>
-                        <td style="max-width: 100px;">@Html.DisplayFor(modelItem => item.ImageUrl)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Date)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Content)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ContentSummary)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ImageUrl)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PublishDate)</td>
                         <td>
                             @if (item.IsActive)
                             {

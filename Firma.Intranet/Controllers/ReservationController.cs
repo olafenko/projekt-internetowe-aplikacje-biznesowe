@@ -49,7 +49,7 @@ namespace Firma.Intranet.Controllers
         // GET: Reservation/Create
         public IActionResult Create()
         {
-            ViewData["GuestId"] = new SelectList(_context.Guest, "Id", "Country");
+            ViewData["GuestId"] = new SelectList(_context.Guest, "Id", "LastName");
             ViewData["RoomId"] = new SelectList(_context.Room, "Id", "PhotoUrl");
             return View();
         }

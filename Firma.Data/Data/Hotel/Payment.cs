@@ -39,7 +39,7 @@ namespace Firma.Data.Data.Hotel
         [Required]
         [Column(TypeName = "datetime")]
         [Display(Name = "Data płatności")]
-        public DateTime PaymentDate{ get; set; }
+        public DateTime PaymentDate{ get; set; } = DateTime.Now;
 
 
     }

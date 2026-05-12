@@ -82,7 +82,7 @@
                         <label asp-for="PhotoUrl" class="control-label fw-bold mb-1">URL Zdjęcia</label>
 
                         <div class="input-group">
-                            <span class="input-group-text input-area-addon"><i class="bi bi-link-45deg"></i></span>
+                            <span class="input-group-text url-addon"><i class="bi bi-link-45deg"></i></span>
                             <input asp-for="PhotoUrl" class="form-control input-area" />
                         </div>
 
@@ -97,7 +97,7 @@
                 </div>
             </div>
 
-            <hr style="border-color: var(--segment-border-color);" class="my-4" />
+            <hr class="my-4 segment-divider"/>
 
             <div class="d-flex justify-content-end align-items-center gap-3">
                 <a asp-action="Index" class="btn btn-outline-secondary d-flex align-items-center gap-2 backBtn">
