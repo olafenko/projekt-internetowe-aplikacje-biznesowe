@@ -10,7 +10,7 @@
             if(item.PageMenuArea == PageMenuArea.LEFT)
             {
                 <li class="nav-item">
-                    <a class="nav-link @(item.IsLinkCTA ? "nav-cta" : "")" asp-area="" asp-controller="Home" asp-action="Privacy" asp-route-id="@item.Id">@item.LinkTitle.ToUpper()</a>
+                    <a class="nav-link @(item.IsLinkCTA ? "nav-cta" : "")" asp-area="" asp-controller="Home" asp-action="Index" asp-route-id="@item.Id">@item.LinkTitle.ToUpper()</a>
                 </li>
             }
         }
@@ -26,7 +26,7 @@
             if (item.PageMenuArea == PageMenuArea.RIGHT)
             {
                 <li class="nav-item">
-                    <a class="nav-link @(item.IsLinkCTA ? "nav-cta" : "")" asp-area="" asp-controller="Home" asp-action="Privacy" asp-route-id="@item.Id">@item.LinkTitle.ToUpper()</a>
+                    <a class="nav-link @(item.IsLinkCTA ? "nav-cta" : "")" asp-area="" asp-controller="Home" asp-action="Index" asp-route-id="@item.Id">@item.LinkTitle.ToUpper()</a>
                 </li>
             }
         }

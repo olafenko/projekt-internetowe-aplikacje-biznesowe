@@ -1,59 +1,20 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿
+@model Firma.Data.Data.CMS.Page
+
+@{
+    ViewData["Title"] = Model.LinkTitle;
 }
 
-<div>
+<div class="container align-content-center">
 
-    <h1>
-        Tu będzie strona główna
-    </h1>
-    <h1>
-        Tu będzie strona główna
-    </h1>
-    <h1>
-        Tu będzie strona główna
-    </h1>
-    <h1>
-        Tu będzie strona główna
-    </h1>
-    <h1>
-        Tu będzie strona główna
-    </h1>
-    <h1>
-        Tu będzie strona główna
-    </h1>
-    <h1>
-        Tu będzie strona główna
-    </h1>
-    <h1>
-        Tu będzie strona główna
-    </h1>
-    <h1>
-        Tu będzie strona główna
-    </h1>
-    <h1>
-        Tu będzie strona główna
-    </h1>
-    <h1>
-        Tu będzie strona główna
-    </h1>
-    <h1>
-        Tu będzie strona główna
-    </h1>
-    <h1>
-        Tu będzie strona główna
-    </h1>
-    <h1>
-        Tu będzie strona główna
-    </h1>
-    <h1>
-        Tu będzie strona główna
-    </h1>
-    <h1>
-        Tu będzie strona główna
-    </h1>
-    <h1>
-        Tu będzie strona główna
-    </h1>
+    <h4>
+        @Model.Title
+    </h4>
+
+    <div>
+        @Model.Content
+    </div>
 
 </div>
+
+

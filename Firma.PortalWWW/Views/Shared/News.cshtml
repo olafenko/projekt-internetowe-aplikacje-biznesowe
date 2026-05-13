@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Firma.Data.Data.CMS.News>
+
+<div class="container py-5">
+    <div class="row mb-5 text-center">
+        <div class="col-12">
+            <h2 class="text-uppercase fw-bold mb-2" style="color: var(--accent-color); letter-spacing: 2px;">
+                Aktualności
+            </h2>
+            <p style="color: var(--muted-text-color);">
+                Bądź na bieżąco z wydarzeniami w naszym hotelu
+            </p>
+        </div>
+    </div>
+
+    <div class="row g-4 justify-content-center mb-4">
+        @foreach (var item in Model)
+        {
+            <div class="col-12 col-md-6 col-lg-4">
+                <a href="#" class="text-decoration-none">
+                    <div class="card h-100 news-card">
+                        <img src="~/content/news-placeholder1.jpg" class="card-img-top object-fit-cover" style="height: 220px;">
+                            <div class="card-body d-flex flex-column">
+                                <small class="mb-3 fw-bold" style="color: var(--accent-color);">
+                                    <i class="bi bi-calendar3 me-2"></i>@item.PublishDate
+                                </small>
+                                <h5 class="card-title fw-bold mb-3">@item.Title</h5>
+                                <p class="card-text flex-grow-1">
+                                    @item.ContentSummary
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+
+        <div class="row">
+            <div class="col-12 text-end">
+                <a href="#" class="btn-action px-4 py-2 fs-6 text-decoration-none text-uppercase" style="font-size: 0.9rem;">
+                    Zobacz wszystkie <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>

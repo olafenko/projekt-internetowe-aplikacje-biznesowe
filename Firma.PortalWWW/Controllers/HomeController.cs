@@ -19,8 +19,9 @@ namespace Firma.PortalWWW.Controllers
         {
 
             ViewBag.PageModel = _context.Page.OrderBy(p => p.Position).ToList();
+            ViewBag.NewsModel = _context.News.OrderByDescending(p => p.PublishDate).Take(3);
 
-            if (id == null) id = 1;
+            if (id == null) return View();
 
             var item = await _context.Page.FindAsync(id);
 
