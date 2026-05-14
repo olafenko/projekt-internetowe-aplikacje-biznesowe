@@ -59,27 +59,6 @@
                     <textarea class="form-control input-area" rows="6" readonly>@Model.Notes</textarea>
                 </div>
             </div>
-
-            <div class="col-lg-5">
-                <h5 class="section-title"><i class="bi bi-image me-2"></i>Podgląd zdjęcia</h5>
-                
-                <div class="form-group mb-3">
-                    <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.PhotoUrl)</label>
-                    <div class="form-control input-area d-flex align-items-center text-truncate mb-3" title="@Model.PhotoUrl">
-                        @(Model.PhotoUrl)
-                    </div>
-                </div>
-
-                <div class="photo-preview-box rounded border shadow-sm d-flex align-items-center justify-content-center overflow-hidden">
-                    @{
-                        
-                        var fileExists = File.Exists($"/images/{Model.PhotoUrl}");
-                        var imgSrc = fileExists ? $"/images/{Model.PhotoUrl}" : "/images/default-room-image.jpg";
-                    }
-                    <img src="@imgSrc" class="img-fluid w-100 photo-preview-img" />
-                </div>
-            </div>
-
         </div>
 
         <hr class="my-4 segment-divider" />

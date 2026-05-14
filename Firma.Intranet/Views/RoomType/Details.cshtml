@@ -7,7 +7,8 @@
 <div class="view-container">
     <div class="row justify-content-center">
 
-        <div class="col-md-6">
+        <div class="col-md-12">
+            
             <div class="header-row">
                 <div class="title-group">
                     <i class="bi bi-info-square"></i>
@@ -19,44 +20,72 @@
             </div>
             
             <div class="form-card">
-                <h5 class="section-title"><i class="bi bi-info-circle me-2"></i>Dane podstawowe</h5>
-                
-                <div class="form-group mb-3">
-                    <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.Name)</label>
-                    <div class="form-control input-area d-flex align-items-center">
-                        @Html.DisplayFor(model => model.Name)
-                    </div>
-                </div>
-
-                <div class="form-group mb-3">
-                    <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.BasePrice)</label>
-                    <div class="input-group">
-                        <div class="form-control input-area d-flex align-items-center price-cell">
-                            @Html.DisplayFor(model => model.BasePrice)
-                        </div>
-                        <span class="input-group-text url-addon">ZŁ</span>
-                    </div>
-                </div>
-
                 <div class="row">
-                    <div class="col-md-6 form-group mb-3">
-                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.MaxGuests)</label>
-                        <div class="form-control input-area d-flex align-items-center">
-                            @Html.DisplayFor(model => model.MaxGuests)
+                    <div class="col-md-6">
+                        <h5 class="section-title"><i class="bi bi-info-circle me-2"></i>Dane podstawowe</h5>
+                
+                        <div class="form-group mb-3">
+                            <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.Name)</label>
+                            <div class="form-control input-area d-flex align-items-center">
+                                @Html.DisplayFor(model => model.Name)
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6 form-group mb-3">
-                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.BedCount)</label>
-                        <div class="form-control input-area d-flex align-items-center">
-                            @Html.DisplayFor(model => model.BedCount)
-                        </div>
-                    </div>
-                </div>
 
-                <div class="form-group mb-4 mt-3">
-                    <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.Description)</label>
-                    <textarea class="form-control input-area" rows="5" readonly>@Model.Description</textarea>
+                        <div class="form-group mb-3">
+                            <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.BasePrice)</label>
+                            <div class="input-group">
+                                <div class="form-control input-area d-flex align-items-center price-cell">
+                                    @Html.DisplayFor(model => model.BasePrice)
+                                </div>
+                                <span class="input-group-text url-addon">ZŁ</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group mb-3">
+                                <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.MaxGuests)</label>
+                                <div class="form-control input-area d-flex align-items-center">
+                                    @Html.DisplayFor(model => model.MaxGuests)
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group mb-3">
+                                <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.BedCount)</label>
+                                <div class="form-control input-area d-flex align-items-center">
+                                    @Html.DisplayFor(model => model.BedCount)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mb-4 mt-3">
+                            <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.Description)</label>
+                            <textarea class="form-control input-area" rows="5" readonly>@Model.Description</textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="section-title"><i class="bi bi-image me-2"></i>Podgląd zdjęcia</h5>
+                
+                        <div class="form-group mb-5">
+                            <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.PhotoUrl)</label>
+                            <div class="form-control input-area d-flex align-items-center text-truncate mb-3" title="@Model.PhotoUrl">
+                                @(Model.PhotoUrl)
+                            </div>
+                        </div>
+
+                        <div class="photo-preview-box rounded border shadow-sm d-flex align-items-center justify-content-center overflow-hidden">
+                            @{
+                        
+                                var fileExists = File.Exists($"/images/{Model.PhotoUrl}");
+                                var imgSrc = fileExists ? $"/images/{Model.PhotoUrl}" : "/images/default-room-image.jpg";
+                            }
+                            <img src="@imgSrc" class="img-fluid w-100 photo-preview-img" />
+                        </div>
+                     
+                    </div>
+                
                 </div>
+                
+                
+
+                
 
                 <hr class="my-4 segment-divider" />
 

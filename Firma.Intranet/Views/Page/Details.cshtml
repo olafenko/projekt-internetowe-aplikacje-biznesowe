@@ -40,17 +40,23 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6 form-group mb-3">
+                    <div class="col-md-3 form-group mb-3">
                         <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.Position)</label>
                         <div class="form-control input-area d-flex align-items-center">
                             @Html.DisplayFor(model => model.Position)
                         </div>
                     </div>
 
-                    <div class="col-md-6 form-group mb-3">
+                    <div class="col-md-3 form-group mb-3">
                         <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.PageMenuArea)</label>
                         <div class="form-control input-area d-flex align-items-center">
                             @Html.DisplayFor(model => model.PageMenuArea)
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.HeroPhotoUrl)</label>
+                        <div class="form-control input-area d-flex align-items-center">
+                            @Html.DisplayFor(model => model.HeroPhotoUrl)
                         </div>
                     </div>
                 </div>
@@ -72,10 +78,13 @@
                 </div>
 
                 <h5 class="section-title mt-4"><i class="bi bi-layout-text-window-reverse me-2"></i>Treść strony</h5>
-
+                <div class="form-group mb-4">
+                    <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.ShortDescription)</label>
+                    <textarea class="form-control input-area" rows="2" readonly>@Model.ShortDescription</textarea>
+                </div>
                 <div class="form-group mb-4">
                     <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.Content)</label>
-                    <textarea class="form-control input-area" rows="10" readonly>@Model.Content</textarea>
+                    <textarea class="form-control input-area" rows="6" readonly>@Model.Content</textarea>
                 </div>
 
                 <hr class="my-4 segment-divider" />

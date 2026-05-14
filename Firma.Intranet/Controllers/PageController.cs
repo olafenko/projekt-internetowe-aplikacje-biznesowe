@@ -54,7 +54,7 @@ namespace Firma.Intranet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,LinkTitle,Content,Position,PageMenuArea,IsLinkCTA,IsActive")] Page page)
+        public async Task<IActionResult> Create([Bind("Id,Title,LinkTitle,Content,Position,PageMenuArea,HeroPhotoUrl,ShortDescription,IsLinkCTA,IsActive")] Page page)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace Firma.Intranet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,LinkTitle,Content,Position,PageMenuArea,IsLinkCTA,IsActive")] Page page)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,LinkTitle,Content,Position,PageMenuArea,HeroPhotoUrl,ShortDescription,IsLinkCTA,IsActive")] Page page)
         {
             if (id != page.Id)
             {

@@ -31,7 +31,6 @@
                     <th><i class="bi bi-layers me-2"></i>@Html.DisplayNameFor(model => model.Floor)</th>
                     <th><i class="bi bi-tag me-2"></i>@Html.DisplayNameFor(model => model.RoomType)</th>
                     <th><i class="bi bi-activity me-2"></i>@Html.DisplayNameFor(model => model.RoomStatus)</th>
-                    <th><i class="bi bi-image me-2"></i>@Html.DisplayNameFor(model => model.PhotoUrl)</th>
                     <th><i class="bi bi-justify-left me-2"></i>@Html.DisplayNameFor(model => model.Notes)</th>
                     <th><i class="bi bi-toggle-on me-2"></i>@Html.DisplayNameFor(model => model.IsActive)</th>
                     <th class="text-center px-4">Akcje</th>
@@ -45,7 +44,6 @@
                         <td>@Html.DisplayFor(modelItem => item.Floor)</td>
                         <td>@Html.DisplayFor(modelItem => item.RoomType.Description)</td>
                         <td>@Html.DisplayFor(modelItem => item.RoomStatus)</td>
-                        <td class="text-truncate text-muted-custom" title="@item.PhotoUrl">@item.PhotoUrl</td>
                         <td class="text-truncate text-muted-custom" title="@item.Notes">@item.Notes</td>
                         <td>
                             @if (item.IsActive)

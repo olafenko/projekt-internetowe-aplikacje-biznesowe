@@ -54,7 +54,7 @@ namespace Firma.Intranet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,BasePrice,MaxGuests,BedCount,Description,IsActive")] RoomType roomType)
+        public async Task<IActionResult> Create([Bind("Id,Name,BasePrice,MaxGuests,PhotoUrl,BedCount,Description,IsActive")] RoomType roomType)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace Firma.Intranet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,BasePrice,MaxGuests,BedCount,Description,IsActive")] RoomType roomType)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,BasePrice,MaxGuests,PhotoUrl,BedCount,Description,IsActive")] RoomType roomType)
         {
             if (id != roomType.Id)
             {

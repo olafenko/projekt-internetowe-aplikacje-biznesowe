@@ -1,20 +1,36 @@
-﻿
-@model Firma.Data.Data.CMS.Page
+﻿@model Firma.Data.Data.CMS.Page
 
 @{
     ViewData["Title"] = Model.LinkTitle;
 }
 
-<div class="container align-content-center">
+@if (!string.IsNullOrEmpty(Model.HeroPhotoUrl))
+{
+    <div class="page-hero" style="background-image: url('/content/@Model.HeroPhotoUrl');">
+        <div class="hero-overlay"></div>
+    </div>
+}
 
-    <h4>
-        @Model.Title
-    </h4>
+<div class="container py-5">
 
-    <div>
-        @Model.Content
+    <div class="row mb-5 text-center justify-content-center">
+        <div class="col-12 col-lg-8">
+            <h1 class="text-uppercase fw-bold mb-3" style="color: var(--accent-color); letter-spacing: 2px;">
+                @Model.Title
+            </h1>
+            
+            <p class="lead" style="color: var(--muted-text-color);">
+                @Model.ShortDescription
+            </p>
+            
+            <hr class="mt-4 mx-auto" style="width: 100%; border-color: var(--accent-color); opacity: 0.3; border-width: 2px;" />
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 page-content" style="color: var(--main-text-color);">
+            @Html.Raw(Model.Content)
+        </div>
     </div>
 
 </div>
-
-

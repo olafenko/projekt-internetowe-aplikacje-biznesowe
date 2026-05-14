@@ -22,6 +22,10 @@ namespace Firma.Data.Data.Hotel
         [Column(TypeName = "money")]
         public decimal BasePrice { get; set; }
 
+        [Required(ErrorMessage = "URL Zdjęcia pokoju nie może być puste.")]
+        [Display(Name = "URL Zdjęcia pokoju")]
+        public required string PhotoUrl { get; set; }
+
         [Required(ErrorMessage = "Maksymalna liczba osób nie może być pusta")]
         [Display(Name= "Maksymalna liczba osób")]
         [Range(1, 10, ErrorMessage = "Pojemność musi wynosić od 1 do 10 osób")]

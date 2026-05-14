@@ -25,10 +25,6 @@ namespace Firma.Data.Data.Hotel
         [Column(TypeName = "nvarchar(max)")]
         public string? Notes { get; set; }
 
-        [Required(ErrorMessage = "URL Zdjęcia pokoju nie może być puste.")]
-        [Display(Name = "URL Zdjęcia pokoju")]
-        public required string PhotoUrl{ get; set; }
-
         [ForeignKey("RoomType")]
         [Display(Name = "Typ pokoju")]
         public int RoomTypeId { get; set; }

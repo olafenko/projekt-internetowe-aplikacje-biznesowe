@@ -1,6 +1,7 @@
 using Firma.Data.Data;
 using Firma.PortalWWW.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Firma.PortalWWW.Controllers
@@ -18,10 +19,10 @@ namespace Firma.PortalWWW.Controllers
         public async Task<IActionResult> Index(int? id)
         {
 
-            ViewBag.PageModel = _context.Page.OrderBy(p => p.Position).ToList();
-            ViewBag.NewsModel = _context.News.OrderByDescending(p => p.PublishDate).Take(3);
+            ViewBag.PageModel = await _context.Page.OrderBy(p => p.Position).ToListAsync();
+            ViewBag.NewsModel = await _context.News.OrderByDescending(p => p.PublishDate).Take(3).ToListAsync();
 
-            if (id == null) return View();
+            if (id == null) id = 1;
 
             var item = await _context.Page.FindAsync(id);
 

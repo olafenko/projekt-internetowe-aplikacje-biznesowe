@@ -261,3 +261,30 @@ body {
         background-color: var(--accent-color);
         color: #100f0e;
     }
+
+
+/*    ====== CSS DLA WYSWIETLANIA STRON =====*/
+
+.page-hero {
+    position: relative;
+    width: 100%;
+    height: 50vh;
+    min-height: 300px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-bottom: 1px solid var(--segment-border-color);
+}
+
+    .page-hero .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(1,1,1,0.15);
+    }
+
+.page-content p {
+    margin-bottom: 1.5rem;
+}

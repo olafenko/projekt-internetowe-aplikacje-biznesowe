@@ -354,8 +354,8 @@ table.main-table {
     text-decoration: none;
 }
 
-contentArea {
-    max-width: 200px;
+.contentArea {
+    max-width: 100px;
 }
 
 
@@ -453,15 +453,12 @@ select.form-select.input-area option {
     border-color: var(--segment-border-color);
 }
 
-
-
-
 .photo-preview-box {
     background-color: #f8f9fa;
-    min-height: 250px;
+    min-height: 300px;
 }
 
 .photo-preview-img {
-    max-height: 300px;
+    max-height: 310px;
     object-fit: cover;
 }

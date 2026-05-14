@@ -1,0 +1,18 @@
+﻿
+@model Firma.Data.Data.CMS.News
+
+@{
+    ViewData["Title"] = Model.LinkTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container align-items-center">
+
+    <h4>@Model.Title</h4>
+
+    <div>
+        @Model.Content
+    </div>
+
+</div>
+

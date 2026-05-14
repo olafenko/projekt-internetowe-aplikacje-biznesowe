@@ -28,9 +28,9 @@
                 <tr>
                     <th><i class="bi bi-fonts me-2"></i>@Html.DisplayNameFor(model => model.Title)</th>
                     <th><i class="bi bi-link-45deg me-2"></i>@Html.DisplayNameFor(model => model.LinkTitle)</th>
-                    <th><i class="bi bi-card-text me-2"></i>@Html.DisplayNameFor(model => model.Content)</th>
                     <th><i class="bi bi-sort-numeric-down me-2"></i>@Html.DisplayNameFor(model => model.Position)</th>
                     <th><i class="bi bi-layout-sidebar me-2"></i>@Html.DisplayNameFor(model => model.PageMenuArea)</th>
+                    <th><i class="bi bi-image me-2"></i>@Html.DisplayNameFor(model => model.HeroPhotoUrl)</th>
                     <th>@Html.DisplayNameFor(model => model.IsLinkCTA)</th>
                     <th><i class="bi bi-activity me-2"></i>Status</th>
                     <th class="text-center px-4">Akcje</th>
@@ -42,9 +42,9 @@
                     <tr>
                         <td class="fw-bold">@Html.DisplayFor(modelItem => item.Title)</td>
                         <td>@Html.DisplayFor(modelItem => item.LinkTitle)</td>
-                        <td class="contentArea">@Html.DisplayFor(modelItem => item.Content)</td>
                         <td class="fw-bold">@Html.DisplayFor(modelItem => item.Position)</td>
                         <td>@Html.DisplayFor(modelItem => item.PageMenuArea)</td>
+                        <td>@Html.DisplayFor(modelItem => item.HeroPhotoUrl)</td>
                         <td>
                             @if (item.IsLinkCTA)
                             {

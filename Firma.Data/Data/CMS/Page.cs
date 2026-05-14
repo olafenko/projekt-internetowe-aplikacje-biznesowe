@@ -20,7 +20,7 @@ namespace Firma.Data.Data.CMS
 
         [Required(ErrorMessage = "Tytuł strony nie może być pusty")]
         [MaxLength(20, ErrorMessage = "Maksymalna długość tytułu strony aktualności wynosi 20 znaków.")]
-        [Display(Name = "Tytuł odnośnika aktualności")]
+        [Display(Name = "Tytuł odnośnika")]
         public required string LinkTitle { get; set; }
 
 
@@ -29,11 +29,19 @@ namespace Firma.Data.Data.CMS
         [Column(TypeName = "nvarchar(max)")]
         public required string Content { get; set; }
 
+        [Required(ErrorMessage = "Krótki opis nie może być pusty")]
+        [Display(Name = "Krótki opis")]
+        [Column(TypeName = "nvarchar(150)")]
+        public required string ShortDescription { get; set; }
+
         [Required]
-        [Display(Name = "Pozycja strony")]
+        [Display(Name = "Pozycja ")]
         public int Position { get; set; }
 
-        [Display(Name = "Pozycja linku strony w menu")]
+        [Display(Name ="Url obrazka hero")]
+        public string? HeroPhotoUrl { get; set; }
+
+        [Display(Name = "Pozycja linku w menu")]
         public PageMenuArea? PageMenuArea { get; set; } = null;
 
         [Required]
