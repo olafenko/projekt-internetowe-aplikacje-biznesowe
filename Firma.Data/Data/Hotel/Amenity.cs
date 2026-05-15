@@ -24,7 +24,7 @@ namespace Firma.Data.Data.Hotel
         [Display(Name="Nazwa klasy ikony bootstrap")]
         public string? Icon{ get; set; }
 
-        public ICollection<Room> Rooms { get; } = new List<Room>();
+        public ICollection<RoomType> RoomTypes { get; } = new List<RoomType>();
 
 
         [Required]

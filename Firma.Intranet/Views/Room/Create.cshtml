@@ -57,27 +57,6 @@
 
                     <h5 class="section-title"><i class="bi bi-star me-2"></i>Szczegóły</h5>
                     <div class="form-group mb-3">
-                        <label class="control-label fw-bold mb-2">Udogodnienia</label>
-                        <div class="amenities-box p-3">
-                            @if (ViewBag.Amenities != null)
-                            {
-                                <div class="row">
-                                    @foreach (var item in ViewBag.Amenities)
-                                    {
-                                        <div class="col-sm-6 mb-2">
-                                            <div class="form-check custom-checkbox">
-                                                <input class="form-check-input multi-input shadow-none" type="checkbox" name="selectedAmenities" value="@item.Value">
-                                                <label class="form-check-label">
-                                                    @item.Text
-                                                </label>
-                                            </div>
-                                        </div>
-                                    }
-                                </div>
-                            }
-                        </div>
-                    </div>
-                    <div class="form-group mb-3">
                         <label asp-for="Notes" class="control-label fw-bold mb-1">Notatki wewnętrzne</label>
                         <textarea asp-for="Notes" class="form-control input-area" rows="2"></textarea>
                         <span asp-validation-for="Notes" class="text-danger small"></span>

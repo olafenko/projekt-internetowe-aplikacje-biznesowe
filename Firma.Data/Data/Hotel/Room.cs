@@ -37,7 +37,7 @@ namespace Firma.Data.Data.Hotel
         [Column(TypeName = "nvarchar(25)")]
         public RoomStatus RoomStatus { get; set; }
 
-        public ICollection<Amenity> Amenities { get; set; } = new List<Amenity>();
+       
         public ICollection<Reservation> Reservations { get; } = new List<Reservation>();
 
         [Required]

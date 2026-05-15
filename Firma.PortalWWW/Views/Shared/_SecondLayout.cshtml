@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Firma.PortalWWW</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="~/Firma.PortalWWW.styles.css" asp-append-version="true" />
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <header class="custom-header sticky-top border-bottom">
+        <nav class="custom-navbar navbar navbar-expand-lg">
+            <div class="container d-flex align-items-center justify-content-between">
+                         
+                <a class="mobile-brand navbar-brand d-flex d-lg-none" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img class="logo" src="~/content/logo.png" />
+                </a>
+
+                <button class="navbar-toggler hamburger" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent">
+                    <i class="bi bi-list"></i>
+                </button>
+
+                @await Html.PartialAsync("Links", (IEnumerable<Firma.Data.Data.CMS.Page>)ViewBag.PageModel)
+                   
+            </div>
+        </nav>
+    </header>
+    
+    <main class="flex-grow-1 w-100">
+        @RenderBody()
+    </main>
+
+    <footer class="custom-footer border-top">
+        <div class="container">
+            <div class="row justify-content-center">
+
+                <div class="col-md-6 col-lg-3 footer-section">
+                    <h5 class="footer-title">O NAS</h5>
+                    <p class="footer-text">Hotel</p>
+                    <p class="footer-text">To jest jakiś krótki opis hotelu. Super hotel elegancki.</p>
+                </div>
+                <div class="col-md-6 col-lg-3 footer-section">
+                    <h5 class="footer-title">LINKI</h5>
+                    <ul class="footer-text">
+                        
+                        <li><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Regulamin</a></li>
+                        <li><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Polityka prywatności</a></li>
+                        <li><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3 footer-section">
+                    <h5 class="footer-title">KONTAKT</h5>
+                    <ul class="footer-text">
+                        <li><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy"> <i class="bi bi-envelope"></i> Hotel.siemanko@hotel.com</a></li>
+                        <li><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy"> <i class="bi bi-telephone"></i> +48 200 300 400</a></li>
+                        <li><a href="https://www.google.com/maps/place/Nowy+S%C4%85cz" class="nav-link"><i class="bi bi-geo-alt"></i> ul.Hotelowa 67 | 33-300 Nowy Sącz</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3 footer-section">
+                    <h5 class="footer-title">LOKALIZACJA</h5>
+                    <a href="https://www.google.com/maps/place/Nowy+S%C4%85cz">
+                        <img src="~/content/mapa.png" class="img-fluid w-100 object-fit-cover" />
+                    </a>
+                </div>
+               
+            </div>
+            <div class="row border-top footer-bottom">
+                <span>&copy; Hotel. Najlepszy hotel w Polsce.</span>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -14,14 +14,45 @@ namespace Firma.PortalWWW.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
 
-            ViewBag.RoomModel = await _context.RoomType.Where(r => r.IsActive).ToListAsync();
-            var pageData = await _context.Page.FirstOrDefaultAsync(p => p.IsActive && p.LinkTitle.Equals("POKOJE"));
+            ViewBag.PageModel = await _context.Page.OrderBy(p => p.Position).ToListAsync();
+            ViewBag.NewsModel = await _context.News.OrderByDescending(p => p.PublishDate).Take(3).ToListAsync();
+
+            if (id == null) id = 1;
+
+            ViewBag.SinglePageModel = await _context.Page.FindAsync(id);
+
+            var rooms = await _context.RoomType.OrderBy(r => r.BasePrice).ToListAsync();
+
+            return View(rooms);
+        }
 
 
-            return View(pageData);
+        public async Task<IActionResult> Details(int id)
+        {
+            ViewBag.PageModel = await _context.Page.OrderBy(p => p.Position).ToListAsync();
+            
+
+            var room = await _context.RoomType.Include(r => r.Amenities).FirstOrDefaultAsync(r => r.Id == id);
+
+            if (room == null) {
+
+                return NotFound();
+            }
+
+            if (room.Amenities.Count() > 0)
+            {
+                ViewBag.AmenityModel = room.Amenities.Where(a => a.IsActive);
+            } else
+            {
+                ViewBag.AmenityModel = null;
+            }
+
+            
+
+            return View(room);
         }
     }
 }

@@ -24,8 +24,7 @@ namespace Firma.Intranet.Controllers
         public async Task<IActionResult> Index()
         {
             var firmaContext = _context.Room
-                .Include(r => r.RoomType)
-                .Include(r => r.Amenities);
+                .Include(r => r.RoomType);
             return View(await firmaContext.ToListAsync());
         }
 
@@ -61,22 +60,17 @@ namespace Firma.Intranet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Number,Floor,Notes,RoomTypeId,RoomStatus,IsActive")] Room room, int[] selectedAmenities)
+        public async Task<IActionResult> Create([Bind("Id,Number,Floor,Notes,RoomTypeId,RoomStatus,IsActive")] Room room)
         {
             if (ModelState.IsValid)
             {
-                if(selectedAmenities != null && selectedAmenities.Length > 0)
-                {
-                    room.Amenities = await _context.Amenity.Where(a => selectedAmenities.Contains(a.Id)).ToListAsync();
-                }
-                
-
+               
                 _context.Add(room);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["RoomTypeId"] = new SelectList(_context.RoomType, "Id", "Name", room.RoomTypeId);
-            ViewData["Amenities"] = new SelectList(_context.Amenity, "Id", "Name", selectedAmenities);
+            
             return View(room);
         }
 

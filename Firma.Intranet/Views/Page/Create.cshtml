@@ -60,13 +60,25 @@
                         </div>
                     </div>
 
+                    <div class="row align-content-center">
+                        <div class="col-md-6 form-group mb-3">
+                            <label asp-for="ControllerName" class="control-label fw-bold mb-1"></label>
+                            <input asp-for="ControllerName" class="form-control input-area" />
+                            <span asp-validation-for="ControllerName" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6 form-group mb-3">
+                            <label asp-for="ActionName" class="control-label fw-bold mb-1"></label>
+                            <input asp-for="ActionName" class="form-control input-area" />
+                            <span asp-validation-for="ActionName" class="text-danger small"></span>
+                        </div>
+                    </div>
                     <div class="form-group form-check mb-4 mt-2 custom-checkbox">
                         <input class="form-check-input shadow-none" type="checkbox" asp-for="IsLinkCTA" />
                         <label class="form-check-label fw-bold" asp-for="IsLinkCTA">
                             @Html.DisplayNameFor(model => model.IsLinkCTA)
                         </label>
                     </div>
-
+ 
                     <h5 class="section-title mt-4"><i class="bi bi-layout-text-window-reverse me-2"></i>Treść</h5>
                     <div class="form-group mb-4">
                         <label asp-for="ShortDescription" class="control-label fw-bold mb-1"></label>

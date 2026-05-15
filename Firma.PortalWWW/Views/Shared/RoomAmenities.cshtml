@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Firma.Data.Data.Hotel.Amenity>
+
+@if(Model != null)
+{
+
+    foreach (var item in Model)
+    {
+        <div class="col-md-6 d-flex align-items-center">
+            <i class="@item.Icon fs-4 me-3" style="color: var(--accent-color);"></i> @item.Name
+        </div>
+
+    }
+    
+} else
+{
+    <h4>Brak udogodnień</h4>
+}
+

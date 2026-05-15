@@ -4,6 +4,7 @@ using Firma.Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Firma.Data.Migrations
 {
     [DbContext(typeof(FirmaContext))]
-    partial class FirmaContextModelSnapshot : ModelSnapshot
+    [Migration("20260515161710_AddFieldsToPage")]
+    partial class AddFieldsToPage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,19 +40,19 @@ namespace Firma.Data.Migrations
                     b.ToTable("AdditionalOfferReservation");
                 });
 
-            modelBuilder.Entity("AmenityRoomType", b =>
+            modelBuilder.Entity("AmenityRoom", b =>
                 {
                     b.Property<int>("AmenitiesId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RoomTypesId")
+                    b.Property<int>("RoomsId")
                         .HasColumnType("int");
 
-                    b.HasKey("AmenitiesId", "RoomTypesId");
+                    b.HasKey("AmenitiesId", "RoomsId");
 
-                    b.HasIndex("RoomTypesId");
+                    b.HasIndex("RoomsId");
 
-                    b.ToTable("AmenityRoomType");
+                    b.ToTable("AmenityRoom");
                 });
 
             modelBuilder.Entity("Firma.Data.Data.CMS.News", b =>
@@ -108,6 +111,7 @@ namespace Firma.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Content")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ControllerName")
@@ -134,6 +138,7 @@ namespace Firma.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ShortDescription")
+                        .IsRequired()
                         .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("Title")
@@ -411,7 +416,7 @@ namespace Firma.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("AmenityRoomType", b =>
+            modelBuilder.Entity("AmenityRoom", b =>
                 {
                     b.HasOne("Firma.Data.Data.Hotel.Amenity", null)
                         .WithMany()
@@ -419,9 +424,9 @@ namespace Firma.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Firma.Data.Data.Hotel.RoomType", null)
+                    b.HasOne("Firma.Data.Data.Hotel.Room", null)
                         .WithMany()
-                        .HasForeignKey("RoomTypesId")
+                        .HasForeignKey("RoomsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

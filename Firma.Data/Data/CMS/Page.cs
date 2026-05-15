@@ -23,16 +23,13 @@ namespace Firma.Data.Data.CMS
         [Display(Name = "Tytuł odnośnika")]
         public required string LinkTitle { get; set; }
 
-
-        [Required(ErrorMessage = "Treść strony nie może być pusta")]
         [Display(Name = "Treść strony")]
         [Column(TypeName = "nvarchar(max)")]
-        public required string Content { get; set; }
+        public string? Content { get; set; }
 
-        [Required(ErrorMessage = "Krótki opis nie może być pusty")]
         [Display(Name = "Krótki opis")]
         [Column(TypeName = "nvarchar(150)")]
-        public required string ShortDescription { get; set; }
+        public string? ShortDescription { get; set; }
 
         [Required]
         [Display(Name = "Pozycja ")]
@@ -43,6 +40,12 @@ namespace Firma.Data.Data.CMS
 
         [Display(Name = "Pozycja linku w menu")]
         public PageMenuArea? PageMenuArea { get; set; } = null;
+
+        [Display(Name ="Nazwa kontrollera (opcjonalne)")]
+        public string? ControllerName { get; set; }
+
+        [Display(Name = "Nazwa akcji (opcjonalne)")]
+        public string? ActionName { get; set; }
 
         [Required]
         [Display(Name = "Czy link ma styl CTA")]
