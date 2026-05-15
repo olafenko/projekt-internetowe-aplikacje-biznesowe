@@ -288,3 +288,7 @@ body {
 .page-content p {
     margin-bottom: 1.5rem;
 }
+
+.page-descr {
+    color: var(--muted-text-color);
+}

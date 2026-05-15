@@ -19,7 +19,7 @@
                 @Model.Title
             </h1>
             
-            <p class="lead" style="color: var(--muted-text-color);">
+            <p class="lead page-descr">
                 @Model.ShortDescription
             </p>
             
@@ -29,7 +29,7 @@
 
     <div class="row justify-content-center">
         <div class="col-12 col-lg-10 page-content" style="color: var(--main-text-color);">
-            @Html.Raw(Model.Content)
+            @Model.Content
         </div>
     </div>
 
