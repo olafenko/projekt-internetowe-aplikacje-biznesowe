@@ -24,9 +24,9 @@ namespace Firma.PortalWWW.Controllers
 
             if (id == null) id = 1;
 
-            var item = await _context.Page.FindAsync(id);
+            ViewBag.SinglePageModel = await _context.Page.FindAsync(id);
 
-            return View(item);
+            return View();
         }
 
         public IActionResult Privacy()
