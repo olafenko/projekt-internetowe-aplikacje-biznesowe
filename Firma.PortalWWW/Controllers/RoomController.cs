@@ -35,14 +35,14 @@ namespace Firma.PortalWWW.Controllers
             ViewBag.PageModel = await _context.Page.OrderBy(p => p.Position).ToListAsync();
             
 
-            var room = await _context.RoomType.Include(r => r.Amenities).FirstOrDefaultAsync(r => r.Id == id);
+            var room = await _context.RoomType.Include(r => r.Amenities.Where(a => a.IsActive)).FirstOrDefaultAsync(r => r.Id == id);
 
             if (room == null) {
 
                 return NotFound();
             }
 
-            if (room.Amenities.Count() > 0)
+            if (room.Amenities.Any())
             {
                 ViewBag.AmenityModel = room.Amenities.Where(a => a.IsActive);
             } else
