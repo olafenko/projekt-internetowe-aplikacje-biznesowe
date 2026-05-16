@@ -285,12 +285,17 @@ body {
         background: rgba(1,1,1,0.15);
     }
 
-.page-content p {
-    margin-bottom: 1.5rem;
-}
 
 .page-descr {
     color: var(--muted-text-color);
+}
+
+.plain-text-content {
+    color: var(--muted-text-color);
+    font-size: 18px;
+    line-height: 1.9;
+    text-align: justify;
+    letter-spacing: 0.5px;
 }
 
 /*======= CSS DLA WYSWIETLANIA POKOI =======*/

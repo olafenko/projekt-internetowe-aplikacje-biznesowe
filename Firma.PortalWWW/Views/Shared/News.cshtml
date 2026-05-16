@@ -1,14 +1,16 @@
 ﻿@model IEnumerable<Firma.Data.Data.CMS.News>
 
-<div class="container py-5 my-5">
+<div class="container  my-5">
     <div class="row mb-5 text-center">
         <div class="col-12">
             <h2 class="text-uppercase fw-bold mb-2" style="color: var(--accent-color); letter-spacing: 2px;">
                 Aktualności
             </h2>
-            <p style="color: var(--muted-text-color);">
+            <p class="lead" style="color: var(--muted-text-color);">
                 Bądź na bieżąco z wydarzeniami w naszym hotelu
+                
             </p>
+            <hr class="mt-4 mx-auto" style="width: 75%; border-color: var(--accent-color); opacity: 0.3; border-width: 2px;" />
         </div>
     </div>
 
@@ -23,7 +25,7 @@
                                 <small class="mb-3 fw-bold" style="color: var(--accent-color);">
                                     <i class="bi bi-calendar3 me-2"></i>@item.PublishDate
                                 </small>
-                                    <a asp-controller="News" asp-action="Index" asp-route-id="@item.Id" class="text-decoration-none stretched-link">
+                                    <a asp-controller="News" asp-action="Details" asp-route-id="@item.Id" class="text-decoration-none stretched-link">
                                         <h5 class="card-title fw-bold mb-3">@item.Title</h5>
                                     </a>
                                 <p class="card-text flex-grow-1">
@@ -36,11 +38,17 @@
             }
         </div>
 
-        <div class="row">
-            <div class="col-12 text-end">
-                <a href="#" class="btn-action px-4 py-2 fs-6 text-decoration-none text-uppercase" style="font-size: 0.9rem;">
-                    Zobacz wszystkie <i class="bi bi-arrow-right ms-1"></i>
-                </a>
-            </div>
-        </div>
+   
+        @if(ViewContext.RouteData.Values["controller"]?.ToString() != "News")
+        {
+                <div class="row">
+                    <div class="col-12 text-end">
+                        <a asp-controller="News" asp-action="Index" class="btn-action px-4 py-2 fs-6 text-decoration-none text-uppercase" style="font-size: 0.9rem;">
+                            Zobacz wszystkie <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+        }
+        
+        
     </div>

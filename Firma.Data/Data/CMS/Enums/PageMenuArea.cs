@@ -6,7 +6,7 @@ namespace Firma.Data.Data.CMS.Enums
 {
     public enum PageMenuArea
     {
-        LEFT, RIGHT
+        LEFT, RIGHT, NONE
 
     }
 }

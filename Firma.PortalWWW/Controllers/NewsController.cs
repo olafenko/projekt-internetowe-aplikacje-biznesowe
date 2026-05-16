@@ -14,7 +14,18 @@ namespace Firma.PortalWWW.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index()
+        {
+
+            ViewBag.PageModel = await _context.Page.OrderBy(p => p.Position).ToListAsync();
+
+            var news = await _context.News.Where(n => n.IsActive).ToListAsync();
+            if (news == null) return NotFound();
+
+            return View(news);
+        }
+
+        public async Task<IActionResult> Details(int id)
         {
 
             ViewBag.PageModel = await _context.Page.OrderBy(p => p.Position).ToListAsync();

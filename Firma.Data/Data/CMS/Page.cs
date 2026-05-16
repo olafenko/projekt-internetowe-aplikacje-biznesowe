@@ -38,7 +38,7 @@ namespace Firma.Data.Data.CMS
         [Display(Name ="Url obrazka hero")]
         public string? HeroPhotoUrl { get; set; }
 
-        [Display(Name = "Pozycja linku w menu")]
+        [Display(Name = "Pozycja w menu")]
         public PageMenuArea? PageMenuArea { get; set; } = null;
 
         [Display(Name ="Nazwa kontrollera (opcjonalne)")]

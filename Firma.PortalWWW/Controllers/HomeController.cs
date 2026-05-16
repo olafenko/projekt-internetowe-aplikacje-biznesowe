@@ -22,11 +22,11 @@ namespace Firma.PortalWWW.Controllers
             ViewBag.PageModel = await _context.Page.OrderBy(p => p.Position).ToListAsync();
             ViewBag.NewsModel = await _context.News.OrderByDescending(p => p.PublishDate).Take(3).ToListAsync();
 
-            if (id == null) id = 1;
-            
-            ViewBag.SinglePageModel = await _context.Page.FindAsync(id);
+            if (id == null) id = 7;
+            var page = await _context.Page.FindAsync(id);
+            ViewBag.SinglePageModel = page;
 
-            return View();
+            return View(page);
         }
 
         public IActionResult Privacy()
