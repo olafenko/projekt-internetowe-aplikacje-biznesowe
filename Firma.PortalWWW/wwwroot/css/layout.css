@@ -296,6 +296,7 @@ body {
     line-height: 1.9;
     text-align: justify;
     letter-spacing: 0.5px;
+    white-space: pre-line;
 }
 
 /*======= CSS DLA WYSWIETLANIA POKOI =======*/

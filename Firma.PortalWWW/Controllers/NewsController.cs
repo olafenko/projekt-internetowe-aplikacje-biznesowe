@@ -19,10 +19,10 @@ namespace Firma.PortalWWW.Controllers
 
             ViewBag.PageModel = await _context.Page.OrderBy(p => p.Position).ToListAsync();
 
-            var news = await _context.News.Where(n => n.IsActive).ToListAsync();
-            if (news == null) return NotFound();
+            var allNews = await _context.News.Where(n => n.IsActive).ToListAsync();
+            if (allNews == null) return NotFound();
 
-            return View(news);
+            return View(allNews);
         }
 
         public async Task<IActionResult> Details(int id)
