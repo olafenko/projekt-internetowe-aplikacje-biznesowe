@@ -1,0 +1,41 @@
+﻿@model Firma.Data.Data.Hotel.Reservation
+
+
+@{
+    ViewData["Title"] = "Składanie rezerwacji";
+    Layout = "~/Views/Shared/_SecondLayout.cshtml";
+}
+
+
+
+<div class="container pb-5">
+    <form asp-action="Create">
+
+
+        <label asp-for="CheckInDate" class="control-label fw-bold mb-1">Od</label>
+        <input asp-for="CheckInDate" class="form-control input-area" />
+        <span asp-validation-for="CheckInDate" class="text-danger small"></span>
+
+        <label asp-for="CheckOutDate" class="control-label fw-bold mb-1">Do</label>
+        <input asp-for="CheckOutDate" class="form-control input-area" />
+        <span asp-validation-for="CheckOutDate" class="text-danger small"></span>
+
+        <div>
+
+            <label asp-for="RoomId" class="control-label fw-bold mb-1">Pokój</label>
+            <select asp-for="RoomId" class="form-select input-area" asp-items="ViewBag.RoomId">
+                <option value="">Wybierz pokój</option>
+            </select>
+            <span asp-validation-for="RoomId" class="text-danger small"></span>
+        </div>
+       
+
+        <label asp-for="AdultCount" class="control-label fw-bold mb-1">Liczba dorosłych</label>
+        <input asp-for="AdultCount" class="form-control input-area" />
+        <span asp-validation-for="AdultCount" class="text-danger small"></span>
+
+        <label asp-for="ChildCount" class="control-label fw-bold mb-1">Liczba dzieci</label>
+        <input asp-for="ChildCount" class="form-control input-area" />
+        <span asp-validation-for="ChildCount" class="text-danger small"></span>
+    </form>
+</div>
