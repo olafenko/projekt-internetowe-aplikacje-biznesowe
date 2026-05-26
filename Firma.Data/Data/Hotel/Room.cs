@@ -15,7 +15,7 @@ namespace Firma.Data.Data.Hotel
 
         [Required(ErrorMessage = "Numer pokoju nie może być pusty.")]
         [Display(Name = "Numer pokoju")]
-        public int Number { get; set; }
+        public required string Number { get; set; }
 
         [Required(ErrorMessage = "Piętro nie może być puste.")]
         [Display(Name = "Piętro")]
