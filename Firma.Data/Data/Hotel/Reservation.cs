@@ -37,7 +37,7 @@ namespace Firma.Data.Data.Hotel
         [Required]
         [Display(Name = "Status rezerwacji")]
         [Column(TypeName = "nvarchar(25)")]
-        public ReservationStatus ReservationStatus { get; set; }
+        public ReservationStatus ReservationStatus { get; set; } = ReservationStatus.PENDING;
 
         [ForeignKey("Guest")]
         [Display(Name = "Gość")]
