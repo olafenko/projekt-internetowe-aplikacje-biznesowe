@@ -1,51 +1,63 @@
 ﻿@model Firma.Data.Data.Hotel.Reservation
 
-
 @{
     ViewData["Title"] = "Składanie rezerwacji";
     Layout = "~/Views/Shared/_SecondLayout.cshtml";
+    var availableRooms = ViewBag.AvailableRooms as IEnumerable<Firma.Data.Data.Hotel.RoomType>;
 }
 
-
-
-<div class="container pb-5">
-    <form asp-action="Create">
-
-
-        <label asp-for="CheckInDate" class="control-label fw-bold mb-1">Od</label>
-        <input asp-for="CheckInDate" class="form-control input-area" />
-        <span asp-validation-for="CheckInDate" class="text-danger small"></span>
-
-        <label asp-for="CheckOutDate" class="control-label fw-bold mb-1">Do</label>
-        <input asp-for="CheckOutDate" class="form-control input-area" />
-        <span asp-validation-for="CheckOutDate" class="text-danger small"></span>
-
-        <div>
-
-            <label asp-for="RoomId" class="control-label fw-bold mb-1">Pokój</label>
-            <select asp-for="RoomId" class="form-select input-area" asp-items="ViewBag.RoomId">
-                <option value="">Wybierz pokój</option>
-            </select>
-            <span asp-validation-for="RoomId" class="text-danger small"></span>
+<div class="container py-5">
+    
+    <div class="row mb-5 text-center justify-content-center">
+        <div class="col-12 col-lg-8">
+            <h1 class="text-uppercase fw-bold mb-3" style="color: var(--accent-color); letter-spacing: 2px;">
+                Zarezerwuj swój pobyt
+            </h1>
+            <p class="lead" style="color: var(--muted-text-color);">
+                Wprowadź daty oraz liczbę gości, aby sprawdzić dostępność naszych pokoi.
+            </p>
+            <hr class="mx-auto mt-4" style="width: 80px; border-color: var(--accent-color); opacity: 0.5; border-width: 2px;" />
         </div>
-       
+    </div>
 
-        <label asp-for="AdultCount" class="control-label fw-bold mb-1">Liczba dorosłych</label>
-        <input asp-for="AdultCount" class="form-control input-area" />
-        <span asp-validation-for="AdultCount" class="text-danger small"></span>
+    <form asp-action="Create" method="post" id="reservationForm" class="p-4 rounded shadow-sm mb-5" style="background-color: var(--second-bg-color); border: 1px solid var(--segment-border-color);">
+        
+        <input type="hidden" asp-for="RoomId" id="selectedRoomId" />
+        <span asp-validation-for="RoomId" class="text-danger d-block mb-3 small"></span>
 
-        <label asp-for="ChildCount" class="control-label fw-bold mb-1">Liczba dzieci</label>
-        <input asp-for="ChildCount" class="form-control input-area" />
-        <span asp-validation-for="ChildCount" class="text-danger small"></span>
+        <div class="row g-4">
+            <div class="col-12 col-md-6 col-lg-3">
+                <label asp-for="CheckInDate" class="control-label fw-bold mb-2 text-uppercase small" style="color: var(--main-text-color); letter-spacing: 1px;">Data od</label>
+                <input asp-for="CheckInDate" type="date" class="form-control" style="background-color: var(--main-bg-color); color: var(--main-text-color); border-color: var(--segment-border-color);" />
+                <span asp-validation-for="CheckInDate" class="text-danger small"></span>
+            </div>
 
-        <div class="d-flex justify-content-end align-items-center gap-3">
-            <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary d-flex align-items-center gap-2 backBtn">
-                <i class="bi bi-arrow-left"></i> Anuluj
-            </a>
-            <button type="submit" class="createBtn border-0">
-                <i class="bi bi-check-lg me-1"></i> ZAPISZ
+            <div class="col-12 col-md-6 col-lg-3">
+                <label asp-for="CheckOutDate" class="control-label fw-bold mb-2 text-uppercase small" style="color: var(--main-text-color); letter-spacing: 1px;">Data do</label>
+                <input asp-for="CheckOutDate" type="date" class="form-control" style="background-color: var(--main-bg-color); color: var(--main-text-color); border-color: var(--segment-border-color);" />
+                <span asp-validation-for="CheckOutDate" class="text-danger small"></span>
+            </div>
+
+            <div class="col-6 col-md-6 col-lg-3">
+                <label asp-for="AdultCount" class="control-label fw-bold mb-2 text-uppercase small" style="color: var(--main-text-color); letter-spacing: 1px;">Dorśli</label>
+                <input asp-for="AdultCount" type="number" min="1" class="form-control" style="background-color: var(--main-bg-color); color: var(--main-text-color); border-color: var(--segment-border-color);" />
+                <span asp-validation-for="AdultCount" class="text-danger small"></span>
+            </div>
+
+            <div class="col-6 col-md-6 col-lg-3">
+                <label asp-for="ChildCount" class="control-label fw-bold mb-2 text-uppercase small" style="color: var(--main-text-color); letter-spacing: 1px;">Dzieci</label>
+                <input asp-for="ChildCount" type="number" min="0" class="form-control" style="background-color: var(--main-bg-color); color: var(--main-text-color); border-color: var(--segment-border-color);" />
+                <span asp-validation-for="ChildCount" class="text-danger small"></span>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-end align-items-center mt-4">
+            <button type="submit" asp-action="SearchAvailable" class="btn btn-outline-action px-5 text-uppercase">
+                <i class="bi bi-search me-2"></i>Szukaj wolnych pokoi
             </button>
         </div>
            
     </form>
 </div>
+
+    

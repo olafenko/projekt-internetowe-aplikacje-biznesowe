@@ -39,5 +39,13 @@ namespace Firma.PortalWWW.Controllers
             return View(reservation);
         }
 
+        public async Task<IActionResult> SearchAvailable([Bind("CheckInDate,CheckOutDate,AdultCount,ChildCount")] Reservation reservation)
+        {
+
+            ViewBag.AvailableRooms = await _context.Page.OrderBy(p => p.Position).ToListAsync();
+
+            return View();
+        }
+
     }
 }
