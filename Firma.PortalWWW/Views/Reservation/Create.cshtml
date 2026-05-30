@@ -28,13 +28,13 @@
         <div class="row g-4">
             <div class="col-12 col-md-6 col-lg-3">
                 <label asp-for="CheckInDate" class="control-label fw-bold mb-2 text-uppercase small" style="color: var(--main-text-color); letter-spacing: 1px;">Data od</label>
-                <input asp-for="CheckInDate" type="date" class="form-control" style="background-color: var(--main-bg-color); color: var(--main-text-color); border-color: var(--segment-border-color);" />
+                <input asp-for="CheckInDate" type="date" value="@ViewBag.DefaultDateTimeIn" class="form-control" style="background-color: var(--main-bg-color); color: var(--main-text-color); border-color: var(--segment-border-color);" />
                 <span asp-validation-for="CheckInDate" class="text-danger small"></span>
             </div>
 
             <div class="col-12 col-md-6 col-lg-3">
                 <label asp-for="CheckOutDate" class="control-label fw-bold mb-2 text-uppercase small" style="color: var(--main-text-color); letter-spacing: 1px;">Data do</label>
-                <input asp-for="CheckOutDate" type="date" class="form-control" style="background-color: var(--main-bg-color); color: var(--main-text-color); border-color: var(--segment-border-color);" />
+                <input asp-for="CheckOutDate" type="date" value="@ViewBag.DefaultDateTimeOut" class="form-control" style="background-color: var(--main-bg-color); color: var(--main-text-color); border-color: var(--segment-border-color);" />
                 <span asp-validation-for="CheckOutDate" class="text-danger small"></span>
             </div>
 
@@ -57,10 +57,10 @@
             </button>
         </div>
 
-        @if(availableRoomTypes !=null)
-            {
-            foreach (var item in availableRoomTypes)
-            {
+        @if(availableRoomTypes !=null){
+        <div class="row">
+                @foreach (var item in availableRoomTypes)
+                {
                 
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="card h-100 room-card position-relative">
@@ -90,7 +90,10 @@
                     </div>
                 </div>
 
-            }
+                }
+        
+            </div>
+            
             }
             
 

@@ -20,6 +20,8 @@ namespace Firma.PortalWWW.Controllers
         public async Task<IActionResult> Create()
         {
             ViewBag.PageModel = await _context.Page.OrderBy(p => p.Position).ToListAsync();
+            ViewBag.DefaultDateIn = DateTime.Now;
+            ViewBag.DefaultDateOut = DateTime.Now.AddDays(1);
 
             return View();
         }
@@ -28,6 +30,7 @@ namespace Firma.PortalWWW.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CheckInDate,CheckOutDate,GuestId,AdultCount,ChildCount")] Reservation reservation)
         {
+
             if (ModelState.IsValid)
             {
                 _context.Add(reservation);
