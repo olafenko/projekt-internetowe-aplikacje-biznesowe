@@ -3,6 +3,7 @@ using Firma.Data.Data.Hotel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol;
 
 namespace Firma.PortalWWW.Controllers
 {
@@ -18,9 +19,6 @@ namespace Firma.PortalWWW.Controllers
 
         public async Task<IActionResult> Create()
         {
-
-            ViewData["RoomId"] = new SelectList(_context.Room, "Id", "Number");
-            ViewData["RoomTypes"] = new SelectList(_context.RoomType, "Id", "Name");
             ViewBag.PageModel = await _context.Page.OrderBy(p => p.Position).ToListAsync();
 
             return View();
@@ -28,7 +26,7 @@ namespace Firma.PortalWWW.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CheckInDate,CheckOutDate,GuestId,AdultCount,ChildCount,RoomId")] Reservation reservation)
+        public async Task<IActionResult> Create([Bind("CheckInDate,CheckOutDate,GuestId,AdultCount,ChildCount")] Reservation reservation)
         {
             if (ModelState.IsValid)
             {
@@ -38,13 +36,27 @@ namespace Firma.PortalWWW.Controllers
             }
             return View(reservation);
         }
-
-        public async Task<IActionResult> SearchAvailable([Bind("CheckInDate,CheckOutDate,AdultCount,ChildCount")] Reservation reservation)
+        [HttpPost]
+        public async Task<IActionResult> SearchAvailable([Bind("CheckInDate,CheckOutDate,AdultCount,ChildCount")] Reservation request)
         {
 
-            ViewBag.AvailableRooms = await _context.Page.OrderBy(p => p.Position).ToListAsync();
+            ViewBag.PageModel = await _context.Page.OrderBy(p => p.Position).ToListAsync();
 
-            return View();
+            if (request.CheckOutDate < request.CheckInDate)
+            {
+                ModelState.AddModelError("CheckOutDate","Data zameldowania musi być wcześniej niż data wymeldowania.");
+                return View("Create", request);
+            }
+
+            var availableRooms = await _context.Room.Include(r => r.RoomType).Where(r => r.IsActive && r.RoomType.MaxGuests >= (request.AdultCount + request.ChildCount))
+                .Where(r => !r.Reservations.Any(rs => rs.CheckOutDate > request.CheckInDate && rs.CheckInDate < request.CheckOutDate)).ToListAsync();
+
+            var availableRoomTypes = availableRooms.Select(r => r.RoomType).DistinctBy(rt =>rt.Id);
+
+
+            ViewBag.AvailableRoomTypes = availableRoomTypes;
+
+            return View("Create",request);
         }
 
     }
