@@ -317,3 +317,11 @@ body {
         border-bottom: 1px solid var(--segment-border-color);
         background-color: var(--main-bg-color);
     }
+
+/*    CSS DLA WYBORU POKOJU PRZY REZERWACJI*/
+
+.room-card-form {
+    background-color: var(--second-bg-color);
+    border: 1px solid var(--segment-border-color);
+    transition: transform 0.3s ease;
+}

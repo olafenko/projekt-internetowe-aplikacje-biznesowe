@@ -20,10 +20,13 @@ namespace Firma.PortalWWW.Controllers
         public async Task<IActionResult> Create()
         {
             ViewBag.PageModel = await _context.Page.OrderBy(p => p.Position).ToListAsync();
-            ViewBag.DefaultDateIn = DateTime.Now;
-            ViewBag.DefaultDateOut = DateTime.Now.AddDays(1);
 
-            return View();
+            var defaultReservationValues = new Reservation();
+
+            defaultReservationValues.CheckInDate = DateTime.Now;
+            defaultReservationValues.CheckOutDate = defaultReservationValues.CheckInDate.AddDays(1);
+
+            return View(defaultReservationValues);
         }
 
         [HttpPost]
@@ -61,6 +64,18 @@ namespace Firma.PortalWWW.Controllers
 
             return View("Create",request);
         }
+
+
+        public async Task<IActionResult> GuestDetails(Reservation reservation)
+        {
+            ViewBag.PageModel = await _context.Page.OrderBy(p => p.Position).ToListAsync();
+
+            return View("Create",reservation);
+        }
+
+
+
+
 
     }
 }
