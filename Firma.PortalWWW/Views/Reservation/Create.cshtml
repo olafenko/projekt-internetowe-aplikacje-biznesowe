@@ -87,8 +87,8 @@
                                 </h6>
                             </div>
                                 <div class="d-flex justify-content-end align-items-center mt-4">
-                                    <button type="submit" asp-action="GuestDetails" class="btn btn-outline-action px-4 text-uppercase">
-                                        Rezerwuj<i class="bi bi-plus ms-2 text-center"></i>
+                                    <button type="submit" onclick="" class="btn btn-outline-action px-4 text-uppercase">
+                                        Wybierz<i class="bi bi-plus ms-2 text-center"></i>
                                     </button>
                                 </div>
                         </div>
@@ -100,6 +100,52 @@
             </div>
             
             }
+
+            <div class="modal" id="guestModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="modalTitle">Wypełnij swoje dane</h3>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <label asp-for="Guest.Name"></label>
+                                <input asp-for="Guest.Name" type="text" class="form-control"/>
+                                <span asp-validation-for="Guest.Name" class="text-danger small"></span>
+                            </div>
+                            <div>
+                                <label asp-for="Guest.LastName"></label>
+                            <input asp-for="Guest.LastName" type="text" class="form-control" />
+                            <span asp-validation-for="Guest.LastName" class="text-danger small"></span>
+                            </div>
+                            <div>
+                                <label asp-for="Guest.Country"></label>
+                            <input asp-for="Guest.Country" type="text" class="form-control" />
+                            <span asp-validation-for="Guest.Country" class="text-danger small"></span>
+                            </div>
+                            <div>
+                                <label asp-for="Guest.Email"></label>
+                                <input asp-for="Guest.Email" type="text" class="form-control" />
+                                <span asp-validation-for="Guest.Email" class="text-danger small"></span>
+                            </div>
+                            <div>
+                                <label asp-for="Guest.PhoneNumber"></label>
+                                <input asp-for="Guest.PhoneNumber" type="text" class="form-control" />
+                                <span asp-validation-for="Guest.PhoneNumber" class="text-danger small"></span>
+                            </div>
+                            <div>
+                                <label asp-for="Guest.IdentityCardNumber"></label>
+                                <input asp-for="Guest.IdentityCardNumber" type="text" class="form-control" />
+                                <span asp-validation-for="Guest.IdentityCardNumber" class="text-danger small"></span>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                                <button class="btn btn-outline-action" type="button">Anuluj</button>
+                                <button class="btn btn-action" type="submit"> Potwierdź</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
 
     </form>

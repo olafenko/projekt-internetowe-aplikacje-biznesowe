@@ -36,6 +36,8 @@ namespace Firma.PortalWWW.Controllers
 
             if (ModelState.IsValid)
             {
+
+
                 _context.Add(reservation);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -64,17 +66,6 @@ namespace Firma.PortalWWW.Controllers
 
             return View("Create",request);
         }
-
-
-        public async Task<IActionResult> GuestDetails(Reservation reservation)
-        {
-            ViewBag.PageModel = await _context.Page.OrderBy(p => p.Position).ToListAsync();
-
-            return View("Create",reservation);
-        }
-
-
-
 
 
     }
