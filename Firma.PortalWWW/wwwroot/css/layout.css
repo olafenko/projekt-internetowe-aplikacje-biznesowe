@@ -325,3 +325,75 @@ body {
     border: 1px solid var(--segment-border-color);
     transition: transform 0.3s ease;
 }
+
+
+/*CSS DLA FORMULARZA DODAWANIA REZERWACJI*/
+
+.reservation-filter-form {
+    background-color: var(--second-bg-color);
+    border: 1px solid var(--segment-border-color);
+}
+
+.reservation-input-label {
+    color: var(--main-text-color);
+    letter-spacing: 1px;
+}
+
+.reservation-input {
+    background-color: var(--main-bg-color);
+    color: var(--main-text-color);
+    border-color: var(--segment-border-color);
+    transition: all 0.3s ease;
+}
+
+    .reservation-input:focus {
+        background-color: var(--main-bg-color);
+        color: var(--main-text-color);
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 0.25rem rgba(212, 175, 106, 0.15);
+    }
+
+
+.room-card-img {
+    height: 250px;
+    object-fit: cover;
+}
+
+.room-card-desc {
+    color: var(--muted-text-color);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.room-card-info {
+    border-top: 1px solid var(--segment-border-color) !important;
+}
+
+.room-card-price {
+    color: var(--accent-color);
+}
+
+.room-card-price-muted {
+    color: var(--muted-text-color);
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.room-card-guests {
+    color: var(--muted-text-color);
+}
+
+.reservation-modal-content {
+    background-color: var(--second-bg-color);
+    border: 1px solid var(--segment-border-color) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.reservation-modal-header {
+    border-bottom: 1px solid var(--segment-border-color);
+}
+
+.reservation-form-title {
+    color: var(--accent-color);
+    letter-spacing: 1px;
+}

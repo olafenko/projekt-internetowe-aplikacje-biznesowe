@@ -28,7 +28,7 @@
             {
                 <li class="nav-item">
                     <a class="nav-link @(item.IsLinkCTA ? "nav-cta" : "")" asp-area=""
-                       asp-controller="@(item.ControllerName ?? "Home")" asp-action="@(item.ActionName ?? "Index")" asp-route-id="@(item.ControllerName == null ? item.Id : null)">@item.LinkTitle.ToUpper()</a>
+                       asp-controller="@(item.ControllerName ?? "Home")" asp-action="@(item.ActionName ?? "Index")" asp-route-id="@item.Id">@item.LinkTitle.ToUpper()</a>
                 </li>
             }
         }

@@ -4,60 +4,50 @@
     ViewData["Title"] = "Składanie rezerwacji";
     Layout = "~/Views/Shared/_SecondLayout.cshtml";
     var availableRoomTypes = ViewBag.AvailableRoomTypes as IEnumerable<Firma.Data.Data.Hotel.RoomType>;
+
 }
 
-<div class="container py-5">
+<div class="container py-1">
     
-    <div class="row mb-5 text-center justify-content-center">
-        <div class="col-12 col-lg-8">
-            <h1 class="text-uppercase fw-bold mb-3" style="color: var(--accent-color); letter-spacing: 2px;">
-                Zarezerwuj swój pobyt
-            </h1>
-            <p class="lead" style="color: var(--muted-text-color);">
-                Wprowadź daty oraz liczbę gości, aby sprawdzić dostępność naszych pokoi.
-            </p>
-            <hr class="mx-auto mt-4" style="width: 80px; border-color: var(--accent-color); opacity: 0.5; border-width: 2px;" />
-        </div>
-    </div>
-
-    <form asp-action="Create" method="post" id="reservationForm" class="p-4 rounded shadow-sm mb-5" style="background-color: var(--second-bg-color); border: 1px solid var(--segment-border-color);">
+    <form asp-action="Create" method="post" class="p-4 rounded shadow-sm mb-5 reservation-filter-form">
         
-        <input type="hidden" asp-for="RoomId" id="selectedRoomId" />
+        <input type="hidden" name="selectedRoomTypeId" id="selectedRoomTypeId" />
         <span asp-validation-for="RoomId" class="text-danger d-block mb-3 small"></span>
 
         <div class="row g-4">
             <div class="col-12 col-md-6 col-lg-3">
-                <label asp-for="CheckInDate" class="control-label fw-bold mb-2 text-uppercase small" style="color: var(--main-text-color); letter-spacing: 1px;"></label>
-                <input asp-for="CheckInDate" type="date" class="form-control" style="background-color: var(--main-bg-color); color: var(--main-text-color); border-color: var(--segment-border-color);" />
+                <label asp-for="CheckInDate" class="control-label fw-bold mb-2 text-uppercase small reservation-input-label"></label>
+                <input asp-for="CheckInDate" type="date" class="form-control reservation-input" />
                 <span asp-validation-for="CheckInDate" class="text-danger small"></span>
             </div>
 
             <div class="col-12 col-md-6 col-lg-3">
-                <label asp-for="CheckOutDate" class="control-label fw-bold mb-2 text-uppercase small" style="color: var(--main-text-color); letter-spacing: 1px;"></label>
-                <input asp-for="CheckOutDate" type="date" class="form-control" style="background-color: var(--main-bg-color); color: var(--main-text-color); border-color: var(--segment-border-color);" />
+                <label asp-for="CheckOutDate" class="control-label fw-bold mb-2 text-uppercase small reservation-input-label"></label>
+                <input asp-for="CheckOutDate" type="date" class="form-control reservation-input"/>
                 <span asp-validation-for="CheckOutDate" class="text-danger small"></span>
             </div>
 
             <div class="col-6 col-md-6 col-lg-3">
-                <label asp-for="AdultCount" class="control-label fw-bold mb-2 text-uppercase small" style="color: var(--main-text-color); letter-spacing: 1px;"></label>
-                <input asp-for="AdultCount" type="number" min="1" value="1" class="form-control" style="background-color: var(--main-bg-color); color: var(--main-text-color); border-color: var(--segment-border-color);" />
+                <label asp-for="AdultCount" class="control-label fw-bold mb-2 text-uppercase small reservation-input-label"></label>
+                <input asp-for="AdultCount" type="number" min="1" value="1" class="form-control reservation-input"/>
                 <span asp-validation-for="AdultCount" class="text-danger small"></span>
             </div>
 
             <div class="col-6 col-md-6 col-lg-3">
-                <label asp-for="ChildCount" class="control-label fw-bold mb-2 text-uppercase small" style="color: var(--main-text-color); letter-spacing: 1px;"></label>
-                <input asp-for="ChildCount" type="number" min="0" class="form-control" style="background-color: var(--main-bg-color); color: var(--main-text-color); border-color: var(--segment-border-color);" />
+                <label asp-for="ChildCount" class="control-label fw-bold mb-2 text-uppercase small reservation-input-label"></label>
+                <input asp-for="ChildCount" type="number" min="0" class="form-control reservation-input"/>
                 <span asp-validation-for="ChildCount" class="text-danger small"></span>
             </div>
         </div>
 
         <div class="d-flex justify-content-end align-items-center mt-4">
-            <button type="submit" asp-action="SearchAvailable" class="btn btn-outline-action px-5 text-uppercase">
+            <button type="submit" asp-action="SearchAvailable" asp-route-id="" class="btn btn-outline-action px-5 text-uppercase">
                 <i class="bi bi-search me-2"></i>Szukaj wolnych pokoi
             </button>
         </div>
 
         @if(availableRoomTypes !=null){
+        <h4>Znalezione pokoje</h4>
         <div class="row g-4 mt-2">
                 @foreach (var item in availableRoomTypes)
                 {
@@ -69,25 +59,23 @@
                             var fileExists = File.Exists($"/content/{item.PhotoUrl}");
                             var imgSrc = fileExists ? $"/content/{item.PhotoUrl}" : "/content/default-room-image.jpg";
                         }
-                        <img src="@imgSrc" class="card-img-top object-fit-cover" style="height: 250px;">
+                        <img src="@imgSrc" class="card-img-top room-card-img">
                     
                         <div class="card-body d-flex flex-column">
-                            <h5 class="card-title text-uppercase text-center" style="color: var(--accent-color);">@item.Name</h5>
-                                <p class="card-text mb-4" style="color: var(--muted-text-color); font-size: 0.95rem; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
-                                    @item.Description
-                                </p>
-                            <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top" style="border-color: var(--segment-border-color) !important;">
+                            <h5 class="card-title text-uppercase text-center reservation-form-title">@item.Name</h5>
+                            <p class="card-text mb-4 room-card-desc">@item.Description</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top room-card-info">
                                 
-                                <span class="fw-semibold" style="color: var(--muted-text-color);">
+                                <span class="fw-semibold room-card-guests">
                                     <i class="bi bi-people-fill me-1"></i> Max osób: @item.MaxGuests
                                 </span>
                             
-                                <h6 class="fw-bold mb-0" style="color: var(--accent-color);">
+                                <h6 class="fw-bold mb-0 room-card-price">
                                     @item.BasePrice.ToString("N0") zł <span style="color: var(--muted-text-color); font-size: 14px; font-weight: normal;">/ noc</span>
                                 </h6>
                             </div>
                                 <div class="d-flex justify-content-end align-items-center mt-4">
-                                    <button type="submit" onclick="" class="btn btn-outline-action px-4 text-uppercase">
+                                    <button type="button" onclick="openGuestModal(@item.Id)" class="btn btn-outline-action px-4 text-uppercase">
                                         Wybierz<i class="bi bi-plus ms-2 text-center"></i>
                                     </button>
                                 </div>
@@ -102,53 +90,56 @@
             }
 
             <div class="modal" id="guestModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content reservation-modal-content">
+                        <div class="modal-header reservation-modal-header">
                             <h3 class="modal-title" id="modalTitle">Wypełnij swoje dane</h3>
                         </div>
                         <div class="modal-body">
-                            <div>
-                                <label asp-for="Guest.Name"></label>
-                                <input asp-for="Guest.Name" type="text" class="form-control"/>
+                            <div class="py-2">
+                                <label asp-for="Guest.Name" class="reservation-input-label"></label>
+                                <input asp-for="Guest.Name" type="text" class="form-control reservation-input"/>
                                 <span asp-validation-for="Guest.Name" class="text-danger small"></span>
                             </div>
-                            <div>
-                                <label asp-for="Guest.LastName"></label>
-                            <input asp-for="Guest.LastName" type="text" class="form-control" />
-                            <span asp-validation-for="Guest.LastName" class="text-danger small"></span>
+                            <div class="py-2">
+                                <label asp-for="Guest.LastName" class="reservation-input-label"></label>
+                                <input asp-for="Guest.LastName" type="text" class="form-control reservation-input" />
+                                <span asp-validation-for="Guest.LastName" class="text-danger small"></span>
                             </div>
-                            <div>
-                                <label asp-for="Guest.Country"></label>
-                            <input asp-for="Guest.Country" type="text" class="form-control" />
-                            <span asp-validation-for="Guest.Country" class="text-danger small"></span>
+                            <div class="py-2">
+                                <label asp-for="Guest.Country" class="reservation-input-label"></label>
+                                <input asp-for="Guest.Country" type="text" class="form-control reservation-input" />
+                                <span asp-validation-for="Guest.Country" class="text-danger small"></span>
                             </div>
-                            <div>
-                                <label asp-for="Guest.Email"></label>
-                                <input asp-for="Guest.Email" type="text" class="form-control" />
+                            <div class="py-2">
+                                <label asp-for="Guest.Email" class="reservation-input-label"></label>
+                                <input asp-for="Guest.Email" type="text" class="form-control reservation-input" />
                                 <span asp-validation-for="Guest.Email" class="text-danger small"></span>
                             </div>
-                            <div>
-                                <label asp-for="Guest.PhoneNumber"></label>
-                                <input asp-for="Guest.PhoneNumber" type="text" class="form-control" />
+                            <div class="py-2">
+                                <label asp-for="Guest.PhoneNumber" class="reservation-input-label"></label>
+                                <input asp-for="Guest.PhoneNumber" type="text" class="form-control reservation-input" />
                                 <span asp-validation-for="Guest.PhoneNumber" class="text-danger small"></span>
                             </div>
-                            <div>
-                                <label asp-for="Guest.IdentityCardNumber"></label>
-                                <input asp-for="Guest.IdentityCardNumber" type="text" class="form-control" />
+                            <div class="py-2">
+                                <label asp-for="Guest.IdentityCardNumber" class="reservation-input-label"></label>
+                                <input asp-for="Guest.IdentityCardNumber" type="text" class="form-control reservation-input" />
                                 <span asp-validation-for="Guest.IdentityCardNumber" class="text-danger small"></span>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                                <button class="btn btn-outline-action" type="button">Anuluj</button>
-                                <button class="btn btn-action" type="submit"> Potwierdź</button>
+                        <div class="modal-footer border-0">
+                                <button class="btn btn-outline-action" type="button" data-bs-dismiss="modal">Anuluj</button>
+                                <button class="btn btn-action" type="submit" asp-action="ConfirmReservation"> Potwierdź</button>
                         </div>
                     </div>
                 </div>
             </div>
-            
-
     </form>
 </div>
 
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
     
