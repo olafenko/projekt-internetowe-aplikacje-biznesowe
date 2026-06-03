@@ -1,4 +1,5 @@
-﻿using Firma.Data.Data;
+﻿using Azure.Core;
+using Firma.Data.Data;
 using Firma.Data.Data.Hotel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -59,13 +60,7 @@ namespace Firma.PortalWWW.Controllers
                 return View("Create", request);
             }
 
-            var availableRooms = await _context.Room.Include(r => r.RoomType).Where(r => r.IsActive && r.RoomType.MaxGuests >= (request.AdultCount + request.ChildCount))
-                .Where(r => !r.Reservations.Any(rs => rs.CheckOutDate > request.CheckInDate && rs.CheckInDate < request.CheckOutDate)).ToListAsync();
-
-            var availableRoomTypes = availableRooms.Select(r => r.RoomType).DistinctBy(rt =>rt.Id);
-
-
-            ViewBag.AvailableRoomTypes = availableRoomTypes;
+            ViewBag.AvailableRoomTypes = getAvailableRoomTypesAsync(request.CheckInDate,request.CheckOutDate,request.AdultCount,request.ChildCount);
 
             return View("Create",request);
         }
@@ -73,15 +68,52 @@ namespace Firma.PortalWWW.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ConfirmReservation([Bind("CheckInDate,CheckOutDate,AdultCount,ChildCount")] Reservation reservation)
+        public async Task<IActionResult> ConfirmReservation([Bind("CheckInDate,CheckOutDate,AdultCount,ChildCount,Guest.Name,Guest.LastName,Guest.Email,Guest.Country,Guest.PhoneNumber,Guest.IdentityCardNumber")] Reservation reservation, int selectedRoomTypeId)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(reservation);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ViewBag.AvailableRoomTypes = getAvailableRoomTypesAsync(reservation.CheckInDate, reservation.CheckOutDate, reservation.AdultCount, reservation.ChildCount);
+                return View("Create",reservation);
             }
-            return View(reservation);
+
+
+            //dodawanie gościa z modala
+            var currentGuest = reservation.Guest;
+
+            var existingGuest = await _context.Guest.FirstOrDefaultAsync(g => g.IsActive && g.IdentityCardNumber == reservation.Guest.IdentityCardNumber);
+
+            if(existingGuest != null)
+            {
+                reservation.GuestId = existingGuest.Id;
+                reservation.Guest = null;
+            } else
+            {
+                _context.Guest.Add(currentGuest);
+                await _context.SaveChangesAsync();
+
+                reservation.GuestId = currentGuest.Id;
+                reservation.Guest = null;
+            }
+
+
+            //do dodania filtrowanie pierwszego dostępnego pokoju do rezerwacji
+
+
+            _context.Add(reservation);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
+
+
+        private async Task<IEnumerable<RoomType>> getAvailableRoomTypesAsync(DateTime checkIn, DateTime checkOut,int adults, int children )
+        {
+            var availableRooms = await _context.Room.Include(r => r.RoomType).Where(r => r.IsActive && r.RoomType.MaxGuests >= (adults + children))
+                .Where(r => !r.Reservations.Any(rs => rs.CheckOutDate > checkIn && rs.CheckInDate < checkOut)).ToListAsync();
+
+            return availableRooms.Select(r => r.RoomType).DistinctBy(rt => rt.Id);
+
+        }
+
     }
+
 }
