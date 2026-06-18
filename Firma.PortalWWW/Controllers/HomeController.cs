@@ -22,7 +22,6 @@ namespace Firma.PortalWWW.Controllers
             if (id == null) id = 7;
 
             var page = await _context.Page.FindAsync(id);
-            ViewBag.SinglePageModel = page;
 
             return View(page);
         }
