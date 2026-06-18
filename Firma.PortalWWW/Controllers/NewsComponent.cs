@@ -1,4 +1,5 @@
 ﻿using Firma.Data.Data;
+using Firma.Interfaces.CMS;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,17 +7,17 @@ namespace Firma.PortalWWW.Controllers
 {
     public class NewsComponent : ViewComponent
     {
-        private readonly FirmaContext _context;
+        private readonly INewsService _newsService;
 
-        public NewsComponent(FirmaContext context)
+        public NewsComponent(INewsService newsService)
         {
-            _context = context;
+            _newsService = newsService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
 
-            return View("NewsComponent", await _context.News.OrderByDescending(p => p.PublishDate).Take(3).ToListAsync());
+            return View("NewsComponent", await _newsService.GetCurrentNewsTakeAsync(3));
         }
     }
 }

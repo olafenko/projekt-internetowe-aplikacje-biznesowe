@@ -1,5 +1,6 @@
 ﻿
 using Firma.Data.Data;
+using Firma.Interfaces.CMS;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,17 +9,17 @@ namespace Firma.PortalWWW.Controllers
     public class PagesMenuComponent : ViewComponent
     {
 
-        private readonly FirmaContext _context;
+        private readonly IPageService _pageService;
 
-        public PagesMenuComponent(FirmaContext context)
+        public PagesMenuComponent(IPageService pageService)
         {
-            _context = context;
+            _pageService = pageService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
 
-            return View("PagesMenuComponent", await _context.Page.OrderBy(p => p.Position).ToListAsync());
+            return View("PagesMenuComponent", await _pageService.GetAllPagesByPositionAsc());
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Firma.PortalWWW
         public static void Resolve(IServiceCollection services,IConfiguration conf)
         {
             services.AddScoped<INewsService, NewsService>();
+            services.AddScoped<IPageService, PageService>();
         }
 
     }

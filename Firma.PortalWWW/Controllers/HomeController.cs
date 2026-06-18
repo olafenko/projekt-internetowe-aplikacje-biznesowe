@@ -1,4 +1,5 @@
 using Firma.Data.Data;
+using Firma.Interfaces.CMS;
 using Firma.PortalWWW.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,11 +10,11 @@ namespace Firma.PortalWWW.Controllers
     public class HomeController : Controller
     {
 
-        private readonly FirmaContext _context;
+        private readonly IPageService _pageService;
 
-        public HomeController(FirmaContext context)
+        public HomeController(IPageService pageService)
         {
-            _context = context;
+            _pageService = pageService;
         }
 
         public async Task<IActionResult> Index(int? id)
@@ -21,7 +22,7 @@ namespace Firma.PortalWWW.Controllers
 
             if (id == null) id = 7;
 
-            var page = await _context.Page.FindAsync(id);
+            var page = await _pageService.GetPageById(id);
 
             return View(page);
         }
