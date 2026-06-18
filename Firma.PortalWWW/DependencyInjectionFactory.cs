@@ -13,6 +13,8 @@ namespace Firma.PortalWWW
             services.AddScoped<INewsService, NewsService>();
             services.AddScoped<IPageService, PageService>();
             services.AddScoped<IRoomTypeService, RoomTypeService>();
+            services.AddScoped<IAmenityService, AmenityService>();
+            services.AddScoped<IRoomService, RoomService>();
         }
 
     }

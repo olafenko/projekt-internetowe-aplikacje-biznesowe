@@ -10,5 +10,6 @@ namespace Firma.Interfaces.Hotel
 
         Task<IList<RoomType>> GetRoomTypesByPriceAsc();
         Task<RoomType?> GetRoomTypeById(int id);
+        IList<RoomType> GetAvailableRoomTypes(IList<Room> rooms);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Azure.Core;
 using Firma.Data.Data;
 using Firma.Data.Data.Hotel;
+using Firma.Interfaces.Hotel;
 using Firma.PortalWWW.DTO_s;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,10 +14,14 @@ namespace Firma.PortalWWW.Controllers
     {
 
         private readonly FirmaContext _context;
+        private readonly IRoomService _roomService;
+        private readonly IRoomTypeService _roomTypeService;
 
-        public ReservationController(FirmaContext context)
+        public ReservationController(FirmaContext context, IRoomService roomService, IRoomTypeService roomTypeService)
         {
             _context = context;
+            _roomService = roomService;
+            _roomTypeService = roomTypeService;
         }
 
         public async Task<IActionResult> Create(int id)
@@ -55,9 +60,9 @@ namespace Firma.PortalWWW.Controllers
                 return View("Create", request);
             }
 
-            var availabaleRooms = await getAvailableRooms(request.CheckInDate, request.CheckOutDate, request.AdultCount, request.ChildCount).ToListAsync();
+            var availabaleRooms = await _roomService.GetAvailableRooms(request.CheckInDate,request.CheckOutDate,request.AdultCount,request.ChildCount);
 
-            ViewBag.AvailableRoomTypes = availabaleRooms.Select(r => r.RoomType).DistinctBy(rt => rt.Id);
+            ViewBag.AvailableRoomTypes = _roomTypeService.GetAvailableRoomTypes(availabaleRooms);
 
             return View("Create",request);
         }

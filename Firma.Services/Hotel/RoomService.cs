@@ -15,7 +15,10 @@ namespace Firma.Services.Hotel
         {
         }
 
-
-
+        public async Task<IList<Room>> GetAvailableRooms(DateTime checkIn, DateTime checkOut, int adults, int children)
+        {
+            return await _context.Room.Include(r => r.RoomType).Where(r => r.IsActive && r.RoomType.MaxGuests >= (adults + children))
+               .Where(r => !r.Reservations.Any(rs => rs.CheckOutDate > checkIn && rs.CheckInDate < checkOut)).ToListAsync();
+        }
     }
 }

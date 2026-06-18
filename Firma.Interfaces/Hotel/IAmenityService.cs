@@ -5,10 +5,10 @@ using System.Text;
 
 namespace Firma.Interfaces.Hotel
 {
-    public interface IRoomService
+    public interface IAmenityService
     {
 
-        Task<IList<Room>> GetAvailableRooms(DateTime checkIn, DateTime checkOut, int adults, int children);
+        IList<Amenity> GetRoomTypeAmenities(RoomType roomType);
 
     }
 }

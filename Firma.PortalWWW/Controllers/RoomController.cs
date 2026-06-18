@@ -9,10 +9,12 @@ namespace Firma.PortalWWW.Controllers
     {
 
         private readonly IRoomTypeService _roomTypeService;
+        private readonly IAmenityService _amenityService;
 
-        public RoomController(IRoomTypeService roomTypeService)
+        public RoomController(IRoomTypeService roomTypeService, IAmenityService amenityService)
         {
             _roomTypeService = roomTypeService;
+            _amenityService = amenityService;
         }
 
         public async Task<IActionResult> Index()
@@ -34,16 +36,8 @@ namespace Firma.PortalWWW.Controllers
                 return NotFound();
             }
 
-            if (room.Amenities.Any())
-            {
-                ViewBag.AmenityModel = room.Amenities.Where(a => a.IsActive);
-            } else
-            {
-                ViewBag.AmenityModel = null;
-            }
-
+            ViewBag.AmenityModel = _amenityService.GetRoomTypeAmenities(room);
             
-
             return View(room);
         }
     }

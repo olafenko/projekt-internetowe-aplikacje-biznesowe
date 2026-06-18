@@ -24,5 +24,10 @@ namespace Firma.Services.Hotel
         {
             return await _context.RoomType.Include(r => r.Amenities.Where(a => a.IsActive)).FirstOrDefaultAsync(r => r.Id == id);
         }
+
+        public IList<RoomType> GetAvailableRoomTypes(IList<Room> rooms)
+        {
+            return rooms.Select(r => r.RoomType).DistinctBy(rt => rt.Id).ToList();
+        }
     }
 }
