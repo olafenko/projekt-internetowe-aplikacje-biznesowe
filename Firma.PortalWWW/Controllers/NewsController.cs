@@ -17,7 +17,6 @@ namespace Firma.PortalWWW.Controllers
         public async Task<IActionResult> Index()
         {
 
-
             var allNews = await _context.News.Where(n => n.IsActive).ToListAsync();
             if (allNews == null) return NotFound();
 
@@ -26,9 +25,6 @@ namespace Firma.PortalWWW.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-
-            ViewBag.PageModel = await _context.Page.OrderBy(p => p.Position).ToListAsync();
-            ViewBag.NewsModel = await _context.News.OrderByDescending(p => p.PublishDate).Take(3).ToListAsync();
 
             var news = await  _context.News.FirstOrDefaultAsync(n => n.Id == id);
             if(news == null) return NotFound();

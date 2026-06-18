@@ -35,7 +35,7 @@
         @RenderBody()
     </main>
     
-    @await Html.PartialAsync("News", (IEnumerable<Firma.Data.Data.CMS.News>)ViewBag.NewsModel)
+    @await Component.InvokeAsync("NewsComponent")
 
     <footer class="custom-footer border-top">
         <div class="container">

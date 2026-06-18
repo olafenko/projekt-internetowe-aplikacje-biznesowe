@@ -38,8 +38,6 @@ namespace Firma.PortalWWW.Controllers
 
             if (ModelState.IsValid)
             {
-
-
                 _context.Add(reservation);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -50,8 +48,6 @@ namespace Firma.PortalWWW.Controllers
         [HttpPost]
         public async Task<IActionResult> SearchAvailable([Bind("CheckInDate,CheckOutDate,AdultCount,ChildCount")] CreateReservationDTO request)
         {
-
-            ViewBag.NewsModel = await _context.News.OrderByDescending(p => p.PublishDate).Take(3).ToListAsync();
 
             if (request.CheckOutDate < request.CheckInDate)
             {
