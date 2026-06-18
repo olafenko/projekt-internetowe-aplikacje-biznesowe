@@ -1,4 +1,5 @@
 ﻿using Firma.Data.Data;
+using Firma.Interfaces.CMS;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,18 +8,17 @@ namespace Firma.PortalWWW.Controllers
     public class NewsController : Controller
     {
 
-        private readonly FirmaContext _context;
+        private readonly INewsService _newsService;
 
-        public NewsController(FirmaContext context)
+        public NewsController(INewsService newsService)
         {
-            _context = context;
+            _newsService = newsService;
         }
 
         public async Task<IActionResult> Index()
         {
 
-            var allNews = await _context.News.Where(n => n.IsActive).ToListAsync();
-            if (allNews == null) return NotFound();
+            var allNews = await _newsService.GetAllNews();
 
             return View(allNews);
         }
@@ -26,8 +26,7 @@ namespace Firma.PortalWWW.Controllers
         public async Task<IActionResult> Details(int id)
         {
 
-            var news = await  _context.News.FirstOrDefaultAsync(n => n.Id == id);
-            if(news == null) return NotFound();
+            var news = await _newsService.GetNewsById(id);
 
             return View(news);
         }
