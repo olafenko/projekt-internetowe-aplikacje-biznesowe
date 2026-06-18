@@ -19,7 +19,6 @@ namespace Firma.PortalWWW.Controllers
         public async Task<IActionResult> Index(int? id)
         {
 
-            ViewBag.PageModel = await _context.Page.OrderBy(p => p.Position).ToListAsync();
             ViewBag.NewsModel = await _context.News.OrderByDescending(p => p.PublishDate).Take(3).ToListAsync();
 
             if (id == null) id = 7;

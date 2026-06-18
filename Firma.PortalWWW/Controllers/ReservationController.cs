@@ -21,7 +21,6 @@ namespace Firma.PortalWWW.Controllers
 
         public async Task<IActionResult> Create(int id)
         {
-            ViewBag.PageModel = await _context.Page.OrderBy(p => p.Position).ToListAsync();
             ViewBag.SinglePageModel = await _context.Page.FindAsync(id);
 
             var defaultReservationValues = new CreateReservationDTO();
@@ -52,7 +51,6 @@ namespace Firma.PortalWWW.Controllers
         public async Task<IActionResult> SearchAvailable([Bind("CheckInDate,CheckOutDate,AdultCount,ChildCount")] CreateReservationDTO request)
         {
 
-            ViewBag.PageModel = await _context.Page.OrderBy(p => p.Position).ToListAsync();
             ViewBag.NewsModel = await _context.News.OrderByDescending(p => p.PublishDate).Take(3).ToListAsync();
 
             if (request.CheckOutDate < request.CheckInDate)

@@ -24,7 +24,7 @@
                     <i class="bi bi-list"></i>
                 </button>
 
-                @await Html.PartialAsync("Links", (IEnumerable<Firma.Data.Data.CMS.Page>)ViewBag.PageModel)
+                @await Component.InvokeAsync("PagesMenuComponent")
                    
             </div>
         </nav>

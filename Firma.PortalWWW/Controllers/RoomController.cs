@@ -17,7 +17,7 @@ namespace Firma.PortalWWW.Controllers
         public async Task<IActionResult> Index(int id)
         {
 
-            ViewBag.PageModel = await _context.Page.OrderBy(p => p.Position).ToListAsync();
+
             ViewBag.NewsModel = await _context.News.OrderByDescending(p => p.PublishDate).Take(3).ToListAsync();
 
             ViewBag.SinglePageModel = await _context.Page.FindAsync(id);
@@ -30,8 +30,6 @@ namespace Firma.PortalWWW.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            ViewBag.PageModel = await _context.Page.OrderBy(p => p.Position).ToListAsync();
-            
 
             var room = await _context.RoomType.Include(r => r.Amenities.Where(a => a.IsActive)).FirstOrDefaultAsync(r => r.Id == id);
 

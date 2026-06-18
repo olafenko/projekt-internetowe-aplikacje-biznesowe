@@ -5,9 +5,9 @@
 
 <div class="navbar-collapse collapse" id="navbarContent">
     <ul class="navbar-nav nav-left w-50 justify-content-end ">
-        @foreach(var item in Model)
+        @foreach (var item in Model)
         {
-            if(item.PageMenuArea == PageMenuArea.LEFT)
+            if (item.PageMenuArea == PageMenuArea.LEFT)
             {
                 <li class="nav-item">
                     <a class="nav-link @(item.IsLinkCTA ? "nav-cta" : "")" asp-area=""
