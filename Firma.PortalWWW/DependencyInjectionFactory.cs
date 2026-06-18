@@ -1,5 +1,7 @@
 ﻿using Firma.Interfaces.CMS;
+using Firma.Interfaces.Hotel;
 using Firma.Services.CMS;
+using Firma.Services.Hotel;
 
 namespace Firma.PortalWWW
 {
@@ -10,6 +12,7 @@ namespace Firma.PortalWWW
         {
             services.AddScoped<INewsService, NewsService>();
             services.AddScoped<IPageService, PageService>();
+            services.AddScoped<IRoomTypeService, RoomTypeService>();
         }
 
     }

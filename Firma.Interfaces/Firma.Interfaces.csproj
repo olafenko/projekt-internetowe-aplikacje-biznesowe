@@ -10,8 +10,4 @@
     <ProjectReference Include="..\Firma.Data\Firma.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Hotel\" />
-  </ItemGroup>
-
 </Project>
