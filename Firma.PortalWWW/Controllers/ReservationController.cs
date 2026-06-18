@@ -90,11 +90,11 @@ namespace Firma.PortalWWW.Controllers
 
             var existingGuest = await _context.Guest.FirstOrDefaultAsync(g => g.IsActive && g.IdentityCardNumber == request.Guest.IdentityCardNumber);
 
-            int finalGuestId;
+            Guest finalGuest;
 
             if(existingGuest != null)
             {
-                finalGuestId = existingGuest.Id;
+                finalGuest = existingGuest;
             } else
             {
                 var newGuest = new Guest{
@@ -108,9 +108,9 @@ namespace Firma.PortalWWW.Controllers
                 };
 
                 _context.Guest.Add(newGuest);
-                _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
-                finalGuestId = newGuest.Id;
+                finalGuest = newGuest;
             }
 
 
@@ -126,13 +126,15 @@ namespace Firma.PortalWWW.Controllers
                 ModelState.AddModelError("RoomId", "Pokój jest już zajęty.");
             }
 
+            //to do poprawki, problem z dodawaniem goscia
             var finalReservation = new Reservation
             {
                 CheckInDate = request.CheckInDate,
                 CheckOutDate = request.CheckOutDate,
                 AdultCount = request.AdultCount,
                 ChildCount = request.ChildCount,
-                GuestId = finalGuestId,
+                GuestId = finalGuest.Id,
+                Guest = finalGuest,
                 RoomId = request.RoomId
             };
 

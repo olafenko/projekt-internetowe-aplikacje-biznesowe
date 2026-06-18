@@ -23,6 +23,7 @@ namespace Firma.PortalWWW.Controllers
             ViewBag.NewsModel = await _context.News.OrderByDescending(p => p.PublishDate).Take(3).ToListAsync();
 
             if (id == null) id = 7;
+
             var page = await _context.Page.FindAsync(id);
             ViewBag.SinglePageModel = page;
 
