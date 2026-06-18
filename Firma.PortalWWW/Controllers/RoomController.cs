@@ -1,4 +1,5 @@
 ﻿using Firma.Data.Data;
+using Firma.Interfaces.Hotel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,17 +8,19 @@ namespace Firma.PortalWWW.Controllers
     public class RoomController : Controller
     {
 
-        private readonly FirmaContext _context;
+        private readonly IRoomTypeService _roomTypeService;
+        private readonly IAmenityService _amenityService;
 
-        public RoomController(FirmaContext context)
+        public RoomController(IRoomTypeService roomTypeService, IAmenityService amenityService)
         {
-            _context = context;
+            _roomTypeService = roomTypeService;
+            _amenityService = amenityService;
         }
 
         public async Task<IActionResult> Index()
         {
 
-            var rooms = await _context.RoomType.OrderBy(r => r.BasePrice).ToListAsync();
+            var rooms = await _roomTypeService.GetRoomTypesByPriceAsc();
 
             return View(rooms);
         }
@@ -26,23 +29,15 @@ namespace Firma.PortalWWW.Controllers
         public async Task<IActionResult> Details(int id)
         {
 
-            var room = await _context.RoomType.Include(r => r.Amenities.Where(a => a.IsActive)).FirstOrDefaultAsync(r => r.Id == id);
+            var room = await _roomTypeService.GetRoomTypeById(id);
 
             if (room == null) {
 
                 return NotFound();
             }
 
-            if (room.Amenities.Any())
-            {
-                ViewBag.AmenityModel = room.Amenities.Where(a => a.IsActive);
-            } else
-            {
-                ViewBag.AmenityModel = null;
-            }
-
+            ViewBag.AmenityModel = _amenityService.GetRoomTypeAmenities(room);
             
-
             return View(room);
         }
     }

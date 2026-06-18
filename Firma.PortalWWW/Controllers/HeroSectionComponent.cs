@@ -1,15 +1,16 @@
 ﻿using Firma.Data.Data;
+using Firma.Interfaces.CMS;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Firma.PortalWWW.Controllers
 {
     public class HeroSectionComponent : ViewComponent
     {
-        private readonly FirmaContext _context;
+        private readonly IPageService _pageService;
 
-        public HeroSectionComponent(FirmaContext context)
+        public HeroSectionComponent(IPageService pageService)
         {
-            _context = context;
+            _pageService = pageService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(string id)
@@ -20,7 +21,7 @@ namespace Firma.PortalWWW.Controllers
                 return View("HeroSectionComponent");
             }
             var parsedId = int.Parse(id);
-            var pageInfo = await _context.Page.FindAsync(parsedId);
+            var pageInfo = await _pageService.GetPageById(parsedId);
 
             return View("HeroSectionComponent", pageInfo);
         }

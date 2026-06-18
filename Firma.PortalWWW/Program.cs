@@ -1,5 +1,5 @@
 using Firma.Data.Data;
-using Firma.Data.Data.Hotel;
+using Firma.PortalWWW;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -12,8 +12,10 @@ builder.Services.AddControllers().AddJsonOptions(x =>
     x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
+DependencyInjectionFactory.Resolve(builder.Services, builder.Configuration);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 
 var app = builder.Build();
 
