@@ -11,6 +11,7 @@ namespace Firma.Interfaces.Hotel
 
         CreateReservationDTO CreateDefaultReservationValues();
         Task<Reservation> CreateReservation(DateTime checkInDate, DateTime checkOutDate,int adultCount, int childCount,int guestId,int roomId);
+        Task<IList<Reservation>> GetAllReservations();
 
 
     }

@@ -18,6 +18,7 @@ namespace Firma.Intranet
             services.AddScoped<IGuestService, GuestService>();
             services.AddScoped<IReservationService, ReservationService>();
             services.AddScoped<IExportService, ExportService>();
+            services.AddScoped<IPaymentService, PaymentService>();
         }
     }
 }

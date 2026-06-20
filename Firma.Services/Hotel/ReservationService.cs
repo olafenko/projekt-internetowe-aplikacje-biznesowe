@@ -54,5 +54,10 @@ namespace Firma.Services.Hotel
 
             return reservation;
         }
+
+        public async Task<IList<Reservation>> GetAllReservations()
+        {
+            return await _context.Reservation.Where(r => r.IsActive).ToListAsync();
+        }
     }
 }

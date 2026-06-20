@@ -32,7 +32,7 @@
                     <th><i class="bi bi-wallet2 me-2"></i>@Html.DisplayNameFor(model => model.Method)</th>
                     <th><i class="bi bi-shield-check me-2"></i>@Html.DisplayNameFor(model => model.Status)</th>
                     <th><i class="bi bi-calendar-event me-2"></i>@Html.DisplayNameFor(model => model.PaymentDate)</th>
-                    <th class="text-end px-4">Akcje</th>
+                    <th class="text-center px-4">Akcje</th>
                 </tr>
             </thead>
             <tbody>
@@ -79,8 +79,14 @@
                         <td class="text-muted-custom">@item.PaymentDate.ToString("dd.MM.yyyy HH:mm")</td>
                         <td class="text-end px-4">
                             <div class="action-buttons">
+                                <a asp-action="Edit" asp-route-id="@item.Id" title="Edytuj" class="edit-btn">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
                                 <a asp-action="Details" asp-route-id="@item.Id" title="Szczegóły" class="details-btn">
                                     <i class="bi bi-info-circle"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" title="Usuń" class="delete-btn">
+                                    <i class="bi bi-trash"></i>
                                 </a>
                             </div>
                         </td>
