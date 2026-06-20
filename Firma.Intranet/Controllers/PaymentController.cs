@@ -47,7 +47,7 @@ namespace Firma.Intranet.Controllers
 
         public async Task<IActionResult> Create()
         {
-            ViewData["ReservationId"] = new SelectList(await _reservationService.GetAllReservations(), "Id", "Id");
+            ViewData["Reservation"] = new SelectList(await _reservationService.GetAllReservations(), "Id", "Id");
             return View();
         }
 
@@ -60,7 +60,7 @@ namespace Firma.Intranet.Controllers
                 await _paymentService.CreatePayment(payment.Amount, payment.Method, payment.ReservationId);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ReservationId"] = new SelectList(await _reservationService.GetAllReservations(), "Id", "Id", payment.ReservationId);
+            ViewData["Reservation"] = new SelectList(await _reservationService.GetAllReservations(), "Id", "Id", payment.ReservationId);
             return View(payment);
         }
 
@@ -76,7 +76,7 @@ namespace Firma.Intranet.Controllers
             {
                 return NotFound();
             }
-            ViewData["ReservationId"] = new SelectList(await _reservationService.GetAllReservations(), "Id", "Id", payment.ReservationId);
+            ViewData["Reservation"] = new SelectList(await _reservationService.GetAllReservations(), "Id", "Id", payment.ReservationId);
             return View(payment);
         }
 
