@@ -1,6 +1,6 @@
 using Firma.Data.Data;
+using Firma.Intranet;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<FirmaContext>(options =>
@@ -11,6 +11,7 @@ builder.Services.AddControllers().AddJsonOptions(x =>
     x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
+DependencyInjectionFactory.Resolve(builder.Services, builder.Configuration);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

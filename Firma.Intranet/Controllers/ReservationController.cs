@@ -1,23 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DocumentFormat.OpenXml.Drawing.Spreadsheet;
+using Firma.Data.Data;
+using Firma.Data.Data.Hotel;
+using Firma.Interfaces.Hotel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Firma.Data.Data;
-using Firma.Data.Data.Hotel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Firma.Intranet.Controllers
 {
     public class ReservationController : Controller
     {
         private readonly FirmaContext _context;
+        private readonly IExportService _exportService;
 
-        public ReservationController(FirmaContext context)
+        public ReservationController(FirmaContext context, IExportService exportService)
         {
             _context = context;
+            _exportService = exportService;
         }
+
+
 
         // GET: Reservation
         public async Task<IActionResult> Index()
@@ -106,6 +112,9 @@ namespace Firma.Intranet.Controllers
             {
                 try
                 {
+                    var nights = (int)Math.Ceiling((reservation.CheckOutDate - reservation.CheckInDate).TotalDays);
+                    var roomPricePerNight = await _context.Room.Include(r=>r.RoomType).Where(r => r.Id == reservation.RoomId).Select(r => r.RoomType.BasePrice).FirstOrDefaultAsync();
+                    reservation.TotalPrice = nights * roomPricePerNight;
                     _context.Update(reservation);
                     await _context.SaveChangesAsync();
                 }
@@ -165,6 +174,16 @@ namespace Firma.Intranet.Controllers
         private bool ReservationExists(int id)
         {
             return _context.Reservation.Any(e => e.Id == id);
+        }
+
+
+        public async Task<IActionResult> ExportReservationsToExcel()
+        {
+
+            var excelFile = await _exportService.ExportAllReservations();
+
+            return File(excelFile, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"Raport rezerwacji z dnia - {DateTime.Today:dd.MM.yyyy}.xlsx");
+
         }
     }
 }
