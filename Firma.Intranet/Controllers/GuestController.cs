@@ -1,31 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Firma.Data.Data.Hotel;
+using Firma.Interfaces.Hotel;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Firma.Data.Data;
-using Firma.Data.Data.Hotel;
 
 namespace Firma.Intranet.Controllers
 {
     public class GuestController : Controller
     {
-        private readonly FirmaContext _context;
+        private readonly IGuestService _guestService;
 
-        public GuestController(FirmaContext context)
+        public GuestController(IGuestService guestService)
         {
-            _context = context;
+            _guestService = guestService;
         }
 
-        // GET: Guest
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Guest.ToListAsync());
+            return View(await _guestService.GetAllGuests());
         }
 
-        // GET: Guest/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,8 +26,7 @@ namespace Firma.Intranet.Controllers
                 return NotFound();
             }
 
-            var guest = await _context.Guest
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var guest = await _guestService.GetGuestById(id.Value);
             if (guest == null)
             {
                 return NotFound();
@@ -43,29 +35,23 @@ namespace Firma.Intranet.Controllers
             return View(guest);
         }
 
-        // GET: Guest/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Guest/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,LastName,Email,Country,PhoneNumber,IdentityCardNumber,Notes,IsActive")] Guest guest)
+        public async Task<IActionResult> Create([Bind("Name,LastName,Email,Country,PhoneNumber,IdentityCardNumber")] Guest guest)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(guest);
-                await _context.SaveChangesAsync();
+                await _guestService.CreateNewGuest(guest.Name, guest.LastName, guest.Email, guest.PhoneNumber, guest.Country, guest.IdentityCardNumber);
                 return RedirectToAction(nameof(Index));
             }
             return View(guest);
         }
 
-        // GET: Guest/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,7 +59,7 @@ namespace Firma.Intranet.Controllers
                 return NotFound();
             }
 
-            var guest = await _context.Guest.FindAsync(id);
+            var guest = await _guestService.GetGuestById(id.Value);
             if (guest == null)
             {
                 return NotFound();
@@ -81,12 +67,10 @@ namespace Firma.Intranet.Controllers
             return View(guest);
         }
 
-        // POST: Guest/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,LastName,Email,Country,PhoneNumber,IdentityCardNumber,Notes,IsActive")] Guest guest)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,LastName,Email,Country,PhoneNumber,IdentityCardNumber,Notes")] Guest guest)
         {
             if (id != guest.Id)
             {
@@ -97,12 +81,11 @@ namespace Firma.Intranet.Controllers
             {
                 try
                 {
-                    _context.Update(guest);
-                    await _context.SaveChangesAsync();
+                    await _guestService.UpdateGuest(id, guest.Name, guest.LastName, guest.Email, guest.PhoneNumber, guest.Country, guest.IdentityCardNumber, guest.Notes);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GuestExists(guest.Id))
+                    if (!_guestService.GuestExists(guest.Id))
                     {
                         return NotFound();
                     }
@@ -116,7 +99,6 @@ namespace Firma.Intranet.Controllers
             return View(guest);
         }
 
-        // GET: Guest/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,8 +106,8 @@ namespace Firma.Intranet.Controllers
                 return NotFound();
             }
 
-            var guest = await _context.Guest
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var guest = await _guestService.GetGuestById(id.Value);
+
             if (guest == null)
             {
                 return NotFound();
@@ -134,24 +116,14 @@ namespace Firma.Intranet.Controllers
             return View(guest);
         }
 
-        // POST: Guest/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var guest = await _context.Guest.FindAsync(id);
-            if (guest != null)
-            {
-                _context.Guest.Remove(guest);
-            }
 
-            await _context.SaveChangesAsync();
+            await _guestService.DeleteGuest(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool GuestExists(int id)
-        {
-            return _context.Guest.Any(e => e.Id == id);
-        }
     }
 }

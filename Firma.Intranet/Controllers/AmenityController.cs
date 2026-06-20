@@ -1,31 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Firma.Data.Data.Hotel;
+using Firma.Interfaces.Hotel;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Firma.Data.Data;
-using Firma.Data.Data.Hotel;
 
 namespace Firma.Intranet.Controllers
 {
     public class AmenityController : Controller
     {
-        private readonly FirmaContext _context;
+        private readonly IAmenityService _amenityService;
 
-        public AmenityController(FirmaContext context)
+        public AmenityController(IAmenityService amenityService)
         {
-            _context = context;
+            _amenityService = amenityService;
         }
 
-        // GET: Amenity
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Amenity.ToListAsync());
+            return View(await _amenityService.GetAllAmenities());
         }
 
-        // GET: Amenity/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,8 +26,7 @@ namespace Firma.Intranet.Controllers
                 return NotFound();
             }
 
-            var amenity = await _context.Amenity
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var amenity = await _amenityService.GetAmenityById(id.Value);
             if (amenity == null)
             {
                 return NotFound();
@@ -43,37 +35,33 @@ namespace Firma.Intranet.Controllers
             return View(amenity);
         }
 
-        // GET: Amenity/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Amenity/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Icon,IsActive")] Amenity amenity)
+        public async Task<IActionResult> Create([Bind("Name,Description,Icon")] Amenity amenity)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(amenity);
-                await _context.SaveChangesAsync();
+
+                await _amenityService.CreateAmenity(amenity.Name, amenity.Description, amenity.Icon);
                 return RedirectToAction(nameof(Index));
             }
             return View(amenity);
         }
 
-        // GET: Amenity/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var amenity = await _context.Amenity.FindAsync(id);
+            var amenity = await _amenityService.GetAmenityById(id.Value);
             if (amenity == null)
             {
                 return NotFound();
@@ -81,12 +69,9 @@ namespace Firma.Intranet.Controllers
             return View(amenity);
         }
 
-        // POST: Amenity/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Icon,IsActive")] Amenity amenity)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Icon")] Amenity amenity)
         {
             if (id != amenity.Id)
             {
@@ -97,12 +82,11 @@ namespace Firma.Intranet.Controllers
             {
                 try
                 {
-                    _context.Update(amenity);
-                    await _context.SaveChangesAsync();
+                    await _amenityService.UpdateAmenity(id, amenity.Name, amenity.Description, amenity.Icon);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AmenityExists(amenity.Id))
+                    if (!_amenityService.AmenityExists(amenity.Id))
                     {
                         return NotFound();
                     }
@@ -110,13 +94,13 @@ namespace Firma.Intranet.Controllers
                     {
                         throw;
                     }
+
                 }
                 return RedirectToAction(nameof(Index));
             }
             return View(amenity);
         }
 
-        // GET: Amenity/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,8 +108,7 @@ namespace Firma.Intranet.Controllers
                 return NotFound();
             }
 
-            var amenity = await _context.Amenity
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var amenity = await _amenityService.GetAmenityById(id.Value);
             if (amenity == null)
             {
                 return NotFound();
@@ -134,24 +117,18 @@ namespace Firma.Intranet.Controllers
             return View(amenity);
         }
 
-        // POST: Amenity/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int? id)
         {
-            var amenity = await _context.Amenity.FindAsync(id);
-            if (amenity != null)
+            if (id == null)
             {
-                _context.Amenity.Remove(amenity);
+                return NotFound();
             }
+            await _amenityService.DeleteAmenity(id.Value);
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AmenityExists(int id)
-        {
-            return _context.Amenity.Any(e => e.Id == id);
-        }
     }
 }

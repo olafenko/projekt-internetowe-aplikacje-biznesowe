@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Drawing.Spreadsheet;
+using DocumentFormat.OpenXml.InkML;
 using Firma.Data.Data;
 using Firma.Data.Data.Hotel;
 using Firma.Interfaces.Hotel;
@@ -14,25 +15,24 @@ namespace Firma.Intranet.Controllers
 {
     public class ReservationController : Controller
     {
-        private readonly FirmaContext _context;
+        private readonly IReservationService _reservationService;
+        private readonly IGuestService _guestService;
+        private readonly IRoomService _roomService;
         private readonly IExportService _exportService;
 
-        public ReservationController(FirmaContext context, IExportService exportService)
+        public ReservationController(IReservationService reservationService, IGuestService guestService, IRoomService roomService, IExportService exportService)
         {
-            _context = context;
+            _reservationService = reservationService;
+            _guestService = guestService;
+            _roomService = roomService;
             _exportService = exportService;
         }
 
-
-
-        // GET: Reservation
         public async Task<IActionResult> Index()
         {
-            var firmaContext = _context.Reservation.Include(r => r.Guest).Include(r => r.Room);
-            return View(await firmaContext.ToListAsync());
+            return View(await _reservationService.GetAllReservations());
         }
 
-        // GET: Reservation/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -40,10 +40,7 @@ namespace Firma.Intranet.Controllers
                 return NotFound();
             }
 
-            var reservation = await _context.Reservation
-                .Include(r => r.Guest)
-                .Include(r => r.Room)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var reservation = await _reservationService.GetReservationById(id.Value);
             if (reservation == null)
             {
                 return NotFound();
@@ -52,33 +49,35 @@ namespace Firma.Intranet.Controllers
             return View(reservation);
         }
 
-        // GET: Reservation/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["GuestId"] = new SelectList(_context.Guest, "Id", "LastName");
-            ViewData["RoomId"] = new SelectList(_context.Room, "Id", "PhotoUrl");
+            ViewData["GuestId"] = new SelectList(await _guestService.GetAllGuests(), "Id", "LastName");
+            ViewData["RoomId"] = new SelectList(await _roomService.GetAllRooms(), "Id", "Number");
             return View();
         }
 
-        // POST: Reservation/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,TotalPrice,ReservationDate,CheckInDate,CheckOutDate,ReservationStatus,GuestId,AdultCount,ChildCount,RoomId,IsActive")] Reservation reservation)
+        public async Task<IActionResult> Create([Bind("Id,ReservationDate,CheckInDate,CheckOutDate,ReservationStatus,GuestId,AdultCount,ChildCount,RoomId")] Reservation reservation)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(reservation);
-                await _context.SaveChangesAsync();
+                await _reservationService.CreateReservation(
+                    reservation.CheckInDate,
+                    reservation.CheckOutDate,
+                    reservation.AdultCount,
+                    reservation.ChildCount,
+                    reservation.GuestId,
+                    reservation.RoomId
+                );
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GuestId"] = new SelectList(_context.Guest, "Id", "LastName", reservation.GuestId);
-            ViewData["RoomId"] = new SelectList(_context.Room, "Id", "Number", reservation.RoomId);
+
+            ViewData["GuestId"] = new SelectList(await _guestService.GetAllGuests(), "Id", "LastName",reservation.GuestId);
+            ViewData["RoomId"] = new SelectList(await _roomService.GetAllRooms(), "Id", "Number",reservation.RoomId);
             return View(reservation);
         }
 
-        // GET: Reservation/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,22 +85,19 @@ namespace Firma.Intranet.Controllers
                 return NotFound();
             }
 
-            var reservation = await _context.Reservation.FindAsync(id);
+            var reservation = await _reservationService.GetReservationById(id.Value);
             if (reservation == null)
             {
                 return NotFound();
             }
-            ViewData["GuestId"] = new SelectList(_context.Guest, "Id", "LastName", reservation.GuestId);
-            ViewData["RoomId"] = new SelectList(_context.Room, "Id", "Number", reservation.RoomId);
+            ViewData["GuestId"] = new SelectList(await _guestService.GetAllGuests(), "Id", "LastName", reservation.GuestId);
+            ViewData["RoomId"] = new SelectList(await _roomService.GetAllRooms(), "Id", "Number", reservation.RoomId);
             return View(reservation);
         }
 
-        // POST: Reservation/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TotalPrice,ReservationDate,CheckInDate,CheckOutDate,ReservationStatus,GuestId,AdultCount,ChildCount,RoomId,IsActive")] Reservation reservation)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ReservationDate,CheckInDate,CheckOutDate,ReservationStatus,GuestId,AdultCount,ChildCount,RoomId")] Reservation reservation)
         {
             if (id != reservation.Id)
             {
@@ -112,15 +108,12 @@ namespace Firma.Intranet.Controllers
             {
                 try
                 {
-                    var nights = (int)Math.Ceiling((reservation.CheckOutDate - reservation.CheckInDate).TotalDays);
-                    var roomPricePerNight = await _context.Room.Include(r=>r.RoomType).Where(r => r.Id == reservation.RoomId).Select(r => r.RoomType.BasePrice).FirstOrDefaultAsync();
-                    reservation.TotalPrice = nights * roomPricePerNight;
-                    _context.Update(reservation);
-                    await _context.SaveChangesAsync();
+                    await _reservationService.UpdateReservation(id,reservation.CheckInDate, reservation.CheckOutDate,reservation.AdultCount,reservation.ChildCount,
+                         reservation.GuestId,reservation.RoomId,reservation.ReservationStatus);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ReservationExists(reservation.Id))
+                    if (!_reservationService.ReservationExists(reservation.Id))
                     {
                         return NotFound();
                     }
@@ -131,12 +124,11 @@ namespace Firma.Intranet.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GuestId"] = new SelectList(_context.Guest, "Id", "LastName", reservation.GuestId);
-            ViewData["RoomId"] = new SelectList(_context.Room, "Id", "Number", reservation.RoomId);
+            ViewData["GuestId"] = new SelectList(await _guestService.GetAllGuests(), "Id", "LastName");
+            ViewData["RoomId"] = new SelectList(await _roomService.GetAllRooms(), "Id", "Number");
             return View(reservation);
         }
 
-        // GET: Reservation/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -144,10 +136,7 @@ namespace Firma.Intranet.Controllers
                 return NotFound();
             }
 
-            var reservation = await _context.Reservation
-                .Include(r => r.Guest)
-                .Include(r => r.Room)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var reservation = await _reservationService.GetReservationById(id.Value);
             if (reservation == null)
             {
                 return NotFound();
@@ -156,26 +145,13 @@ namespace Firma.Intranet.Controllers
             return View(reservation);
         }
 
-        // POST: Reservation/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var reservation = await _context.Reservation.FindAsync(id);
-            if (reservation != null)
-            {
-                _context.Reservation.Remove(reservation);
-            }
-
-            await _context.SaveChangesAsync();
+            await _reservationService.DeleteReservation(id);
             return RedirectToAction(nameof(Index));
         }
-
-        private bool ReservationExists(int id)
-        {
-            return _context.Reservation.Any(e => e.Id == id);
-        }
-
 
         public async Task<IActionResult> ExportReservationsToExcel()
         {

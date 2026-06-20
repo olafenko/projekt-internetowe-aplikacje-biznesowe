@@ -11,5 +11,10 @@ namespace Firma.Interfaces.Hotel
         Task<IList<RoomType>> GetRoomTypesByPriceAsc();
         Task<RoomType?> GetRoomTypeById(int id);
         IList<RoomType> GetAvailableRoomTypes(IList<Room> rooms);
+        Task<IList<RoomType>> GetAllRoomTypes();
+        Task CreateRoomType(string name, decimal basePrice, string photoUrl, int maxGuests, int bedCount, string description, int[] amenities);
+        Task UpdateRoomType(int id, string name, decimal basePrice, string photoUrl, int maxGuests, int bedCount, string description,int[] amenities);
+        Task DeleteRoomType(int id);
+        bool RoomTypeExists(int id);
     }
 }

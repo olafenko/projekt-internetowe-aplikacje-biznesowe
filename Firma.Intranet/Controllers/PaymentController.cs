@@ -7,26 +7,27 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Firma.Data.Data;
 using Firma.Data.Data.Hotel;
+using Firma.Interfaces.Hotel;
+using Firma.Services.Hotel;
 
 namespace Firma.Intranet.Controllers
 {
     public class PaymentController : Controller
     {
-        private readonly FirmaContext _context;
+        private readonly IPaymentService _paymentService;
+        private readonly IReservationService _reservationService;
 
-        public PaymentController(FirmaContext context)
+        public PaymentController(IPaymentService paymentService, IReservationService reservationService)
         {
-            _context = context;
+            _paymentService = paymentService;
+            _reservationService = reservationService;
         }
 
-        // GET: Payment
         public async Task<IActionResult> Index()
         {
-            var firmaContext = _context.Payment.Include(p => p.Reservation);
-            return View(await firmaContext.ToListAsync());
+            return View(await _paymentService.GetAllPayments());
         }
 
-        // GET: Payment/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,9 +35,7 @@ namespace Firma.Intranet.Controllers
                 return NotFound();
             }
 
-            var payment = await _context.Payment
-                .Include(p => p.Reservation)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var payment = await _paymentService.GetPaymentById(id.Value);
             if (payment == null)
             {
                 return NotFound();
@@ -45,31 +44,26 @@ namespace Firma.Intranet.Controllers
             return View(payment);
         }
 
-        // GET: Payment/Create
-        public IActionResult Create()
+
+        public async Task<IActionResult> Create()
         {
-            ViewData["ReservationId"] = new SelectList(_context.Reservation, "Id", "Id");
+            ViewData["Reservation"] = new SelectList(await _reservationService.GetAllReservations(), "Id", "Id");
             return View();
         }
 
-        // POST: Payment/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Amount,ReservationId,Method,Status,PaymentDate")] Payment payment)
+        public async Task<IActionResult> Create([Bind("Amount,ReservationId,Method,Status")] Payment payment)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(payment);
-                await _context.SaveChangesAsync();
+                await _paymentService.CreatePayment(payment.Amount, payment.Method, payment.ReservationId);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ReservationId"] = new SelectList(_context.Reservation, "Id", "Id", payment.ReservationId);
+            ViewData["Reservation"] = new SelectList(await _reservationService.GetAllReservations(), "Id", "Id", payment.ReservationId);
             return View(payment);
         }
 
-        // GET: Payment/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,18 +71,16 @@ namespace Firma.Intranet.Controllers
                 return NotFound();
             }
 
-            var payment = await _context.Payment.FindAsync(id);
+            var payment = await _paymentService.GetPaymentById(id.Value);
             if (payment == null)
             {
                 return NotFound();
             }
-            ViewData["ReservationId"] = new SelectList(_context.Reservation, "Id", "Id", payment.ReservationId);
+            ViewData["Reservation"] = new SelectList(await _reservationService.GetAllReservations(), "Id", "Id", payment.ReservationId);
             return View(payment);
         }
 
-        // POST: Payment/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Amount,ReservationId,Method,Status,PaymentDate")] Payment payment)
@@ -102,12 +94,12 @@ namespace Firma.Intranet.Controllers
             {
                 try
                 {
-                    _context.Update(payment);
-                    await _context.SaveChangesAsync();
+                    await _paymentService.UpdatePayment(id, payment.Amount, payment.Method, payment.ReservationId, payment.Status);
+                
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PaymentExists(payment.Id))
+                    if (!_paymentService.PaymentExists(payment.Id))
                     {
                         return NotFound();
                     }
@@ -118,11 +110,10 @@ namespace Firma.Intranet.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ReservationId"] = new SelectList(_context.Reservation, "Id", "Id", payment.ReservationId);
+            ViewData["ReservationId"] = new SelectList(await _reservationService.GetAllReservations(), "Id", "Id", payment.ReservationId);
             return View(payment);
         }
 
-        // GET: Payment/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,9 +121,7 @@ namespace Firma.Intranet.Controllers
                 return NotFound();
             }
 
-            var payment = await _context.Payment
-                .Include(p => p.Reservation)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var payment = await _paymentService.GetPaymentById(id.Value);
             if (payment == null)
             {
                 return NotFound();
@@ -141,24 +130,13 @@ namespace Firma.Intranet.Controllers
             return View(payment);
         }
 
-        // POST: Payment/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var payment = await _context.Payment.FindAsync(id);
-            if (payment != null)
-            {
-                _context.Payment.Remove(payment);
-            }
-
-            await _context.SaveChangesAsync();
+            await _paymentService.DeletePayment(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PaymentExists(int id)
-        {
-            return _context.Payment.Any(e => e.Id == id);
-        }
     }
 }
