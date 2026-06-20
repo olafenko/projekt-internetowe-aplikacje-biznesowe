@@ -1,75 +1,116 @@
 ﻿@model Firma.Data.Data.Hotel.Reservation
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Szczegóły rezerwacji";
 }
 
-<h1>Details</h1>
+<div class="view-container">
+    
+    <div class="header-row">
+        <div class="title-group">
+            <i class="bi bi-info-square"></i>
+            <h1>Szczegóły rezerwacji</h1>
+        </div>
+        <a asp-action="Index" class="btn btn-outline-secondary d-flex align-items-center gap-2 backBtn">
+            <i class="bi bi-arrow-left"></i> POWRÓT
+        </a>
+    </div>
 
-<div>
-    <h4>Reservation</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TotalPrice)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TotalPrice)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ReservationDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ReservationDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CheckInDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CheckInDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CheckOutDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CheckOutDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ReservationStatus)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ReservationStatus)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Guest)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Guest.Country)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AdultCount)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AdultCount)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ChildCount)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ChildCount)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Room)
-        </dt>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div class="form-card">
+        <div class="row gx-5">
+            
+            <div class="col-lg-6 mb-4">
+                <h5 class="section-title"><i class="bi bi-calendar-range me-2"></i>Dane pobytu</h5>
+                
+                <div class="row">
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.CheckInDate)</label>
+                        <div class="form-control input-area d-flex align-items-center">
+                            @Html.DisplayFor(model => model.CheckInDate)
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.CheckOutDate)</label>
+                        <div class="form-control input-area d-flex align-items-center">
+                            @Html.DisplayFor(model => model.CheckOutDate)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.AdultCount)</label>
+                        <div class="form-control input-area d-flex align-items-center">
+                            @Html.DisplayFor(model => model.AdultCount)
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.ChildCount)</label>
+                        <div class="form-control input-area d-flex align-items-center">
+                            @Html.DisplayFor(model => model.ChildCount)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+                <h5 class="section-title"><i class="bi bi-card-list me-2"></i>Szczegóły rezerwacji</h5>
+
+                <div class="row">
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.Guest)</label>
+                        <div class="form-control input-area d-flex align-items-center">
+                            @(Model.Guest != null ? $"{Model.Guest.Name} {Model.Guest.LastName}" : "Brak danych")
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.Room)</label>
+                        <div class="form-control input-area d-flex align-items-center">
+                            @(Model.Room != null ? $"Pokój {Model.Room.Number}" : "Brak pokoju")
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.TotalPrice)</label>
+                        <div class="form-control input-area d-flex align-items-center text-success fw-bold">
+                            @Model.TotalPrice.ToString("N0") zł
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.ReservationStatus)</label>
+                        <div class="form-control input-area d-flex align-items-center">
+                            @Html.DisplayFor(model => model.ReservationStatus)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.ReservationDate)</label>
+                        <div class="form-control input-area d-flex align-items-center">
+                            @Html.DisplayFor(model => model.ReservationDate)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <hr class="my-4 segment-divider" />
+
+        <div class="d-flex justify-content-end align-items-center gap-3">
+            <a asp-action="Index" class="btn btn-outline-secondary d-flex align-items-center gap-2 backBtn">
+                <i class="bi bi-arrow-left"></i> Wróć
+            </a>
+            <a asp-action="Edit" asp-route-id="@Model?.Id" class="createBtn border-0">
+                <i class="bi bi-pencil-square me-1"></i> EDYTUJ
+            </a>
+        </div>
+    </div>
 </div>

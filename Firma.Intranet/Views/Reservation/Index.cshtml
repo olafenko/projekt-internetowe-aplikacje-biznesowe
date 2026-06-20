@@ -1,86 +1,69 @@
 ﻿@model IEnumerable<Firma.Data.Data.Hotel.Reservation>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Lista rezerwacji";
 }
 
-<h1>Index</h1>
+<div class="view-container">
+    
+    <div class="header-row">
+        <div class="title-group">
+            <i class="bi bi-calendar3"></i>
+            <h1>Lista rezerwacji</h1>
+        </div>
+        <a class="createBtn" asp-action="Create">
+            <i class="bi bi-plus-lg"></i> DODAJ REZERWACJĘ
+        </a>
+    </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TotalPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReservationDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CheckInDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CheckOutDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReservationStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Guest)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AdultCount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ChildCount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Room)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsActive)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReservationDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CheckInDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CheckOutDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReservationStatus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Guest.Country)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AdultCount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ChildCount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="filter-bar">
+        <div class="filter-content">
+            <i class="bi bi-funnel"></i>
+            <span>SORTOWANIE I FILTROWANIE</span>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <table class="table main-table">
+            <thead>
+                <tr>
+                    <th><i class="bi bi-person-fill me-2"></i>Gość</th>
+                    <th><i class="bi bi-door-open me-2"></i>Pokój</th>
+                    <th><i class="bi bi-box-arrow-in-right me-2"></i>Od</th>
+                    <th><i class="bi bi-box-arrow-right me-2"></i>Do</th>
+                    <th><i class="bi bi-people me-2"></i>Osoby</th>
+                    <th><i class="bi bi-cash me-2"></i>Kwota</th>
+                    <th><i class="bi bi-activity me-2"></i>Status</th>
+                    <th class="text-center px-4">Akcje</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="fw-bold">@item.Guest?.Name @item.Guest?.LastName</td>
+                        <td class="fw-bold">@item.Room?.Number</td>
+                        <td>@item.CheckInDate.ToShortDateString()</td>
+                        <td>@item.CheckOutDate.ToShortDateString()</td>
+                        <td class="text-muted-custom">@item.AdultCount dorosłych, @item.ChildCount dzieci</td>
+                        <td class="fw-bold text-success">@item.TotalPrice.ToString("N0") zł</td>
+                        <td>@Html.DisplayFor(modelItem => item.ReservationStatus)</td>
+                        <td class="text-end px-4">
+                            <div class="action-buttons">
+                                <a asp-action="Edit" asp-route-id="@item.Id" title="Edytuj" class="edit-btn">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <a asp-action="Details" asp-route-id="@item.Id" title="Szczegóły" class="details-btn">
+                                    <i class="bi bi-info-circle"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" title="Usuń" class="delete-btn">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

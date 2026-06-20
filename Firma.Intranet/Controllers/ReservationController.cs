@@ -67,8 +67,8 @@ namespace Firma.Intranet.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GuestId"] = new SelectList(_context.Guest, "Id", "Country", reservation.GuestId);
-            ViewData["RoomId"] = new SelectList(_context.Room, "Id", "PhotoUrl", reservation.RoomId);
+            ViewData["GuestId"] = new SelectList(_context.Guest, "Id", "LastName", reservation.GuestId);
+            ViewData["RoomId"] = new SelectList(_context.Room, "Id", "Number", reservation.RoomId);
             return View(reservation);
         }
 
@@ -85,8 +85,8 @@ namespace Firma.Intranet.Controllers
             {
                 return NotFound();
             }
-            ViewData["GuestId"] = new SelectList(_context.Guest, "Id", "Country", reservation.GuestId);
-            ViewData["RoomId"] = new SelectList(_context.Room, "Id", "PhotoUrl", reservation.RoomId);
+            ViewData["GuestId"] = new SelectList(_context.Guest, "Id", "LastName", reservation.GuestId);
+            ViewData["RoomId"] = new SelectList(_context.Room, "Id", "Number", reservation.RoomId);
             return View(reservation);
         }
 
@@ -122,8 +122,8 @@ namespace Firma.Intranet.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GuestId"] = new SelectList(_context.Guest, "Id", "Country", reservation.GuestId);
-            ViewData["RoomId"] = new SelectList(_context.Room, "Id", "PhotoUrl", reservation.RoomId);
+            ViewData["GuestId"] = new SelectList(_context.Guest, "Id", "LastName", reservation.GuestId);
+            ViewData["RoomId"] = new SelectList(_context.Room, "Id", "Number", reservation.RoomId);
             return View(reservation);
         }
 

@@ -95,7 +95,7 @@ namespace Firma.PortalWWW.Controllers
                 finalGuest = existingGuest;
             } else
             {
-                var newGuest = await _guestService.CreateNewGuest(request.Guest.Name,request.Guest.Email, request.Guest.LastName, request.Guest.PhoneNumber, request.Guest.Country, request.Guest.IdentityCardNumber);
+                var newGuest = await _guestService.CreateNewGuest(request.Guest.Name, request.Guest.LastName, request.Guest.Email, request.Guest.PhoneNumber, request.Guest.Country, request.Guest.IdentityCardNumber);
 
                 finalGuest = newGuest;
             }

@@ -1,78 +1,117 @@
 ﻿@model Firma.Data.Data.Hotel.Reservation
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Usuń rezerwację";
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Reservation</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TotalPrice)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TotalPrice)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ReservationDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ReservationDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CheckInDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CheckInDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CheckOutDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CheckOutDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ReservationStatus)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ReservationStatus)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Guest)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Guest.Country)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AdultCount)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AdultCount)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ChildCount)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ChildCount)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Room)
-        </dt>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-    </dl>
+<div class="view-container">
     
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+    <div class="header-row">
+        <div class="title-group">
+            <i class="bi bi-calendar-x"></i>
+            <h1>Anuluj rezerwację</h1>
+        </div>
+        <a asp-action="Index" class="btn btn-outline-secondary d-flex align-items-center gap-2 backBtn">
+            <i class="bi bi-arrow-left"></i> POWRÓT
+        </a>
+    </div>
+
+    <div class="form-card">
+        
+        <h4 class="text-danger mb-4">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>Czy na pewno chcesz usunąć tę rezerwację?
+        </h4>
+
+        <div class="row gx-5">
+
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h5 class="section-title"><i class="bi bi-calendar-range me-2"></i>Dane pobytu</h5>
+                
+                <div class="row">
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.CheckInDate)</label>
+                        <div class="form-control input-area d-flex align-items-center">
+                            @Html.DisplayFor(model => model.CheckInDate)
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.CheckOutDate)</label>
+                        <div class="form-control input-area d-flex align-items-center">
+                            @Html.DisplayFor(model => model.CheckOutDate)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.AdultCount)</label>
+                        <div class="form-control input-area d-flex align-items-center">
+                            @Html.DisplayFor(model => model.AdultCount)
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.ChildCount)</label>
+                        <div class="form-control input-area d-flex align-items-center">
+                            @Html.DisplayFor(model => model.ChildCount)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h5 class="section-title"><i class="bi bi-card-list me-2"></i>Szczegóły rezerwacji</h5>
+
+                <div class="row">
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.Guest)</label>
+                        <div class="form-control input-area d-flex align-items-center">
+                            @(Model.Guest != null ? $"{Model.Guest.Name} {Model.Guest.LastName}" : "Brak danych")
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.Room)</label>
+                        <div class="form-control input-area d-flex align-items-center">
+                            @(Model.Room != null ? $"Pokój {Model.Room.Number}" : "Brak pokoju")
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.TotalPrice)</label>
+                        <div class="form-control input-area d-flex align-items-center text-danger fw-bold">
+                            @Model.TotalPrice.ToString("N0") zł
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="control-label fw-bold mb-1">@Html.DisplayNameFor(model => model.ReservationStatus)</label>
+                        <div class="form-control input-area d-flex align-items-center">
+                            @Html.DisplayFor(model => model.ReservationStatus)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <hr class="my-4 segment-divider" />
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            
+            <div class="d-flex justify-content-end align-items-center gap-3">
+                <a asp-action="Index" class="btn btn-outline-secondary d-flex align-items-center gap-2 backBtn">
+                    <i class="bi bi-arrow-left"></i> Anuluj
+                </a>
+                <button type="submit" class="btn btn-danger d-flex align-items-center gap-2 border-0 fw-bold px-4 py-2 rounded">
+                    <i class="bi bi-trash me-1"></i> ANULUJ REZERWACJĘ
+                </button>
+            </div>
+        </form>
+        
+    </div>
 </div>
