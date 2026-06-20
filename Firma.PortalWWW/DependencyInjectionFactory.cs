@@ -15,6 +15,8 @@ namespace Firma.PortalWWW
             services.AddScoped<IRoomTypeService, RoomTypeService>();
             services.AddScoped<IAmenityService, AmenityService>();
             services.AddScoped<IRoomService, RoomService>();
+            services.AddScoped<IGuestService, GuestService>();
+            services.AddScoped<IReservationService, ReservationService>();
         }
 
     }

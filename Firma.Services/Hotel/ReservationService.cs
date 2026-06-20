@@ -1,0 +1,58 @@
+﻿using Azure.Core;
+using Firma.Data.Data;
+using Firma.Data.Data.Hotel;
+using Firma.Interfaces.Hotel;
+using Firma.PortalWWW.DTO_s;
+using Firma.Services.Abstraction;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Firma.Services.Hotel
+{
+    public class ReservationService : BaseService, IReservationService
+    {
+        public ReservationService(FirmaContext context) : base(context)
+        {
+        }
+
+        public CreateReservationDTO CreateDefaultReservationValues()
+        {
+            var defaultReservationValues = new CreateReservationDTO();
+
+            defaultReservationValues.CheckInDate = DateTime.Now;
+            defaultReservationValues.CheckOutDate = defaultReservationValues.CheckInDate.AddDays(1);
+
+            return defaultReservationValues;
+
+        }
+
+        public async Task<Reservation> CreateReservation(DateTime checkInDate, DateTime checkOutDate, int adultCount, int childCount, int guestId, int roomId)
+        {
+
+            var nights = (int)Math.Ceiling((checkOutDate - checkInDate).TotalDays);
+            var roomPricePerNight = await _context.Room.Where(r => r.Id == roomId).Select(r => r.RoomType.BasePrice).FirstOrDefaultAsync();
+
+            if (nights <= 0) nights = 1;
+
+            var reservation = new Reservation
+            {
+                CheckInDate = checkInDate,
+                CheckOutDate = checkOutDate,
+                AdultCount = adultCount,
+                ChildCount = childCount,
+                GuestId = guestId,
+                RoomId = roomId,
+                IsActive = true,
+                TotalPrice = nights * roomPricePerNight
+
+            };
+
+            _context.Add(reservation);
+            await _context.SaveChangesAsync();
+
+            return reservation;
+        }
+    }
+}

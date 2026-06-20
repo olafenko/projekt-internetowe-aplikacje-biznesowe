@@ -1,0 +1,47 @@
+﻿@model Firma.PortalWWW.DTO_s.CreateReservationDTO
+
+<div class="modal" id="guestModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content reservation-modal-content">
+            <div class="modal-header reservation-modal-header">
+                <h3 class="modal-title" id="modalTitle">Wypełnij swoje dane</h3>
+            </div>
+            <div class="modal-body">
+                <div class="py-2">
+                    <label asp-for="Guest.Name" class="reservation-input-label"></label>
+                    <input asp-for="Guest.Name" type="text" class="form-control reservation-input" />
+                    <span asp-validation-for="Guest.Name" class="text-danger small"></span>
+                </div>
+                <div class="py-2">
+                    <label asp-for="Guest.LastName" class="reservation-input-label"></label>
+                    <input asp-for="Guest.LastName" type="text" class="form-control reservation-input" />
+                    <span asp-validation-for="Guest.LastName" class="text-danger small"></span>
+                </div>
+                <div class="py-2">
+                    <label asp-for="Guest.Country" class="reservation-input-label"></label>
+                    <input asp-for="Guest.Country" type="text" class="form-control reservation-input" />
+                    <span asp-validation-for="Guest.Country" class="text-danger small"></span>
+                </div>
+                <div class="py-2">
+                    <label asp-for="Guest.Email" class="reservation-input-label"></label>
+                    <input asp-for="Guest.Email" type="text" class="form-control reservation-input" />
+                    <span asp-validation-for="Guest.Email" class="text-danger small"></span>
+                </div>
+                <div class="py-2">
+                    <label asp-for="Guest.PhoneNumber" class="reservation-input-label"></label>
+                    <input asp-for="Guest.PhoneNumber" type="text" class="form-control reservation-input" />
+                    <span asp-validation-for="Guest.PhoneNumber" class="text-danger small"></span>
+                </div>
+                <div class="py-2">
+                    <label asp-for="Guest.IdentityCardNumber" class="reservation-input-label"></label>
+                    <input asp-for="Guest.IdentityCardNumber" type="text" class="form-control reservation-input" />
+                    <span asp-validation-for="Guest.IdentityCardNumber" class="text-danger small"></span>
+                </div>
+            </div>
+            <div class="modal-footer border-0 d-flex juftify-content-end gap-2">
+                <button class="btn btn-outline-action py-2" type="button" data-bs-dismiss="modal">Anuluj</button>
+                <button class="btn btn-action py-2" type="submit" asp-action="ConfirmReservation">Potwierdź</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -9,6 +9,7 @@ namespace Firma.Interfaces.Hotel
     {
 
         Task<IList<Room>> GetAvailableRooms(DateTime checkIn, DateTime checkOut, int adults, int children);
+        Room? GetFirstAvailableRoomByRoomTypeId(IList<Room> availableRooms ,int roomTypeId);
 
     }
 }
