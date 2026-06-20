@@ -38,11 +38,13 @@ namespace Firma.Services.Hotel
         {
             
             var amenity = await _context.Amenity.FirstOrDefaultAsync(a => a.IsActive && a.Id == id);
+            if(amenity != null)
+            {
+                amenity.IsActive = false;
 
-            amenity.IsActive = false;
-
-            await _context.SaveChangesAsync();
-
+                await _context.SaveChangesAsync();
+            }
+          
         }
 
         public async Task<IList<Amenity>> GetAllAmenities()
@@ -64,12 +66,16 @@ namespace Firma.Services.Hotel
         {
             var amenity = await _context.Amenity.FirstOrDefaultAsync(a => a.IsActive && a.Id == id);
 
-            amenity.Name = name;
-            amenity.Description = description;
-            amenity.Icon = icon;
+            if(amenity != null)
+            {
+                amenity.Name = name;
+                amenity.Description = description;
+                amenity.Icon = icon;
 
-            _context.Update(amenity);
-            await _context.SaveChangesAsync();
+                _context.Update(amenity);
+                await _context.SaveChangesAsync();
+            }
+            
                 
         }
     }
