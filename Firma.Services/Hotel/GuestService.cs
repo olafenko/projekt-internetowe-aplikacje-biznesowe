@@ -64,7 +64,7 @@ namespace Firma.Services.Hotel
             return _context.Guest.Any(g => g.IsActive && g.Id == id);
         }
 
-        public async Task UpdateGuest(int id, string name, string lastName, string email, string phoneNumber, string country, string identityCardNumber,string notes)
+        public async Task UpdateGuest(int id, string name, string lastName, string email, string phoneNumber, string country, string identityCardNumber, string notes)
         {
             var guest = await _context.Guest.FirstOrDefaultAsync(g => g.IsActive && g.Id == id);
 

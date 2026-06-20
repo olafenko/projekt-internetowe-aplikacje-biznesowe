@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Firma.Data.Data;
-using Firma.Data.Data.Hotel;
+﻿using Firma.Data.Data.Hotel;
 using Firma.Interfaces.Hotel;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Firma.Intranet.Controllers
 {
@@ -87,7 +81,7 @@ namespace Firma.Intranet.Controllers
             {
                 try
                 {
-                    await _guestService.UpdateGuest(id,guest.Name, guest.LastName, guest.Email, guest.PhoneNumber, guest.Country, guest.IdentityCardNumber,guest.Notes);
+                    await _guestService.UpdateGuest(id, guest.Name, guest.LastName, guest.Email, guest.PhoneNumber, guest.Country, guest.IdentityCardNumber, guest.Notes);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

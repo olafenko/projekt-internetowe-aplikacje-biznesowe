@@ -7,25 +7,24 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Firma.Data.Data;
 using Firma.Data.Data.CMS;
+using Firma.Interfaces.CMS;
 
 namespace Firma.Intranet.Controllers
 {
     public class NewsController : Controller
     {
-        private readonly FirmaContext _context;
+        private readonly INewsService _newsService;
 
-        public NewsController(FirmaContext context)
+        public NewsController(INewsService newsService)
         {
-            _context = context;
+            _newsService = newsService;
         }
 
-        // GET: News
         public async Task<IActionResult> Index()
         {
-            return View(await _context.News.ToListAsync());
+            return View(await _newsService.GetAllNews());
         }
 
-        // GET: News/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,8 +32,7 @@ namespace Firma.Intranet.Controllers
                 return NotFound();
             }
 
-            var news = await _context.News
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var news = await _newsService.GetNewsById(id.Value);
             if (news == null)
             {
                 return NotFound();
@@ -43,29 +41,23 @@ namespace Firma.Intranet.Controllers
             return View(news);
         }
 
-        // GET: News/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: News/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,LinkTitle,Content,ContentSummary,ImageUrl,Date,PublishDate,IsActive")] News news)
+        public async Task<IActionResult> Create([Bind("Title,LinkTitle,Content,ContentSummary,ImageUrl,Date,PublishDate")] News news)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(news);
-                await _context.SaveChangesAsync();
+                await _newsService.CreateNews(news.Title,news.LinkTitle,news.Content,news.ContentSummary,news.ImageUrl,news.PublishDate);
                 return RedirectToAction(nameof(Index));
             }
             return View(news);
         }
 
-        // GET: News/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,7 +65,7 @@ namespace Firma.Intranet.Controllers
                 return NotFound();
             }
 
-            var news = await _context.News.FindAsync(id);
+            var news = await _newsService.GetNewsById(id.Value);
             if (news == null)
             {
                 return NotFound();
@@ -81,12 +73,9 @@ namespace Firma.Intranet.Controllers
             return View(news);
         }
 
-        // POST: News/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,LinkTitle,Content,ContentSummary,ImageUrl,Date,PublishDate,IsActive")] News news)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,LinkTitle,Content,ContentSummary,ImageUrl,Date,PublishDate")] News news)
         {
             if (id != news.Id)
             {
@@ -97,12 +86,11 @@ namespace Firma.Intranet.Controllers
             {
                 try
                 {
-                    _context.Update(news);
-                    await _context.SaveChangesAsync();
+                    await _newsService.UpdateNews(id,news.Title, news.LinkTitle, news.Content, news.ContentSummary, news.ImageUrl, news.PublishDate);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!NewsExists(news.Id))
+                    if (!_newsService.NewsExists(news.Id))
                     {
                         return NotFound();
                     }
@@ -116,7 +104,6 @@ namespace Firma.Intranet.Controllers
             return View(news);
         }
 
-        // GET: News/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,8 +111,7 @@ namespace Firma.Intranet.Controllers
                 return NotFound();
             }
 
-            var news = await _context.News
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var news = await _newsService.GetNewsById(id.Value);
             if (news == null)
             {
                 return NotFound();
@@ -134,24 +120,14 @@ namespace Firma.Intranet.Controllers
             return View(news);
         }
 
-        // POST: News/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var news = await _context.News.FindAsync(id);
-            if (news != null)
-            {
-                _context.News.Remove(news);
-            }
-
-            await _context.SaveChangesAsync();
+            await _newsService.DeleteNews(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool NewsExists(int id)
-        {
-            return _context.News.Any(e => e.Id == id);
-        }
+
     }
 }

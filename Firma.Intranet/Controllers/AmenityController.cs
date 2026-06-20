@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Firma.Data.Data;
-using Firma.Data.Data.Hotel;
+﻿using Firma.Data.Data.Hotel;
 using Firma.Interfaces.Hotel;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Firma.Intranet.Controllers
 {
@@ -53,7 +47,7 @@ namespace Firma.Intranet.Controllers
             if (ModelState.IsValid)
             {
 
-                await _amenityService.CreateAmenity(amenity.Name,amenity.Description,amenity.Icon);
+                await _amenityService.CreateAmenity(amenity.Name, amenity.Description, amenity.Icon);
                 return RedirectToAction(nameof(Index));
             }
             return View(amenity);
@@ -88,14 +82,15 @@ namespace Firma.Intranet.Controllers
             {
                 try
                 {
-                    await _amenityService.UpdateAmenity(id,amenity.Name,amenity.Description,amenity.Icon);
+                    await _amenityService.UpdateAmenity(id, amenity.Name, amenity.Description, amenity.Icon);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!_amenityService.AmenityExists(amenity.Id))
                     {
                         return NotFound();
-                    } else
+                    }
+                    else
                     {
                         throw;
                     }
