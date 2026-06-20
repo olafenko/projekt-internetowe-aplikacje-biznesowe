@@ -1,34 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+﻿using DocumentFormat.OpenXml.InkML;
 using Firma.Data.Data;
 using Firma.Data.Data.Hotel;
 using Firma.Data.Data.Hotel.Enums;
+using Firma.Interfaces.Hotel;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Firma.Intranet.Controllers
 {
     public class RoomController : Controller
     {
-        private readonly FirmaContext _context;
+        private readonly IRoomService _roomService;
+        private readonly IRoomTypeService _roomTypeService;
+        private readonly IAmenityService _amenityService;
 
-        public RoomController(FirmaContext context)
+        public RoomController(IRoomService roomService, IRoomTypeService roomTypeService, IAmenityService amenityService)
         {
-            _context = context;
+            _roomService = roomService;
+            _roomTypeService = roomTypeService;
+            _amenityService= amenityService;
         }
 
-        // GET: Room
         public async Task<IActionResult> Index()
         {
-            var firmaContext = _context.Room
-                .Include(r => r.RoomType);
-            return View(await firmaContext.ToListAsync());
+            return View(await _roomService.GetAllRooms());
         }
 
-        // GET: Room/Details/{id}
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -36,9 +38,7 @@ namespace Firma.Intranet.Controllers
                 return NotFound();
             }
 
-            var room = await _context.Room
-                .Include(r => r.RoomType)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var room = await _roomService.GetRoomById(id.Value);
             if (room == null)
             {
                 return NotFound();
@@ -47,34 +47,30 @@ namespace Firma.Intranet.Controllers
             return View(room);
         }
 
-        // GET: Room/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["RoomTypeId"] = new SelectList(_context.RoomType, "Id", "Name");     
-            ViewData["Amenities"] = new SelectList(_context.Amenity, "Id", "Name");     
+            ViewData["RoomTypeId"] = new SelectList(await _roomTypeService.GetAllRoomTypes(), "Id", "Name");     
+            ViewData["Amenities"] = new SelectList(await _amenityService.GetAllAmenities(), "Id", "Name");     
             return View();
         }
 
-        // POST: Room/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Number,Floor,Notes,RoomTypeId,RoomStatus,IsActive")] Room room)
+        public async Task<IActionResult> Create([Bind("Number,Floor,Notes,RoomTypeId,RoomStatus")] Room room)
         {
             if (ModelState.IsValid)
             {
-               
-                _context.Add(room);
-                await _context.SaveChangesAsync();
+                await _roomService.CreateRoom(room.Number, room.Floor, room.RoomTypeId, room.RoomStatus, room.Notes);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoomTypeId"] = new SelectList(_context.RoomType, "Id", "Name", room.RoomTypeId);
-            
+            ViewData["RoomTypeId"] = new SelectList(await _roomTypeService.GetAllRoomTypes(), "Id", "Name", room.RoomTypeId);
+            ViewData["Amenities"] = new SelectList(await _amenityService.GetAllAmenities(), "Id", "Name");
             return View(room);
+
         }
 
-        // GET: Room/Edit/5
+ 
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -82,21 +78,19 @@ namespace Firma.Intranet.Controllers
                 return NotFound();
             }
 
-            var room = await _context.Room.FindAsync(id);
+            var room = await _roomService.GetRoomById(id.Value);
             if (room == null)
             {
                 return NotFound();
             }
-            ViewData["RoomTypeId"] = new SelectList(_context.RoomType, "Id", "Name", room.RoomTypeId);
+            ViewData["RoomTypeId"] = new SelectList(await _roomTypeService.GetAllRoomTypes(), "Id", "Name", room.RoomTypeId);
+            ViewData["Amenities"] = new SelectList(await _amenityService.GetAllAmenities(), "Id", "Name");
             return View(room);
         }
 
-        // POST: Room/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Number,Floor,Notes,RoomTypeId,RoomStatus,IsActive")] Room room)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Number,Floor,Notes,RoomTypeId,RoomStatus")] Room room)
         {
             if (id != room.Id)
             {
@@ -107,12 +101,11 @@ namespace Firma.Intranet.Controllers
             {
                 try
                 {
-                    _context.Update(room);
-                    await _context.SaveChangesAsync();
+                    await _roomService.UpdateRoom(id, room.Number, room.Floor, room.RoomTypeId, room.RoomStatus, room.Notes);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RoomExists(room.Id))
+                    if (!_roomService.RoomExists(room.Id))
                     {
                         return NotFound();
                     }
@@ -123,21 +116,18 @@ namespace Firma.Intranet.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoomTypeId"] = new SelectList(_context.RoomType, "Id", "Name", room.RoomTypeId);
+            ViewData["RoomTypeId"] = new SelectList(await _roomTypeService.GetAllRoomTypes(), "Id", "Name", room.RoomTypeId);
+            ViewData["Amenities"] = new SelectList(await _amenityService.GetAllAmenities(), "Id", "Name");
             return View(room);
         }
 
-        // GET: Room/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var room = await _context.Room
-                .Include(r => r.RoomType)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var room = await _roomService.GetRoomById(id.Value);
             if (room == null)
             {
                 return NotFound();
@@ -146,24 +136,12 @@ namespace Firma.Intranet.Controllers
             return View(room);
         }
 
-        // POST: Room/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var room = await _context.Room.FindAsync(id);
-            if (room != null)
-            {
-                _context.Room.Remove(room);
-            }
-
-            await _context.SaveChangesAsync();
+            await _roomService.DeleteRoom(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool RoomExists(int id)
-        {
-            return _context.Room.Any(e => e.Id == id);
         }
     }
 }
